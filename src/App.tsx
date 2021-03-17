@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.less";
 
 const App = () => {
   return <div></div>;
