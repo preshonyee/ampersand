@@ -12,6 +12,8 @@ import ErrorPage from "./components/ErrorPage";
 
 import "./App.less";
 import ApplicationTracker from "./pages/ApplicationTracker";
+import FrontPage from "./pages/FrontPage";
+import Editor from "./pages/Editor";
 
 const Routing = () => {
   const history = useHistory();
@@ -31,6 +33,8 @@ const Routing = () => {
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/tracker" component={ApplicationTracker} />
       <Route exact path="/add-application" component={AddApplication} />
+      <Route exact path="/front-page" component={FrontPage} />
+      <Route exact path="/editor" component={Editor} />
       <Route component={ErrorPage} />
     </Switch>
   );
