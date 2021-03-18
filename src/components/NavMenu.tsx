@@ -125,10 +125,16 @@ const NavMenu: React.FC = () => {
                 <ArrowLeftOutlined /> Back To Home
               </Link>
             ) : (
-              <Link to="/add-application">
-                {" "}
-                <PlusOutlined /> Add Application
-              </Link>
+              <>
+                <Link to="/tracker">
+                  {" "}
+                  <PlusOutlined /> Track Applications
+                </Link>
+                <Link to="/add-application">
+                  {" "}
+                  <PlusOutlined /> Add Application
+                </Link>
+              </>
             )}
           </span>
           <div className="dropdown">
