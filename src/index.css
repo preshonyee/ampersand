@@ -1,6 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
+
+:root {
+  font-size: 16px;
+}
 
 * {
   margin: 0;
@@ -10,14 +14,32 @@
 
 html {
   scroll-behavior: smooth;
+  --scrollbarBG: #cfd8dc;
+  --thumbBG: #90a4ae;
 }
 
 body {
   width: 100%;
   margin: 0 auto;
   font-family: "Inter", sans-serif;
+  line-height: 1.5;
+  scrollbar-width: thin;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body::-webkit-scrollbar {
+  width: 15px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
 }
 
 h1,
