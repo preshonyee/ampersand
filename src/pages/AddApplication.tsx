@@ -251,7 +251,7 @@ const AddApplication: React.FC = () => {
         setLoading(false);
         message.success(result.message, 3);
         form.resetFields();
-        history.push("/");
+        history.push("/tracker");
       })
       .catch((error) => {
         message.error(error.message, 3);
