@@ -3,7 +3,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { BASE_URL } from "../constants/BaseURL";
 import axios from "axios";
-import { TOKEN } from "../constants/LocalData";
+import { TOKEN } from "../constants/Token";
 import { useHistory } from "react-router-dom";
 import NavMenu from "../components/NavMenu";
 

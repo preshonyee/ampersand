@@ -1,1 +1,1 @@
-export const BASE_URL = `https://erstwhile-api.onrender.com/api/v1`;
+export const BASE_URL = `https://ampersand-careers.onrender.com/api/v1`;

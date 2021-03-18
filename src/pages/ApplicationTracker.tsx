@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import NavMenu from "../components/NavMenu";
 import { BASE_URL } from "../constants/BaseURL";
-import { TOKEN } from "../constants/LocalData";
+import { TOKEN } from "../constants/Token";
 
 const Wrapper = styled.div`
   width: 97%;
