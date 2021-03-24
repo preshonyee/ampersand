@@ -1,7 +1,9 @@
-import { Table, Tag } from "antd";
+import { DeleteOutlined, EditOutlined, LinkOutlined } from "@ant-design/icons";
+import { Button, Space, Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Edit, ExternalLink, Trash2 } from "react-feather";
 import styled from "styled-components";
 import NavMenu from "../components/NavMenu";
 import { BASE_URL } from "../constants/BaseURL";
@@ -12,6 +14,13 @@ const Wrapper = styled.div`
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
+
+  .external-link {
+    margin-right: 0.25rem;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 type ApplicationsDataType = {
@@ -39,25 +48,31 @@ const ApplicationTracker: React.FC = () => {
       key: "sno",
       width: 50,
       render: (value: any, item: any, index: any) => (page - 1) * 10 + index,
+      fixed: "left",
     },
     {
       title: "Date Applied",
       dataIndex: "dateApplied",
       key: "dateApplied",
+      responsive: ["xxl"],
       render: (dateApplied: string) => (
         <span>{new Date(dateApplied).toDateString()}</span>
       ),
-      responsive: ["md"],
+      fixed: "left",
     },
     {
       title: "Company",
       dataIndex: "company",
       key: "company",
+      width: 100,
+      fixed: "left",
     },
     {
       title: "Location",
       dataIndex: "location",
       key: "location",
+      width: 150,
+      responsive: ["xxl"],
     },
     {
       title: "Position",
@@ -68,11 +83,13 @@ const ApplicationTracker: React.FC = () => {
           {position.map((role: any, index: any) => (
             <span key={index}>
               <a
+                className="external-link"
                 href={role.linkToOpening}
                 target="_blank"
                 rel="noopener noreferrer">
                 {role.positionTitle}
               </a>
+              <ExternalLink size={12} />
             </span>
           ))}
         </div>
@@ -82,67 +99,86 @@ const ApplicationTracker: React.FC = () => {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      responsive: ["lg"],
+      width: 100,
+      responsive: ["xxl"],
     },
     {
       title: "Source",
       dataIndex: "source",
       key: "source",
+      width: 100,
       responsive: ["xxl"],
     },
     {
       title: "Strategy",
       dataIndex: "strategy",
       key: "strategy",
+      width: 100,
       responsive: ["xxl"],
     },
     {
       title: "Cover Letter",
       dataIndex: "coverLetter",
+      key: "coverLetter",
+      responsive: ["xxl"],
+      width: 120,
       render: (coverLetter: string) => (
         <span>
-          <a href={coverLetter} target="_blank" rel="noopener noreferrer">
+          <a
+            className="external-link"
+            href={coverLetter}
+            target="_blank"
+            rel="noopener noreferrer">
             Cover Letter
           </a>
+          <ExternalLink size={12} />
         </span>
       ),
-      responsive: ["xxl"],
     },
     {
       title: "Resume",
       dataIndex: "resume",
       key: "resume",
+      width: 100,
+      responsive: ["xxl"],
       render: (resume: string) => (
         <span>
-          <a href={resume} target="_blank" rel="noopener noreferrer">
+          <a
+            className="external-link"
+            href={resume}
+            target="_blank"
+            rel="noopener noreferrer">
             Resume
           </a>
+          <ExternalLink size={12} />
         </span>
       ),
-      responsive: ["xxl"],
     },
     {
       title: "Referral",
       dataIndex: "referral",
       key: "referral",
+      width: 100,
       responsive: ["xxl"],
     },
     {
       title: "Relocation",
       dataIndex: "relocation",
       key: "relocation",
-      responsive: ["xl"],
+      responsive: ["xxl"],
     },
     {
       title: "Remote",
       dataIndex: "remote",
       key: "remote",
-      responsive: ["lg"],
+      responsive: ["xxl"],
     },
     {
       title: "Main Contact",
       dataIndex: "mainContact",
       key: "mainContact",
+      width: 100,
+      responsive: ["xxl"],
       render: (text: any) => (
         <div>
           {text.map((text: any, index: any) => (
@@ -152,40 +188,41 @@ const ApplicationTracker: React.FC = () => {
           ))}
         </div>
       ),
-      responsive: ["xxl"],
     },
     {
       title: "Reception Mail",
       dataIndex: "receptionMail",
       key: "receptionMail",
+      width: 100,
       responsive: ["xxl"],
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      responsive: ["lg"],
+      width: 100,
     },
     {
       title: "Likelihood of Hiring",
       dataIndex: "likelihoodOfHiring",
       key: "likelihoodOfHiring",
-      responsive: ["xl"],
+      responsive: ["xxl"],
     },
     {
       title: "Last Time Contacted",
       dataIndex: "lastTimeContacted",
       key: "lastTimeContacted",
+      responsive: ["xxl"],
       render: (dateApplied: string) => (
         <span>{new Date(dateApplied).toDateString()}</span>
       ),
-      responsive: ["xl"],
     },
     {
       title: "Tags",
       dataIndex: "tags",
       width: 200,
       key: "tags",
+      responsive: ["xxl"],
       render: (tags: any) => (
         <>
           {tags.map((tag: any) => {
@@ -232,7 +269,18 @@ const ApplicationTracker: React.FC = () => {
           })}
         </>
       ),
+    },
+    {
+      title: "Action",
+      key: "action",
       responsive: ["xxl"],
+      render: (text, record) => (
+        <Space size="middle">
+          <Button block icon={<EditOutlined />} size="small" />
+          <Button block icon={<DeleteOutlined />} size="small" />
+        </Space>
+      ),
+      fixed: "right",
     },
   ];
 
@@ -278,6 +326,7 @@ const ApplicationTracker: React.FC = () => {
           },
           pageSize: 10,
         }}
+        scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
         sticky
       />
     </Wrapper>
