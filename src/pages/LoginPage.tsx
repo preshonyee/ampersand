@@ -99,8 +99,11 @@ const LoginPage = () => {
         dispatch(login({ payload: result }));
         message.success("Login successfully", 3);
       })
+      // I'm actually typing rubish
+      
       .catch((error) => {
         console.log(error);
+        // Remove all console.logs from the code afterwards
         setLoading(false);
       })
       .then(() => {

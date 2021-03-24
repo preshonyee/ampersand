@@ -12,6 +12,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/store/user";
+import Logo from "../images/logo-wordmark.svg";
 
 const { Item } = Menu;
 
@@ -21,35 +22,15 @@ const StyledMenu = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    font-family: "Cedarville Cursive", cursive;
-    line-height: 1.2;
-  }
-  h4 {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-  }
-
   .brandItems {
-    span {
-      display: flex;
-    }
     img {
-      width: 40px;
-      height: 40px;
+      width: 40%;
     }
-  }
-
-  .brandItems .routeLinks {
-    flex: 1;
   }
 `;
 
 const StyledMenuActions = styled.div`
   display: flex;
-  padding: 2rem 0;
 
   .routeLinks {
     margin: 4px 1.5rem 0 0;
@@ -99,22 +80,9 @@ const NavMenu: React.FC = () => {
   return (
     <StyledMenu>
       <div className="brandItems">
-        <span>
-          <img
-            src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/facebook/230/bookmark_1f516.png"
-            alt="bookmark emoji"
-          />
-          <h1>Erstwhile</h1>
-        </span>
-        <h4>
-          Personalized Job Application Tracker, Built By{" "}
-          <a
-            href="https://twitter.com/preshonyee"
-            target="_blank"
-            rel="noopener noreferrer">
-            Presh Onyee
-          </a>
-        </h4>
+        <Link to="/">
+          <img src={Logo} alt="Ampersand Logo" />
+        </Link>
       </div>
       {user ? (
         <StyledMenuActions>
