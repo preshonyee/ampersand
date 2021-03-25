@@ -63,3 +63,27 @@ export type ILoginSuccess = {
     user: UserType;
   };
 };
+
+export interface IValues {
+  company: string;
+  contactName: string;
+  contactPhone: string;
+  coverLetter: string;
+  dateApplied: string;
+  lastTimeContacted: string;
+  likelihoodOfHiring: string;
+  linkToOpening: string;
+  location: string;
+  mainContact: [];
+  position: string;
+  receptionMail: string;
+  referral: string;
+  relocation: string;
+  remote: string;
+  resume: string;
+  source: string;
+  status: string;
+  strategy: string;
+  tags: [];
+  type: string;
+}

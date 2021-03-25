@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ExternalLink } from "react-feather";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import NavMenu from "../components/NavMenu";
 import { BASE_URL } from "../constants/BaseURL";
@@ -41,6 +42,7 @@ interface IApplication {
 }
 
 const ApplicationTracker: React.FC = () => {
+  const history = useHistory();
   const [page, setPage] = useState(1);
 
   const [applicationsData, setApplicationsData] = useState<
@@ -88,6 +90,10 @@ const ApplicationTracker: React.FC = () => {
       });
   };
 
+  const handleEdit = (applicationID: string) => {
+    history.push(`/edit-application/${applicationID}`);
+  };
+
   const columns: ColumnsType<IApplication> = [
     {
       title: "S/N",
@@ -101,7 +107,7 @@ const ApplicationTracker: React.FC = () => {
       title: "Date Applied",
       dataIndex: "dateApplied",
       key: "dateApplied",
-      responsive: ["xxl"],
+      responsive: ["md"],
       render: (dateApplied: string) => (
         <span>{new Date(dateApplied).toDateString()}</span>
       ),
@@ -119,7 +125,7 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "location",
       key: "location",
       width: 150,
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Position",
@@ -147,27 +153,27 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "type",
       key: "type",
       width: 100,
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Source",
       dataIndex: "source",
       key: "source",
       width: 100,
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Strategy",
       dataIndex: "strategy",
       key: "strategy",
       width: 100,
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Cover Letter",
       dataIndex: "coverLetter",
       key: "coverLetter",
-      responsive: ["xxl"],
+      responsive: ["md"],
       width: 120,
       render: (coverLetter: string) => (
         <span>
@@ -187,7 +193,7 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "resume",
       key: "resume",
       width: 100,
-      responsive: ["xxl"],
+      responsive: ["md"],
       render: (resume: string) => (
         <span>
           <a
@@ -206,26 +212,26 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "referral",
       key: "referral",
       width: 100,
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Relocation",
       dataIndex: "relocation",
       key: "relocation",
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Remote",
       dataIndex: "remote",
       key: "remote",
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Main Contact",
       dataIndex: "mainContact",
       key: "mainContact",
       width: 100,
-      responsive: ["xxl"],
+      responsive: ["md"],
       render: (text: any) => (
         <div>
           {text.map((text: any, index: any) => (
@@ -241,7 +247,7 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "receptionMail",
       key: "receptionMail",
       width: 100,
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Status",
@@ -253,13 +259,13 @@ const ApplicationTracker: React.FC = () => {
       title: "Likelihood of Hiring",
       dataIndex: "likelihoodOfHiring",
       key: "likelihoodOfHiring",
-      responsive: ["xxl"],
+      responsive: ["md"],
     },
     {
       title: "Last Time Contacted",
       dataIndex: "lastTimeContacted",
       key: "lastTimeContacted",
-      responsive: ["xxl"],
+      responsive: ["md"],
       render: (dateApplied: string) => (
         <span>{new Date(dateApplied).toDateString()}</span>
       ),
@@ -269,7 +275,7 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "tags",
       width: 200,
       key: "tags",
-      responsive: ["xxl"],
+      responsive: ["md"],
       render: (tags: any) => (
         <>
           {tags.map((tag: any) => {
@@ -320,11 +326,16 @@ const ApplicationTracker: React.FC = () => {
     {
       title: "Action",
       key: "operation",
-      responsive: ["xxl"],
+      responsive: ["md"],
       render: (text, record: any) => {
         return (
           <Space key={record._id} size="middle">
-            <Button block icon={<EditOutlined />} size="small" />
+            <Button
+              block
+              icon={<EditOutlined />}
+              size="small"
+              onClick={() => handleEdit(record._id)}
+            />
             <Popconfirm
               placement="left"
               title={`Delete ${record.position[0].positionTitle} at ${record.company}`}
