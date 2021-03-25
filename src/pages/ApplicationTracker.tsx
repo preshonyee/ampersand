@@ -1,9 +1,9 @@
-import { DeleteOutlined, EditOutlined, LinkOutlined } from "@ant-design/icons";
-import { Button, Space, Table, Tag } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, message, Popconfirm, Space, Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Edit, ExternalLink, Trash2 } from "react-feather";
+import { ExternalLink } from "react-feather";
 import styled from "styled-components";
 import NavMenu from "../components/NavMenu";
 import { BASE_URL } from "../constants/BaseURL";
@@ -41,6 +41,53 @@ interface IApplication {
 }
 
 const ApplicationTracker: React.FC = () => {
+  const [page, setPage] = useState(1);
+
+  const [applicationsData, setApplicationsData] = useState<
+    ApplicationsDataType | any
+  >([]);
+
+  const [isReady, setIsReady] = useState(true);
+  const [confirmLoading, setConfirmLoading]: any = useState({
+    applicationID: false,
+  });
+
+  const fetchUserApplicationData = () => {
+    axios
+      .get(`${BASE_URL}/application/myApplications`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then((response) => {
+        const result = response.data;
+        setApplicationsData(result.applications);
+        setIsReady(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchUserApplicationData();
+  }, [isReady]);
+
+  const handleDeleteApplication = (applicationID: string) => {
+    setConfirmLoading((prev: any) => ({ ...prev, [applicationID]: true }));
+    axios
+      .delete(`${BASE_URL}/application/delete/${applicationID}`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then((response) => {
+        message.success(response.data.message, 3);
+        setConfirmLoading((prev: any) => ({ ...prev, [applicationID]: false }));
+        setIsReady(true);
+      })
+      .catch((error) => {
+        message.error(error.message);
+      });
+  };
+
   const columns: ColumnsType<IApplication> = [
     {
       title: "S/N",
@@ -272,43 +319,33 @@ const ApplicationTracker: React.FC = () => {
     },
     {
       title: "Action",
-      key: "action",
+      key: "operation",
       responsive: ["xxl"],
-      render: (text, record) => (
-        <Space size="middle">
-          <Button block icon={<EditOutlined />} size="small" />
-          <Button block icon={<DeleteOutlined />} size="small" />
-        </Space>
-      ),
+      render: (text, record: any) => {
+        return (
+          <Space key={record._id} size="middle">
+            <Button block icon={<EditOutlined />} size="small" />
+            <Popconfirm
+              placement="left"
+              title={`Delete ${record.position[0].positionTitle} at ${record.company}`}
+              onConfirm={() => handleDeleteApplication(record._id)}
+              okText="Yes, Delete"
+              cancelText="No"
+              okButtonProps={{ loading: confirmLoading[record._id] }}>
+              <Button
+                id={record._id}
+                loading={confirmLoading[record._id]}
+                block
+                icon={<DeleteOutlined />}
+                size="small"
+              />
+            </Popconfirm>
+          </Space>
+        );
+      },
       fixed: "right",
     },
   ];
-
-  const [page, setPage] = React.useState(1);
-
-  const [applicationsData, setApplicationsData] = useState<
-    ApplicationsDataType | any
-  >(null);
-
-  const [isReady, setIsReady] = useState(true);
-
-  const fetchUserApplicationData = () => {
-    axios
-      .get(`${BASE_URL}/application/myApplications`, {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then((response) => {
-        const result = response.data;
-        setApplicationsData(result.applications);
-        setIsReady(false);
-      });
-  };
-
-  useEffect(() => {
-    fetchUserApplicationData();
-  }, []);
 
   return (
     <Wrapper>
@@ -316,15 +353,17 @@ const ApplicationTracker: React.FC = () => {
       <Table
         bordered
         rowKey={(applicationsData) => applicationsData._id}
-        loading={isReady}
         size="small"
         columns={columns}
         dataSource={applicationsData}
+        loading={isReady}
         pagination={{
           onChange(current) {
             setPage(current);
           },
           pageSize: 10,
+          total: applicationsData.length,
+          showTotal: (total) => <p>{total} Total Applications</p>,
         }}
         scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
         sticky
