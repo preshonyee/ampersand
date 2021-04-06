@@ -23,6 +23,9 @@ const Wrapper = styled.div`
   form > * {
     width: 32%;
   }
+  label {
+    font-weight: 700;
+  }
 `;
 
 const EditApplication: React.FC = (props: any) => {

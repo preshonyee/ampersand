@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
@@ -22,6 +25,7 @@ body {
   width: 100%;
   margin: 0 auto;
   font-family: "Inter", sans-serif;
+  background-color: #f2f2f2;
   line-height: 1.5;
   scrollbar-width: thin;
   -webkit-font-smoothing: antialiased;
@@ -76,3 +80,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+`;
+
+export default GlobalStyle;

@@ -10,11 +10,12 @@ import LoginPage from "./pages/LoginPage";
 import store from "./redux";
 import ErrorPage from "./components/ErrorPage";
 
-import "./App.less";
 import ApplicationTracker from "./pages/ApplicationTracker";
 import FrontPage from "./pages/FrontPage";
 import Editor from "./pages/Editor";
 import EditApplication from "./pages/EditApplication";
+import "./App.less";
+import GlobalStyle from "./GlobalStyle";
 
 const Routing = () => {
   const history = useHistory();
@@ -51,6 +52,7 @@ const App = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Routing />
+        <GlobalStyle />
       </BrowserRouter>
     </Provider>
   );
