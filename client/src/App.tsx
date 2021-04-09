@@ -16,6 +16,7 @@ import Editor from "./pages/Editor";
 import EditApplication from "./pages/EditApplication";
 import "./App.less";
 import GlobalStyle from "./GlobalStyle";
+import Layout from "./components/Layout";
 
 const Routing = () => {
   const history = useHistory();
@@ -51,8 +52,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Routing />
-        <GlobalStyle />
+        <Layout>
+          <Routing />
+          <GlobalStyle />
+        </Layout>
       </BrowserRouter>
     </Provider>
   );

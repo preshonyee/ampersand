@@ -17,15 +17,26 @@ import Logo from "../images/logo-wordmark.svg";
 const { Item } = Menu;
 
 const StyledMenu = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  padding: 0.5rem 4rem;
+  background-color: #fff;
+  border-bottom: 1px solid #dadce0;
+  vertical-align: middle;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  z-index: 100;
 
   .brandItems {
     img {
       width: 40%;
     }
+  }
+
+  .ant-dropdown-link {
+    margin-bottom: 0;
   }
 `;
 
@@ -33,13 +44,11 @@ const StyledMenuActions = styled.div`
   display: flex;
 
   .routeLinks {
-    margin: 4px 1.5rem 0 0;
   }
 
   .routeLinks a {
     text-decoration: none;
-    background-color: #f2f2f2;
-    padding: 0.45rem 0.75rem;
+    margin-right: 1.5rem;
   }
 
   .dropdown {
@@ -88,20 +97,11 @@ const NavMenu: React.FC = () => {
         <StyledMenuActions>
           <span className="routeLinks">
             {history.location.pathname !== "/" ? (
-              <Link to="/">
-                {" "}
-                <ArrowLeftOutlined /> Back To Home
-              </Link>
+              <Link to="/">Back To Home</Link>
             ) : (
               <>
-                <Link to="/tracker">
-                  {" "}
-                  <PlusOutlined /> Track Applications
-                </Link>
-                <Link to="/add-application">
-                  {" "}
-                  <PlusOutlined /> Add Application
-                </Link>
+                <Link to="/tracker">Track Applications</Link>
+                <Link to="/front-page">Resume Profile</Link>
               </>
             )}
           </span>
@@ -115,6 +115,7 @@ const NavMenu: React.FC = () => {
               trigger={["click"]}>
               <p className="ant-dropdown-link">
                 <Avatar
+                  size={24}
                   src={user.profilePicture && user.profilePicture}
                   style={{ backgroundColor: "#FF5A5F" }}
                   icon={<UserOutlined />}

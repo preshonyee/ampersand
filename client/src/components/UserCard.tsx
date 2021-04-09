@@ -29,7 +29,7 @@ const Wrapper = styled.div`
     margin-left: 1rem;
   }
 
-  h1 {
+  h2 {
     text-transform: capitalize;
   }
   .stats {
@@ -52,9 +52,9 @@ const UserCard: React.FC<IUserCard> = () => {
       <div className="profile">
         <Avatar size={80} src={user.profilePicture} />
         <div className="bio">
-          <h1>
+          <h2>
             {user.firstName} {user.lastName}
-          </h1>
+          </h2>
           <p>{user.email}</p>
           {/* Add social icons here */}
           <Space size="middle">
