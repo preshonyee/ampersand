@@ -1,4 +1,5 @@
-import { Avatar, Button } from "antd";
+import { Avatar, Button, Col, Row, Statistic } from "antd";
+import { Compass, Folder, Mail } from "react-feather";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -6,6 +7,11 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: #fff;
+  width: 350px;
+  margin: 0 1rem 2rem 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
 
   .profile {
     display: flex;
@@ -14,24 +20,21 @@ const Wrapper = styled.div`
 
   .profile div:last-child {
     margin-left: 1rem;
-    p {
-      margin: 0;
-    }
-    button {
-      padding: 0;
-    }
   }
 
   h1 {
     text-transform: capitalize;
   }
+  .stats {
+    margin: 1.5rem 0;
+  }
 `;
 
 interface IUserCard {
-  isEmpty: boolean;
+  isEmpty?: boolean;
 }
 
-const UserCard: React.FC<IUserCard> = ({ isEmpty }) => {
+const UserCard: React.FC<IUserCard> = () => {
   const history = useHistory();
   const { user } = useSelector((state: any) => state.user);
 
@@ -46,12 +49,37 @@ const UserCard: React.FC<IUserCard> = ({ isEmpty }) => {
             {user.firstName} {user.lastName}
           </h1>
           <p>{user.email}</p>
-          <Button type="link">Edit Profile</Button>
+          <p></p>
+          {/* Add social icons here */}
         </div>
       </div>
-      <p></p>
-      <Button block onClick={() => history.push("/editor")}>
-        {isEmpty ? "Create Resume" : "Update Resume"}
+      <div className="stats">
+        <Row gutter={[8, 16]}>
+          <Col span={8}>
+            <Statistic
+              title="Applications"
+              value={112}
+              prefix={<Folder color="#bbb" size={16} />}
+            />
+          </Col>
+          <Col span={8}>
+            <Statistic
+              title="Cover Letters"
+              value={18}
+              prefix={<Mail color="#bbb" size={16} />}
+            />
+          </Col>
+          <Col span={8}>
+            <Statistic
+              title="Your Radar"
+              value={42}
+              prefix={<Compass color="#bbb" size={16} />}
+            />
+          </Col>
+        </Row>
+      </div>
+      <Button shape="round" block onClick={() => history.push("/editor")}>
+        Go to profile
       </Button>
     </Wrapper>
   );
