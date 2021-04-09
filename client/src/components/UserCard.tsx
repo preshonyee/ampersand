@@ -1,5 +1,12 @@
-import { Avatar, Button, Col, Row, Statistic } from "antd";
-import { Compass, Folder, Mail } from "react-feather";
+import { Avatar, Button, Col, Row, Space, Statistic } from "antd";
+import {
+  Compass,
+  Folder,
+  GitHub,
+  Linkedin,
+  Mail,
+  Twitter,
+} from "react-feather";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -18,7 +25,7 @@ const Wrapper = styled.div`
     align-items: flex-start;
   }
 
-  .profile div:last-child {
+  .bio {
     margin-left: 1rem;
   }
 
@@ -44,13 +51,19 @@ const UserCard: React.FC<IUserCard> = () => {
     <Wrapper>
       <div className="profile">
         <Avatar size={80} src={user.profilePicture} />
-        <div>
+        <div className="bio">
           <h1>
             {user.firstName} {user.lastName}
           </h1>
           <p>{user.email}</p>
-          <p></p>
           {/* Add social icons here */}
+          <Space size="middle">
+            <GitHub size={16} />
+            <Linkedin size={16} />
+            <Twitter size={16} />
+            <Mail size={16} />
+            <p></p>
+          </Space>
         </div>
       </div>
       <div className="stats">
