@@ -1,0 +1,39 @@
+{
+  "name": "ampersand-api",
+  "version": "1.0.0",
+  "description": "backend API for ampersand",
+  "main": "server.js",
+  "scripts": {
+    "start": "SET NODE_ENV=production & node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Preshonyee/ampersand-api.git"
+  },
+  "author": "Presh Onyee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Preshonyee/ampersand-api/issues"
+  },
+  "homepage": "https://github.com/Preshonyee/ampersand-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "firstName": "Ruth",
+    "lastName": "Happiness",
+    "email": "ruth@gmail.com",
+    "password": "ruth@123"
+  },
+  {
+    "firstName": "Megan",
+    "lastName": "Thee",
+    "email": "megan@gmail.com",
+    "password": "megan@123"
+  },
+  {
+    "firstName": "Steph",
+    "lastName": "Houghton",
+    "email": "steph@gmail.com",
+    "password": "steph@123"
+  },
+  {
+    "firstName": "Sam",
+    "lastName": "Kerr",
+    "email": "kerr@gmail.com",
+    "password": "kerr@123"
+  },
+  {
+    "firstName": "Christien",
+    "lastName": "Press",
+    "email": "press@gmail.com",
+    "password": "press@123"
+  },
+  {
+    "firstName": "Presh",
+    "lastName": "Onyee",
+    "email": "presh@gmail.com",
+    "password": "presh@123"
+  }
+]
