@@ -1,9 +1,7 @@
 import { Avatar, Dropdown, Menu } from "antd";
 import {
-  ArrowLeftOutlined,
   DisconnectOutlined,
   DownOutlined,
-  PlusOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
