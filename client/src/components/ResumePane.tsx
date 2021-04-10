@@ -20,11 +20,10 @@ import {
 const { primary, black100, black200 } = COLORS.light;
 
 const PaneWrapper = styled.div`
-  width: 57%;
-
+  width: 60%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-size: 13px;
   background-color: #fff;
-  border: 5px solid #edf2f9;
   padding: 3rem;
   display: flex;
   text-align: left;

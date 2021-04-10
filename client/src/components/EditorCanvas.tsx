@@ -16,22 +16,13 @@ import {
 import { Alert } from "antd";
 
 const MainWrapper = styled.div`
-  padding: 2rem 0;
-
-  .alert {
-    width: 40%;
-    margin-left: 1rem;
-  }
+  width: 80%;
+  margin: 0 auto;
 `;
 
 const CanvasWrapper = styled.div`
-  width: 99%;
-  margin: 0 auto;
-  height: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
-  padding: 2rem 0;
 `;
 
 interface IFormData {
@@ -130,13 +121,6 @@ const EditorCanvas = () => {
 
   return (
     <MainWrapper>
-      <div className="alert">
-        <Alert
-          message="Changes you make on the editor will auto update on the resume pane"
-          type="info"
-          showIcon
-        />
-      </div>
       <CanvasWrapper>
         {!isReady ? (
           <div>
@@ -144,12 +128,12 @@ const EditorCanvas = () => {
           </div>
         ) : (
           <>
+            <ResumePane profile={formData} />
             {isEmpty ? (
               <EditForm formData={formData} setFormData={setFormData} />
             ) : (
               <EditForm formData={formData} setFormData={setFormData} />
             )}
-            <ResumePane profile={formData} />
           </>
         )}
       </CanvasWrapper>

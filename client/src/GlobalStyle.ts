@@ -27,24 +27,10 @@ body {
   font-family: "Inter", sans-serif;
   background-color: #f2f2f2;
   line-height: 1.5;
-  scrollbar-width: thin;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body::-webkit-scrollbar {
-  width: 15px;
-}
-
-body::-webkit-scrollbar-track {
-  background: var(--scrollbarBG);
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG);
-  border-radius: 6px;
-  border: 3px solid var(--scrollbarBG);
-}
 
 h1,
 h2,

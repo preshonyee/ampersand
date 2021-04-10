@@ -1,134 +1,14 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { Button, Form, Input, message } from "antd";
 import { MinusCircleOutlined } from "@ant-design/icons";
-
-import styled from "styled-components";
+import { Form, Input, Button } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import {
-  achievementType,
-  educationType,
-  experienceType,
-  projectType,
-  skillType,
-} from "../Types";
-import axios from "axios";
-import { BASE_URL } from "../constants/BaseURL";
-import { TOKEN } from "../constants/Token";
-import { useHistory } from "react-router-dom";
 
 const { Item, List } = Form;
 
-const FormWrapper = styled.div`
-  width: 38%;
-  height: 85vh;
-  background-color: #fafafa;
-  padding: 1rem;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  border-bottom: 1px solid #dadce0;
-
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(204, 6%, 89%);
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: hsl(200, 4%, 72%);
-    border-radius: 10px;
-    border: 1.5px solid var(--scrollbarBG);
-  }
-
-  .parent {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 1rem 0;
-  }
-
-  .parent > * {
-    width: 49%;
-  }
-
-  h4 {
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  label {
-    display: block;
-    font-weight: 500;
-    padding-bottom: 0.2rem;
-  }
-
-  input {
-    width: 100%;
-  }
-`;
-
-interface IFormData {
-  firstName: String;
-  lastName: String;
-  occupation: String;
-  location: String;
-  website: String;
-  email: String;
-  telephone: String;
-  projects: projectType[];
-  experience: experienceType[];
-  education: educationType[];
-  achievements: achievementType[];
-  skills: skillType[];
-}
-
-interface IEditForm {
-  formData: IFormData[];
-  setFormData: Dispatch<SetStateAction<IFormData[]>>;
-}
-
-const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
-  const history = useHistory();
-  const [form] = Form.useForm();
-
-  const [loading, setLoading] = useState(false);
-
-  const onFinish = (values: any) => {
-    console.log({ values });
-    setLoading(true);
-    axios
-      .post(`${BASE_URL}/profile/createProfile`, values, {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then((response) => {
-        message.success(response.data.message);
-        setLoading(false);
-        history.push("/");
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-        message.error(error.response.data.error);
-      });
-  };
-
-  const onChange = (allValues: any) => {
-    console.log("DATA", formData);
-    console.log("VALUES", [allValues]);
-    setFormData([allValues]);
-  };
-
-  return (
-    <FormWrapper>
-      <Form
-        form={form}
-        onFinish={onFinish}
-        onValuesChange={(changedValues, allValues) => {
-          onChange(allValues);
-        }}
-        initialValues={formData[0]}>
+export const steps = [
+  {
+    title: "Personal Info",
+    content: (
+      <div>
         {/* PERSONAL INFO SECTION */}
         <h4>Personal Info Section</h4>
         <div className="parent">
@@ -153,39 +33,46 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
             </Item>
           </div>
         </div>
+        <div>
+          {/* CONTACT SECTION */}
+          <h4>Contact Section</h4>
+          <div className="parent">
+            <div>
+              <label>Location</label>
+              <Item name="location">
+                <Input />
+              </Item>
+            </div>
 
-        {/* CONTACT SECTION */}
-        <h4>Contact Section</h4>
-        <div className="parent">
-          <div>
-            <label>Location</label>
-            <Item name="location">
-              <Input />
-            </Item>
-          </div>
+            <div>
+              <label>Website</label>
+              <Item name="website">
+                <Input />
+              </Item>
+            </div>
 
-          <div>
-            <label>Website</label>
-            <Item name="website">
-              <Input />
-            </Item>
-          </div>
+            <div>
+              <label>Email</label>
+              <Item name="email">
+                <Input />
+              </Item>
+            </div>
 
-          <div>
-            <label>Email</label>
-            <Item name="email">
-              <Input />
-            </Item>
-          </div>
-
-          <div>
-            <label>Telephone</label>
-            <Item name="telephone">
-              <Input />
-            </Item>
+            <div>
+              <label>Telephone</label>
+              <Item name="telephone">
+                <Input />
+              </Item>
+            </div>
           </div>
         </div>
-
+      </div>
+    ),
+  },
+  {
+    title: "Experience",
+    content: (
+      <div>
         {/* EXPERIENCE SECTION */}
         <h4>Experience Section</h4>
         <List name="experience">
@@ -280,7 +167,13 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
             );
           }}
         </List>
-
+      </div>
+    ),
+  },
+  {
+    title: "Projects",
+    content: (
+      <div>
         {/* PROJECTS SECTION */}
         <h4>Projects Section</h4>
         <List name="projects">
@@ -335,7 +228,13 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
             );
           }}
         </List>
-
+      </div>
+    ),
+  },
+  {
+    title: "Education",
+    content: (
+      <div>
         {/* EDUCATION SCREEN */}
         <h4>Education Section</h4>
         <List name="education">
@@ -421,7 +320,13 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
             );
           }}
         </List>
-
+      </div>
+    ),
+  },
+  {
+    title: "Skills",
+    content: (
+      <div>
         {/* SKILLS SECTION */}
         <h4>Skills section</h4>
         <List name="skills">
@@ -474,7 +379,13 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
             );
           }}
         </List>
-
+      </div>
+    ),
+  },
+  {
+    title: "Achievements",
+    content: (
+      <div>
         {/* ACHIEVEMENTS SECTION */}
         <h4>Achievements Section</h4>
         <List name="achievements">
@@ -558,13 +469,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
             );
           }}
         </List>
-
-        <Button loading={loading} type="primary" htmlType="submit">
-          Save resume
-        </Button>
-      </Form>
-    </FormWrapper>
-  );
-};
-
-export default EditForm;
+      </div>
+    ),
+  },
+];
