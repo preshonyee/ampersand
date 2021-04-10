@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BASE_URL } from "../constants/BaseURL";
 import { TOKEN } from "../constants/Token";
@@ -13,7 +13,6 @@ import {
   projectType,
   skillType,
 } from "../Types";
-import { Alert } from "antd";
 
 const MainWrapper = styled.div`
   width: 80%;
