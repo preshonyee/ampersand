@@ -18,31 +18,34 @@ import {
 } from "../components/ListItem";
 import { TOKEN } from "../constants/Token";
 import { COLORS } from "../constants/Colors";
-import UserCard from "../components/UserCard";
-import { Empty } from "antd";
+import { Empty, Space } from "antd";
+import Button from "antd/es/button";
+import {
+  DeleteOutlined,
+  DownloadOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 const { primary, black100, black200 } = COLORS.light;
 
-const FrontPageWrapper = styled.div`
-  background-color: #f2f2f2;
-  width: 100%;
-  height: 100%;
+const ResumePageWrapper = styled.div`
+  width: 60%;
+  margin: 0 auto;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem 0;
+  justify-content: space-between;
+`;
+
+const ActionMenu = styled.div`
+  width: 18%;
 `;
 
 const PaneWrapper = styled.div`
-  width: 57%;
-  min-height: 100vh;
-
   font-size: 13px;
   background-color: #fff;
-  border: 5px solid #edf2f9;
   padding: 3rem;
   display: flex;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
   h4 {
     font-weight: 700;
@@ -103,13 +106,6 @@ const LeftSide = styled.div`
 
 const RightSide = styled.div`
   width: 53%;
-`;
-
-const CardWrapper = styled.div`
-  background-color: #ffffff;
-  margin-left: 1rem;
-  padding: 2rem;
-  border: 5px solid #edf2f9;
 `;
 
 interface IResumeData {
@@ -176,7 +172,7 @@ const initialState = [
   },
 ];
 
-const FrontPage: React.FC = () => {
+const ResumePage: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [resumeData, setResumeData] = useState<IResumeData[]>(initialState);
@@ -228,7 +224,7 @@ const FrontPage: React.FC = () => {
   console.log(resumeData);
 
   return (
-    <FrontPageWrapper>
+    <ResumePageWrapper>
       {!isReady ? (
         <div>Loading...</div>
       ) : (
@@ -374,13 +370,23 @@ const FrontPage: React.FC = () => {
               )}
             </div>
           </PaneWrapper>
-          <CardWrapper>
-            <UserCard isEmpty={isEmpty} />
-          </CardWrapper>
+          <ActionMenu>
+            <Space direction="vertical">
+              <Button block icon={<EditOutlined />}>
+                Edit resume profile
+              </Button>
+              <Button block icon={<DownloadOutlined />}>
+                Download resume profile
+              </Button>
+              <Button type="primary" block danger icon={<DeleteOutlined />}>
+                Delete resume profile
+              </Button>
+            </Space>
+          </ActionMenu>
         </>
       )}
-    </FrontPageWrapper>
+    </ResumePageWrapper>
   );
 };
 
-export default FrontPage;
+export default ResumePage;

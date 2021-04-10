@@ -101,7 +101,7 @@ const NavMenu: React.FC = () => {
             ) : (
               <>
                 <Link to="/tracker">Track Applications</Link>
-                <Link to="/front-page">Resume Profile</Link>
+                <Link to="/resume">Resume Profile</Link>
               </>
             )}
           </span>

@@ -31,7 +31,7 @@ const PaneWrapper = styled.div`
 
   h4 {
     font-weight: 700;
-    font-size: 0.8125rem;
+    font-size: 1rem;
     color: ${primary};
     margin: 0.5rem 0;
   }

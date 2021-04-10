@@ -11,12 +11,12 @@ import store from "./redux";
 import ErrorPage from "./components/ErrorPage";
 
 import ApplicationTracker from "./pages/ApplicationTracker";
-import FrontPage from "./pages/FrontPage";
 import Editor from "./pages/Editor";
 import EditApplication from "./pages/EditApplication";
 import "./App.less";
 import GlobalStyle from "./GlobalStyle";
 import Layout from "./components/Layout";
+import ResumePage from "./pages/ResumePage";
 
 const Routing = () => {
   const history = useHistory();
@@ -41,7 +41,7 @@ const Routing = () => {
         path="/edit-application/:applicationID"
         component={EditApplication}
       />
-      <Route exact path="/front-page" component={FrontPage} />
+      <Route exact path="/resume" component={ResumePage} />
       <Route exact path="/editor" component={Editor} />
       <Route component={ErrorPage} />
     </Switch>

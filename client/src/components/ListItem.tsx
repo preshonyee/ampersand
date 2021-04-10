@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   margin: 0 0 1.5rem 0;
 
   p {
-    font-size: 0.75rem;
+    font-size: 1rem;
     margin: 0 0 0.25rem 0;
   }
 
