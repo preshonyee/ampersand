@@ -218,6 +218,7 @@ exports.updateApplication = (req, res, next) => {
           tags,
         } = req.body;
 
+        // Check if fields are empty
         if (
           !dateApplied ||
           !company ||
