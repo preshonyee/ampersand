@@ -32,3 +32,17 @@ exports.createTimelineActivity = (req, res, next) => {
       return next(new ErrorResponse(error, 401));
     });
 };
+
+// @description:    Fetch all timeline activity
+// @route:          GET /api/v1/timeline/
+// @access          Private
+exports.getTimelineActivities = (req, res) => {
+  Timeline.find()
+    .sort("-createdAt")
+    .then((activities) => {
+      res.status(200).json({ count: activities.length, result: activities });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

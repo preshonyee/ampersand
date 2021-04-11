@@ -1,6 +1,8 @@
 const express = require("express");
-const { createTimelineActivity } = require("../controllers/timeline");
-const requireLogin = require("../middleware/requireLogin");
+const {
+  createTimelineActivity,
+  getTimelineActivities,
+} = require("../controllers/timeline");
 
 const router = express.Router();
 
@@ -10,5 +12,7 @@ const router = express.Router();
 
 // create timeline route
 router.route("/create").post(createTimelineActivity);
+// get all timeline activities
+router.route("/").get(getTimelineActivities);
 
 module.exports = router;
