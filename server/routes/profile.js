@@ -3,6 +3,7 @@ const {
   createProfile,
   myProfile,
   updateProfile,
+  deleteProfile,
 } = require("../controllers/profile");
 
 const requireLogin = require("../middleware/requireLogin");
@@ -17,5 +18,7 @@ router.route("/createProfile").post(requireLogin, createProfile);
 router.route("/myProfile").get(requireLogin, myProfile);
 // update resume profile
 router.route("/update/:profileID").get(requireLogin, updateProfile);
+// delete resume profile
+router.route("/delete/:profileID").delete(requireLogin, deleteProfile);
 
 module.exports = router;

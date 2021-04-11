@@ -165,3 +165,47 @@ exports.updateProfile = (req, res, next) => {
     }
   });
 };
+
+// @description:    Delete resume profile
+// @route:          DELETE /api/v1/profile/delete/:profileID
+// @access          Private
+exports.deleteProfile = (req, res) => {
+  Profile.findOne({ _id: req.params.profileID }).exec((error, profile) => {
+    // Check that the selected resume profile exists
+    if (!profile) {
+      return res.status(422).json({
+        success: false,
+        error: `Profile with ID ${req.params.profileID} doesn't exist`,
+      });
+    }
+
+    // If error occurs
+    if (error) {
+      return res.status(422).json({ success: false, error: error });
+    }
+
+    // Make sure the user is the owner of the profile
+    if (profile.owner._id.toString() !== req.user._id.toString()) {
+      return res.status(401).json({
+        success: false,
+        error: `User ${req.user._id} is not authorized to delete this resume profile`,
+      });
+    }
+
+    // Proceed to delete selected application
+    if (profile.owner._id.toString() === req.user._id.toString()) {
+      profile
+        .remove()
+        .then((result) => {
+          res.json({
+            success: true,
+            message: "Resume profile successfully deleted",
+            result: !result,
+          });
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
+    }
+  });
+};
