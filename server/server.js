@@ -17,6 +17,7 @@ const auth = require("./routes/auth");
 const profile = require("./routes/profile");
 const application = require("./routes/application");
 const timeline = require("./routes/timeline");
+const radar = require("./routes/radar");
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/profile", profile);
 app.use("/api/v1/application", application);
 app.use("/api/v1/timeline", timeline);
+app.use("/api/v1/radar", radar);
 
 app.use(errorHandler);
 
