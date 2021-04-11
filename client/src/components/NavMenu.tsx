@@ -94,14 +94,11 @@ const NavMenu: React.FC = () => {
       {user ? (
         <StyledMenuActions>
           <span className="routeLinks">
-            {history.location.pathname !== "/" ? (
+            <>
               <Link to="/">Back To Home</Link>
-            ) : (
-              <>
-                <Link to="/tracker">Track Applications</Link>
-                <Link to="/resume">Resume Profile</Link>
-              </>
-            )}
+              <Link to="/tracker">Track Applications</Link>
+              <Link to="/resume">Resume Profile</Link>
+            </>
           </span>
           <div className="dropdown">
             <Dropdown

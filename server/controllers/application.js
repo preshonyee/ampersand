@@ -1,5 +1,6 @@
 const Application = require("../models/Application");
 const ErrorResponse = require("../utils/errorResponse");
+const axios = require("axios");
 
 // @description:    Add new application
 // @route:          POST /api/v1/application/createApplication
@@ -73,6 +74,7 @@ exports.createApplication = (req, res, next) => {
     addedBy: req.user,
   });
 
+  // save application to the database
   application
     .save()
     .then((result) => {
@@ -80,6 +82,28 @@ exports.createApplication = (req, res, next) => {
         application: result,
         message: "application successfully created",
       });
+      // log out application created activity to Timeline
+      axios
+        .post("http://localhost:5000/api/v1/timeline/create", {
+          activityTitle: `You submitted an application at ${result.company}`,
+          activityBody: {
+            company: result.company,
+            location: result.location,
+            position: result.position[0].positionTitle,
+            type: result.type,
+            remote: result.remote,
+            tags: result.tags,
+            message: "You added a new application, good luck",
+          },
+          activityType: "application",
+          activityDate: Date.now(),
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     })
     .catch((error) => {
       console.log(error);
@@ -257,6 +281,28 @@ exports.updateApplication = (req, res, next) => {
                 message: "Application updated successfully",
                 result: result,
               });
+              // log out application updated activity to Timeline
+              axios
+                .post("http://localhost:5000/api/v1/timeline/create", {
+                  activityTitle: `You updated your application at ${result.company}`,
+                  activityBody: {
+                    company: result.company,
+                    location: result.location,
+                    position: result.position[0].positionTitle,
+                    type: result.type,
+                    remote: result.remote,
+                    tags: result.tags,
+                    message: "You updated your application, good luck",
+                  },
+                  activityType: "application",
+                  activityDate: Date.now(),
+                })
+                .then((response) => {
+                  console.log(response.data);
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
             }
           });
       }

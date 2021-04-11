@@ -1,5 +1,6 @@
 const Profile = require("../models/Profile");
 const ErrorResponse = require("../utils/errorResponse");
+const axios = require("axios");
 
 // @description:    Add new resume profile
 // @route:          POST /api/v1/profile/createProfile
@@ -62,6 +63,22 @@ exports.createProfile = (req, res, next) => {
         profile: result,
         message: "profile created successfully",
       });
+      // log out profile created activity to Timeline
+      axios
+        .post("http://localhost:5000/api/v1/timeline/create", {
+          activityTitle: `You created your resume profile`,
+          activityBody: {
+            message: `You have just created your resume profile, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,
+          },
+          activityType: "resume",
+          activityDate: Date.now(),
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     })
     .catch((error) => {
       console.log(error);
@@ -161,6 +178,22 @@ exports.updateProfile = (req, res, next) => {
               result: result,
             });
           }
+          // log out profile updated activity to Timeline
+          axios
+            .post("http://localhost:5000/api/v1/timeline/create", {
+              activityTitle: `You updated your resume profile`,
+              activityBody: {
+                message: `You updated your resume profile, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,
+              },
+              activityType: "resume",
+              activityDate: Date.now(),
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
         });
     }
   });
