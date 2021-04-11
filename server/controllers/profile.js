@@ -90,9 +90,9 @@ exports.updateProfile = (req, res, next) => {
   Profile.findById({ _id: req.params.profileID }).exec((error, profile) => {
     // Check that the resume profile exists
     if (!profile) {
-      return res.status(422).json({
+      return res.status(404).json({
         success: false,
-        error: `Resume profile with ID ${req.params.ID} doesn't exist`,
+        error: `Resume profile with ID ${req.params.profileID} doesn't exist`,
       });
     }
 
