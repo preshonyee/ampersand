@@ -18,6 +18,7 @@ import GlobalStyle from "./GlobalStyle";
 import Layout from "./components/Layout";
 import ResumePage from "./pages/ResumePage";
 import AnalyticsPage from "./pages/Analytics";
+import LandingPage from "./pages/LandingPage";
 
 const Routing = () => {
   const history = useHistory();
@@ -32,7 +33,8 @@ const Routing = () => {
 
   return (
     <Switch>
-      <Route exact path="/" component={Homepage} />
+      <Route exact path="/" component={LandingPage} />
+      <Route exact path="/app" component={Homepage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/tracker" component={ApplicationTracker} />

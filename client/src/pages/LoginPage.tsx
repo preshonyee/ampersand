@@ -100,14 +100,14 @@ const LoginPage = () => {
         message.success("Login successfully", 3);
       })
       // I'm actually typing rubish
-      
+
       .catch((error) => {
         console.log(error);
         // Remove all console.logs from the code afterwards
         setLoading(false);
       })
       .then(() => {
-        history.push("/");
+        history.push("/app");
         setTimeout(function () {
           window.location.reload();
         }, 15);
