@@ -17,6 +17,7 @@ import "./App.less";
 import GlobalStyle from "./GlobalStyle";
 import Layout from "./components/Layout";
 import ResumePage from "./pages/ResumePage";
+import AnalyticsPage from "./pages/Analytics";
 
 const Routing = () => {
   const history = useHistory();
@@ -43,6 +44,7 @@ const Routing = () => {
       />
       <Route exact path="/resume" component={ResumePage} />
       <Route exact path="/editor" component={Editor} />
+      <Route exact path="/analytics" component={AnalyticsPage} />
       <Route component={ErrorPage} />
     </Switch>
   );

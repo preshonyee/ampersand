@@ -95,9 +95,10 @@ const NavMenu: React.FC = () => {
         <StyledMenuActions>
           <span className="routeLinks">
             <>
-              <Link to="/">Back To Home</Link>
+              <Link to="/">Home</Link>
               <Link to="/tracker">Track Applications</Link>
               <Link to="/resume">Resume Profile</Link>
+              <Link to="/analytics">Analytics</Link>
             </>
           </span>
           <div className="dropdown">
