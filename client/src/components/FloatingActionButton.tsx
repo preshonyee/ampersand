@@ -1,5 +1,4 @@
-import { Button } from "antd";
-import { Download, Edit, Edit2, MoreHorizontal, Trash } from "react-feather";
+import { Download, Edit, MoreHorizontal, Trash } from "react-feather";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -83,7 +82,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const FAB = () => {
+const FAB: React.FC = () => {
   return (
     <Wrapper>
       <div className="fab-container">
