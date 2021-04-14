@@ -15,7 +15,6 @@ import Editor from "./pages/Editor";
 import EditApplication from "./pages/EditApplication";
 import "./App.less";
 import GlobalStyle from "./GlobalStyle";
-import Layout from "./components/Layout";
 import ResumePage from "./pages/ResumePage";
 import AnalyticsPage from "./pages/Analytics";
 import LandingPage from "./pages/LandingPage";

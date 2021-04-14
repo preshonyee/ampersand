@@ -7,7 +7,6 @@ import { ExternalLink } from "react-feather";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/Layout";
-import NavMenu from "../components/NavMenu";
 import { BASE_URL } from "../constants/BaseURL";
 import { TOKEN } from "../constants/Token";
 
