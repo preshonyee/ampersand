@@ -1,7 +1,8 @@
 import { Button, Form, Input, message } from "antd";
 import styled from "styled-components";
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import Logo from "../images/logo-wordmark-dark.svg";
 
 import { BASE_URL } from "../constants/BaseURL";
 import { useDispatch } from "react-redux";
@@ -24,50 +25,64 @@ const Wrapper = styled.div`
 
   .content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60%;
-    margin: 0 auto;
+    flex-direction: column;
     /* border: 1px solid red; */
+    @media (min-width: 1200px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 70%;
+      margin: 0 auto;
+      /* border: 1px solid red; */
+    }
   }
 
   .brand {
+    display: none;
+    @media (min-width: 1200px) {
+      display: block;
+      width: 40%;
+    }
+
     margin-bottom: 2rem;
 
-    span {
-      display: flex;
-      img {
-        width: 80px;
-        height: 80px;
-      }
+    img {
+      width: 400px;
+      height: 80px;
     }
-    h1 {
-      font-size: 5rem;
-      font-weight: bold;
-      font-family: "Cedarville Cursive", cursive;
+
+    p {
+      font-size: 1rem;
       color: #fff;
-      line-height: 1.2;
-    }
-    h4 {
-      font-size: 1.5rem;
-      color: #fff;
-      a {
-        color: #ff5a5f;
-        background-color: #fff;
-        padding: 0.25rem 0.5rem;
-        font-weight: bold;
-      }
+      margin-left: 0.5rem;
+      width: 400px;
     }
   }
 `;
 
 const FormContainer = styled.div`
-  width: 400px;
-  padding: 3rem;
-  background-color: rgba(255, 255, 255, 1);
+  width: 90%;
+  height: 400px;
+  margin: 1rem auto;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 8px;
   backdrop-filter: blur(5px);
   border: 1px solid #dadce0;
-  border-radius: 8px;
+  @media (min-width: 480px) {
+    width: 80%;
+  }
+  @media (min-width: 640px) {
+    width: 60%;
+  }
+  @media (min-width: 800px) {
+    width: 40%;
+  }
+  @media (min-width: 1200px) {
+    width: 35%;
+    backdrop-filter: blur(5px);
+    border: 1px solid #dadce0;
+  }
 
   label {
     font-weight: 700;
@@ -99,7 +114,6 @@ const LoginPage = () => {
         dispatch(login({ payload: result }));
         message.success("Login successfully", 3);
       })
-      // I'm actually typing rubish
 
       .catch((error) => {
         console.log(error);
@@ -122,22 +136,8 @@ const LoginPage = () => {
     <Wrapper>
       <div className="content">
         <div className="brand">
-          <span>
-            <img
-              src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/facebook/230/bookmark_1f516.png"
-              alt="bookmark emoji"
-            />
-            <h1>Erstwhile</h1>
-          </span>
-          <h4>
-            Personalized Job Application Tracker, Built By{" "}
-            <a
-              href="https://twitter.com/preshonyee"
-              target="_blank"
-              rel="noopener noreferrer">
-              Presh Onyee
-            </a>
-          </h4>
+          <img src={Logo} alt="Ampersand Logo" />
+          <p>Empowering You on Your Job Hunt Journey</p>
         </div>
         <FormContainer>
           <div className="heading">
