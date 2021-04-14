@@ -81,7 +81,7 @@ export const logout = ({ history }: any) => async (
   try {
     // const res = await api.post('/api/auth/logout/')
     dispatch(logoutSuccess());
-    history.push("/login");
+    history.push("/app/login");
   } catch (error) {
     console.log(error);
   }

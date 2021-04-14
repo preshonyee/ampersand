@@ -91,7 +91,7 @@ const UserCard: React.FC<IUserCard> = () => {
           </Col>
         </Row>
       </div>
-      <Button shape="round" block onClick={() => history.push("/editor")}>
+      <Button shape="round" block onClick={() => history.push("/app/editor")}>
         Go to profile
       </Button>
     </Wrapper>

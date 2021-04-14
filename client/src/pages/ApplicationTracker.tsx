@@ -91,7 +91,7 @@ const ApplicationTracker: React.FC = () => {
   };
 
   const handleEdit = (applicationID: string) => {
-    history.push(`/edit-application/${applicationID}`);
+    history.push(`/app/edit-application/${applicationID}`);
   };
 
   const columns: ColumnsType<IApplication> = [

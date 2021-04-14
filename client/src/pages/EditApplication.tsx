@@ -109,7 +109,7 @@ const EditApplication: React.FC = (props: any) => {
         setLoading(false);
         message.success(result.message, 3);
         form.resetFields();
-        history.push("/tracker");
+        history.push("/app/tracker");
       })
       .catch((error) => {
         message.error(error.message, 3);
@@ -483,7 +483,7 @@ const EditApplication: React.FC = (props: any) => {
             <Button loading={loading} type="primary" htmlType="submit">
               Update Application
             </Button>
-            <Button onClick={() => history.push("/tracker")}>
+            <Button onClick={() => history.push("/app/tracker")}>
               Cancel Update
             </Button>
           </Space>

@@ -105,7 +105,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
       .then((response) => {
         message.success(response.data.message);
         setLoading(false);
-        history.push("/");
+        history.push("/app");
       })
       .catch((error) => {
         setLoading(false);
