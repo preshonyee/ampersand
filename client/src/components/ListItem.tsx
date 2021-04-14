@@ -13,8 +13,16 @@ const Wrapper = styled.div`
   margin: 0 0 1.5rem 0;
 
   p {
-    font-size: 1rem;
+    font-size: 0.75rem;
     margin: 0 0 0.25rem 0;
+
+    @media (min-width: 800px) {
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 1200px) {
+      font-size: 1rem;
+    }
   }
 
   .inline {
@@ -108,8 +116,9 @@ export const EducationItem = ({
         <TitleText>{yearEnded}</TitleText>
       </span>
       <span className="inline honors_discipline">
-        <CaptionText>{honors}. </CaptionText>
-        <CaptionText>{discipline}</CaptionText>
+        <CaptionText>
+          {honors}. {discipline}
+        </CaptionText>
       </span>
     </Wrapper>
   );

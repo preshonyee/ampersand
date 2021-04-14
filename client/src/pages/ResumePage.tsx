@@ -26,33 +26,58 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import Layout from "../components/Layout";
+import FAB from "../components/FloatingActionButton";
 
 const { primary, black100, black200 } = COLORS.light;
 
 const ResumePageWrapper = styled.div`
-  width: 60%;
-  margin: 0 auto;
+  margin: 4rem auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 90%;
+
+  @media (min-width: 800px) {
+    width: 80%;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 1200px) {
+    width: 70%;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 1600px) {
+    width: 60%;
+    justify-content: space-between;
+  }
 `;
 
 const ActionMenu = styled.div`
   width: 18%;
+  display: none;
 `;
 
 const PaneWrapper = styled.div`
   font-size: 13px;
   background-color: #fff;
-  padding: 3rem;
+  padding: 1.5rem;
   display: flex;
-  width: 80%;
+  width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  @media (min-width: 1200px) {
+    padding: 3rem;
+  }
 
   h4 {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: ${primary};
     margin: 0.5rem 0;
+
+    @media (min-width: 1200px) {
+      font-size: 1rem;
+    }
   }
 
   .main {
@@ -62,6 +87,15 @@ const PaneWrapper = styled.div`
   .top_section {
     display: flex;
     justify-content: space-between;
+    font-size: 0.75rem;
+
+    @media (min-width: 800px) {
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 1200px) {
+      font-size: 1rem;
+    }
   }
 
   .personal_info {
@@ -387,6 +421,7 @@ const ResumePage: React.FC = () => {
             </ActionMenu>
           </>
         )}
+        <FAB />
       </ResumePageWrapper>
     </Layout>
   );
