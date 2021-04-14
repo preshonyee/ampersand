@@ -87,7 +87,7 @@ const NavMenu: React.FC = () => {
   return (
     <StyledMenu>
       <div className="brandItems">
-        <Link to="/">
+        <Link to="/app">
           <img src={Logo} alt="Ampersand Logo" />
         </Link>
       </div>
@@ -95,10 +95,10 @@ const NavMenu: React.FC = () => {
         <StyledMenuActions>
           <span className="routeLinks">
             <>
-              <Link to="/">Home</Link>
-              <Link to="/tracker">Track Applications</Link>
-              <Link to="/resume">Resume Profile</Link>
-              <Link to="/analytics">Analytics</Link>
+              <Link to="/app">Home</Link>
+              <Link to="/app/tracker">Track Applications</Link>
+              <Link to="/app/resume">Resume Profile</Link>
+              <Link to="/app/analytics">Analytics</Link>
             </>
           </span>
           <div className="dropdown">

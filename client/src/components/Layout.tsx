@@ -7,7 +7,7 @@ interface ILayout {
 
 const Wrapper = styled.div`
   main {
-    margin: 4rem 0;
+    margin: 3rem 0;
   }
 `;
 

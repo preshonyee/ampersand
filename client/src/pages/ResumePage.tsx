@@ -25,6 +25,7 @@ import {
   DownloadOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import Layout from "../components/Layout";
 
 const { primary, black100, black200 } = COLORS.light;
 
@@ -224,168 +225,170 @@ const ResumePage: React.FC = () => {
   console.log(resumeData);
 
   return (
-    <ResumePageWrapper>
-      {!isReady ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <PaneWrapper>
-            <div className="main">
-              {isEmpty ? (
-                <Empty />
-              ) : (
-                <>
-                  <div className="top_section">
-                    <div className="personal_info">
-                      <h1>
-                        {firstName} {lastName}
-                      </h1>
-                      <h2>{occupation}</h2>
+    <Layout>
+      <ResumePageWrapper>
+        {!isReady ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <PaneWrapper>
+              <div className="main">
+                {isEmpty ? (
+                  <Empty />
+                ) : (
+                  <>
+                    <div className="top_section">
+                      <div className="personal_info">
+                        <h1>
+                          {firstName} {lastName}
+                        </h1>
+                        <h2>{occupation}</h2>
+                      </div>
+                      <div className="contact_info">
+                        <ul>
+                          <li>{location}</li>
+                          <li>{website}</li>
+                          <li>{email}</li>
+                          <li>{telephone}</li>
+                        </ul>
+                      </div>
                     </div>
-                    <div className="contact_info">
-                      <ul>
-                        <li>{location}</li>
-                        <li>{website}</li>
-                        <li>{email}</li>
-                        <li>{telephone}</li>
-                      </ul>
+                    <div className="sides">
+                      <LeftSide>
+                        {education && (
+                          <div className="education_section">
+                            <h4>EDUCATION</h4>
+                            {education?.map(
+                              (school: educationType, index: number) => {
+                                const {
+                                  discipline,
+                                  honors,
+                                  nameOfInstitution,
+                                  yearEnded,
+                                } = school;
+                                return (
+                                  <EducationItem
+                                    key={index}
+                                    nameOfInstitution={nameOfInstitution}
+                                    yearEnded={yearEnded}
+                                    honors={honors}
+                                    discipline={discipline}
+                                  />
+                                );
+                              }
+                            )}
+                          </div>
+                        )}
+
+                        {skills && (
+                          <div className="skills_section">
+                            <h4>SKILLS/TOOLS</h4>
+                            {skills?.map((skills: skillType, index: number) => {
+                              const { skill, tools } = skills;
+                              return (
+                                <SkillItem
+                                  key={index}
+                                  skill={skill}
+                                  tools={tools}
+                                />
+                              );
+                            })}
+                          </div>
+                        )}
+
+                        {projects && (
+                          <div className="projects_section">
+                            <h4>PROJECTS</h4>
+                            {projects?.map(
+                              (project: projectType, index: number) => {
+                                const { title, description } = project;
+                                return (
+                                  <ProjectItem
+                                    key={index}
+                                    title={title}
+                                    description={description}
+                                  />
+                                );
+                              }
+                            )}
+                          </div>
+                        )}
+                      </LeftSide>
+                      <RightSide>
+                        {experience && (
+                          <div className="experiences_section">
+                            <h4>EXPERIENCE</h4>
+                            {experience.map(
+                              (work: experienceType, index: number) => {
+                                const {
+                                  company,
+                                  role,
+                                  location,
+                                  date,
+                                  description,
+                                } = work;
+                                return (
+                                  <ExperienceItem
+                                    key={index}
+                                    company={company}
+                                    role={role}
+                                    location={location}
+                                    date={date}
+                                    description={description}
+                                  />
+                                );
+                              }
+                            )}
+                          </div>
+                        )}
+
+                        {achievements && (
+                          <div className="achievements_section">
+                            <h4>ACHIEVEMENTS</h4>
+                            {achievements.map(
+                              (achievement: achievementType, index: number) => {
+                                const {
+                                  achievementTitle,
+                                  awarder,
+                                  date,
+                                  event,
+                                } = achievement;
+                                return (
+                                  <AchievementItem
+                                    key={index}
+                                    achievementTitle={achievementTitle}
+                                    awarder={awarder}
+                                    event={event}
+                                    date={date}
+                                  />
+                                );
+                              }
+                            )}
+                          </div>
+                        )}
+                      </RightSide>
                     </div>
-                  </div>
-                  <div className="sides">
-                    <LeftSide>
-                      {education && (
-                        <div className="education_section">
-                          <h4>EDUCATION</h4>
-                          {education?.map(
-                            (school: educationType, index: number) => {
-                              const {
-                                discipline,
-                                honors,
-                                nameOfInstitution,
-                                yearEnded,
-                              } = school;
-                              return (
-                                <EducationItem
-                                  key={index}
-                                  nameOfInstitution={nameOfInstitution}
-                                  yearEnded={yearEnded}
-                                  honors={honors}
-                                  discipline={discipline}
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-
-                      {skills && (
-                        <div className="skills_section">
-                          <h4>SKILLS/TOOLS</h4>
-                          {skills?.map((skills: skillType, index: number) => {
-                            const { skill, tools } = skills;
-                            return (
-                              <SkillItem
-                                key={index}
-                                skill={skill}
-                                tools={tools}
-                              />
-                            );
-                          })}
-                        </div>
-                      )}
-
-                      {projects && (
-                        <div className="projects_section">
-                          <h4>PROJECTS</h4>
-                          {projects?.map(
-                            (project: projectType, index: number) => {
-                              const { title, description } = project;
-                              return (
-                                <ProjectItem
-                                  key={index}
-                                  title={title}
-                                  description={description}
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-                    </LeftSide>
-                    <RightSide>
-                      {experience && (
-                        <div className="experiences_section">
-                          <h4>EXPERIENCE</h4>
-                          {experience.map(
-                            (work: experienceType, index: number) => {
-                              const {
-                                company,
-                                role,
-                                location,
-                                date,
-                                description,
-                              } = work;
-                              return (
-                                <ExperienceItem
-                                  key={index}
-                                  company={company}
-                                  role={role}
-                                  location={location}
-                                  date={date}
-                                  description={description}
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-
-                      {achievements && (
-                        <div className="achievements_section">
-                          <h4>ACHIEVEMENTS</h4>
-                          {achievements.map(
-                            (achievement: achievementType, index: number) => {
-                              const {
-                                achievementTitle,
-                                awarder,
-                                date,
-                                event,
-                              } = achievement;
-                              return (
-                                <AchievementItem
-                                  key={index}
-                                  achievementTitle={achievementTitle}
-                                  awarder={awarder}
-                                  event={event}
-                                  date={date}
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      )}
-                    </RightSide>
-                  </div>
-                </>
-              )}
-            </div>
-          </PaneWrapper>
-          <ActionMenu>
-            <Space direction="vertical">
-              <Button block icon={<EditOutlined />}>
-                Edit resume profile
-              </Button>
-              <Button block icon={<DownloadOutlined />}>
-                Download resume profile
-              </Button>
-              <Button type="primary" block danger icon={<DeleteOutlined />}>
-                Delete resume profile
-              </Button>
-            </Space>
-          </ActionMenu>
-        </>
-      )}
-    </ResumePageWrapper>
+                  </>
+                )}
+              </div>
+            </PaneWrapper>
+            <ActionMenu>
+              <Space direction="vertical">
+                <Button block icon={<EditOutlined />}>
+                  Edit resume profile
+                </Button>
+                <Button block icon={<DownloadOutlined />}>
+                  Download resume profile
+                </Button>
+                <Button type="primary" block danger icon={<DeleteOutlined />}>
+                  Delete resume profile
+                </Button>
+              </Space>
+            </ActionMenu>
+          </>
+        )}
+      </ResumePageWrapper>
+    </Layout>
   );
 };
 

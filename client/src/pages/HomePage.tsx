@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Overview from "../components/Overview";
 import Aside from "../components/Aside";
+import Layout from "../components/Layout";
 
 const Wrapper = styled.div`
   display: flex;
@@ -9,10 +10,12 @@ const Wrapper = styled.div`
 
 const HomePage = () => {
   return (
-    <Wrapper>
-      <Overview />
-      <Aside />
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Overview />
+        <Aside />
+      </Wrapper>
+    </Layout>
   );
 };
 

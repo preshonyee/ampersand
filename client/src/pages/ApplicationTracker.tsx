@@ -6,13 +6,14 @@ import React, { useEffect, useState } from "react";
 import { ExternalLink } from "react-feather";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import Layout from "../components/Layout";
 import NavMenu from "../components/NavMenu";
 import { BASE_URL } from "../constants/BaseURL";
 import { TOKEN } from "../constants/Token";
 
 const Wrapper = styled.div`
   width: 97%;
-  margin: 2rem auto;
+  margin: 4rem auto;
   display: flex;
   flex-direction: column;
 
@@ -359,27 +360,28 @@ const ApplicationTracker: React.FC = () => {
   ];
 
   return (
-    <Wrapper>
-      <NavMenu />
-      <Table
-        bordered
-        rowKey={(applicationsData) => applicationsData._id}
-        size="small"
-        columns={columns}
-        dataSource={applicationsData}
-        loading={isReady}
-        pagination={{
-          onChange(current) {
-            setPage(current);
-          },
-          pageSize: 10,
-          total: applicationsData.length,
-          showTotal: (total) => <p>{total} Total Applications</p>,
-        }}
-        scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
-        sticky
-      />
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Table
+          bordered
+          rowKey={(applicationsData) => applicationsData._id}
+          size="small"
+          columns={columns}
+          dataSource={applicationsData}
+          loading={isReady}
+          pagination={{
+            onChange(current) {
+              setPage(current);
+            },
+            pageSize: 10,
+            total: applicationsData.length,
+            showTotal: (total) => <p>{total} Total Applications</p>,
+          }}
+          scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+          sticky
+        />
+      </Wrapper>
+    </Layout>
   );
 };
 

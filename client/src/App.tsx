@@ -56,10 +56,8 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Layout>
-          <Routing />
-          <GlobalStyle />
-        </Layout>
+        <Routing />
+        <GlobalStyle />
       </BrowserRouter>
     </Provider>
   );
