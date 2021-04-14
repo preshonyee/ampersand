@@ -157,7 +157,7 @@ const NavMenu: React.FC = () => {
               <Link to="/app">Home</Link>
               <Link to="/app/tracker">Track Applications</Link>
               <Link to="/app/resume">Resume Profile</Link>
-              <Link to="/app/analytics">Analytics</Link>
+              {/* <Link to="/app/analytics">Analytics</Link> */}
             </div>
             <Button onClick={showDrawer} icon={<MenuOutlined />} />
           </span>

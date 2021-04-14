@@ -1,3 +1,6 @@
+import { Button } from "antd";
+import { Download, Edit, Edit2, MoreHorizontal, Trash } from "react-feather";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -13,7 +16,7 @@ const Wrapper = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    background: #016fb9;
+    background: #fff;
 
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   }
@@ -22,7 +25,7 @@ const Wrapper = styled.div`
     opacity: 0.8;
   }
 
-  .fab-icon-holder i {
+  .fab-icon-holder svg {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,12 +33,13 @@ const Wrapper = styled.div`
     height: 100%;
     font-size: 25px;
     color: #ffffff;
+    margin: 0 auto;
   }
 
   .fab {
     width: 60px;
     height: 60px;
-    background: #d23f31;
+    background: #ff5a5f;
   }
 
   .fab-options {
@@ -84,31 +88,33 @@ const FAB = () => {
     <Wrapper>
       <div className="fab-container">
         <div className="fab fab-icon-holder">
-          <i className="fas fa-question"></i>
+          <MoreHorizontal />
         </div>
         <ul className="fab-options">
-          <li>
+          {/* <li>
             <span className="fab-label">Documentation</span>
             <div className="fab-icon-holder">
               <i className="fas fa-file-alt"></i>
             </div>
-          </li>
+          </li> */}
           <li>
-            <span className="fab-label">Video Tutorials</span>
+            <span className="fab-label">Edit Resume</span>
             <div className="fab-icon-holder">
-              <i className="fas fa-video"></i>
+              <Link to="/app/editor">
+                <Edit color="#ff5a5f" />
+              </Link>
             </div>
           </li>
           <li>
-            <span className="fab-label">Live Chat</span>
+            <span className="fab-label">Download Resume</span>
             <div className="fab-icon-holder">
-              <i className="fas fa-comments"></i>
+              <Download color="#ff5a5f" />
             </div>
           </li>
           <li>
-            <span className="fab-label">Feedback</span>
+            <span className="fab-label">Delete Resume</span>
             <div className="fab-icon-holder">
-              <i className="fas fa-comment-alt"></i>
+              <Trash color="#ff5a5f" />
             </div>
           </li>
         </ul>

@@ -16,7 +16,7 @@ import {
 
 const MainWrapper = styled.div`
   width: 80%;
-  margin: 0 auto;
+  margin: 4rem auto;
 `;
 
 const CanvasWrapper = styled.div`
