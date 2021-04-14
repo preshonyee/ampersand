@@ -1,16 +1,14 @@
 import styled from "styled-components";
 import { Button, Avatar } from "antd";
-import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import UserCard from "./UserCard";
 
 const Radar = styled.div`
-  width: 350px;
+  width: 100%;
   height: 400px;
   background-color: #fff;
   border-radius: 1rem;
   padding: 1rem;
-  margin: 0 1rem;
   .title {
     display: flex;
     justify-content: space-between;
@@ -25,9 +23,18 @@ const Radar = styled.div`
 `;
 
 const Wrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-content: space-between;
+
+  @media (min-width: 800px) {
+    width: 40%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 40%;
+  }
 `;
 
 const Aside = () => {

@@ -12,11 +12,11 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+  width: 100%;
+  margin: 1rem 0;
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  width: 350px;
-  margin: 0 1rem 2rem 1rem;
   padding: 1rem;
   border-radius: 1rem;
 

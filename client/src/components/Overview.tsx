@@ -18,7 +18,8 @@ type IActivities = {
 };
 
 const OverviewContainer = styled.div`
-  width: 600px;
+  margin-top: 1rem;
+  width: 100%;
   background-color: #fff;
   padding: 2rem 1rem;
   border-radius: 1rem;
@@ -48,7 +49,34 @@ const OverviewContainer = styled.div`
 
   .ant-timeline-item-content {
     top: -24px;
+    width: 95%;
     margin: 0 0 0 40px;
+  }
+
+  @media (min-width: 640px) {
+    .ant-timeline-item-content {
+      top: -24px;
+      width: 90%;
+      margin: 0 0 0 40px;
+    }
+  }
+
+  @media (min-width: 800px) {
+    width: 58%;
+    .ant-timeline-item-content {
+      top: -24px;
+      width: 80%;
+      margin: 0 0 0 40px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    width: 58%;
+    .ant-timeline-item-content {
+      top: -24px;
+      width: 90%;
+      margin: 0 0 0 40px;
+    }
   }
 `;
 
