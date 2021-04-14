@@ -34,6 +34,7 @@ const slice = createSlice({
       state.user = action.payload.user;
       localStorage.setItem("jwt", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("appMode", "app");
     },
     logoutSuccess: (state) => {
       state.user = null;
@@ -81,7 +82,7 @@ export const logout = ({ history }: any) => async (
   try {
     // const res = await api.post('/api/auth/logout/')
     dispatch(logoutSuccess());
-    history.push("/app/login");
+    history.push("/login");
   } catch (error) {
     console.log(error);
   }

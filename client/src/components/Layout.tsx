@@ -9,6 +9,13 @@ const Wrapper = styled.div`
   main {
     margin: 3rem 0;
   }
+  footer {
+    text-align: center;
+    padding: 1rem 0;
+  }
+  footer a {
+    color: #ff5a5f;
+  }
 `;
 
 const Layout: React.FC<ILayout> = ({ children }) => {
@@ -16,7 +23,17 @@ const Layout: React.FC<ILayout> = ({ children }) => {
     <Wrapper>
       <NavMenu />
       <main>{children}</main>
-      <footer></footer>
+      <footer>
+        <p>
+          &copy; 2021 Ampersand.careers, built with ❤ by{" "}
+          <a
+            href="https://preshonyee.com"
+            target="_blank"
+            rel="noopener noreferrer">
+            Presh Onyee
+          </a>
+        </p>
+      </footer>
     </Wrapper>
   );
 };

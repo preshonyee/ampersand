@@ -98,7 +98,7 @@ const RegisterPage = () => {
       .then((response) => {
         setLoading(false);
         message.success(response.data.message, 3);
-        history.push("/app/login");
+        history.push("/login");
       })
       .catch((error) => {
         message.error(error.response.data.error, 3);

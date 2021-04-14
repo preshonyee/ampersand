@@ -25,7 +25,7 @@ const Routing = () => {
 
   useEffect(() => {
     if (!user) {
-      history.push("/app/login");
+      history.push("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -34,8 +34,8 @@ const Routing = () => {
     <Switch>
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/app" component={Homepage} />
-      <Route exact path="/app/register" component={RegisterPage} />
-      <Route exact path="/app/login" component={LoginPage} />
+      <Route exact path="/register" component={RegisterPage} />
+      <Route exact path="/login" component={LoginPage} />
       <Route exact path="/app/tracker" component={ApplicationTracker} />
       <Route exact path="/app/add-application" component={AddApplication} />
       <Route

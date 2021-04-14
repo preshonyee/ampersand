@@ -1,11 +1,13 @@
-import { Avatar, Dropdown, Menu } from "antd";
+import { Avatar, Button, Drawer, Dropdown, Menu } from "antd";
 import {
+  CloseCircleFilled,
   DisconnectOutlined,
   DownOutlined,
+  MenuOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +20,7 @@ const StyledMenu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 4rem;
+  padding: 0.5rem;
   background-color: #fff;
   border-bottom: 1px solid #dadce0;
   vertical-align: middle;
@@ -28,20 +30,43 @@ const StyledMenu = styled.div`
   z-index: 100;
 
   .brandItems {
+    width: 50%;
     img {
-      width: 40%;
+      width: 80%;
+      @media (min-width: 400px) {
+        width: 60%;
+      }
+      @media (min-width: 640px) {
+        width: 50%;
+      }
+      @media (min-width: 800px) {
+        width: 28%;
+      }
+      @media (min-width: 1200px) {
+        width: 20%;
+      }
+      @media (min-width: 1600px) {
+        width: 15%;
+      }
     }
   }
 
   .ant-dropdown-link {
     margin-bottom: 0;
   }
+
+  .login-links a {
+    text-decoration: none;
+    margin-right: 1.5rem;
+  }
 `;
 
 const StyledMenuActions = styled.div`
   display: flex;
 
-  .routeLinks {
+  .routeLinks .links,
+  .dropdown {
+    display: none;
   }
 
   .routeLinks a {
@@ -54,12 +79,46 @@ const StyledMenuActions = styled.div`
       cursor: pointer;
     }
   }
+
+  @media (min-width: 1200px) {
+    .routeLinks .links,
+    .dropdown {
+      display: block;
+    }
+
+    .routeLinks button {
+      display: none;
+    }
+  }
+`;
+
+const StyledDrawerLinks = styled.div`
+  a {
+    display: block;
+    margin: 1rem 0;
+    font-size: 1rem;
+    border-left: 5px solid #ff5a5f;
+    background-color: #ffecec;
+    padding: 0.5rem 0 0.5rem 1rem;
+  }
 `;
 
 const NavMenu: React.FC = () => {
   const { user } = useSelector((state: any) => state.user);
+  const MODE = localStorage.getItem("appMode");
+
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   const UserMenu = () => {
     const handleMenuClick = (e: any) => {
@@ -91,15 +150,16 @@ const NavMenu: React.FC = () => {
           <img src={Logo} alt="Ampersand Logo" />
         </Link>
       </div>
-      {user ? (
+      {user && MODE === "app" ? (
         <StyledMenuActions>
           <span className="routeLinks">
-            <>
+            <div className="links">
               <Link to="/app">Home</Link>
               <Link to="/app/tracker">Track Applications</Link>
               <Link to="/app/resume">Resume Profile</Link>
               <Link to="/app/analytics">Analytics</Link>
-            </>
+            </div>
+            <Button onClick={showDrawer} icon={<MenuOutlined />} />
           </span>
           <div className="dropdown">
             <Dropdown
@@ -120,8 +180,26 @@ const NavMenu: React.FC = () => {
               </p>
             </Dropdown>
           </div>
+          <Drawer
+            title="Menu"
+            placement="right"
+            closable={true}
+            closeIcon={<CloseCircleFilled />}
+            onClose={onClose}
+            visible={visible}>
+            <StyledDrawerLinks>
+              <Link to="/app">Home</Link>
+              <Link to="/app/tracker">Track Applications</Link>
+              <Link to="/app/resume">Resume Profile</Link>
+              <Link to="/app/analytics">Analytics</Link>
+            </StyledDrawerLinks>
+          </Drawer>
         </StyledMenuActions>
-      ) : null}
+      ) : (
+        <div className="login-links">
+          <Link to="/login">Login</Link>
+        </div>
+      )}
     </StyledMenu>
   );
 };
