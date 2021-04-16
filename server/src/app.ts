@@ -1,23 +1,22 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const morgan = require("morgan");
-const colors = require("colors");
-const connectDB = require("./config/db");
-const cors = require("cors");
-const errorHandler = require("./middleware/error");
+import express from "express";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import { magenta } from "colors";
+import connectDB from "./config/db";
+import cors from "cors";
+import errorHandler from "./middleware/error";
+// Route files
+import auth from "./routes/auth";
+import profile from "./routes/profile";
+import application from "./routes/application";
+import timeline from "./routes/timeline";
+import radar from "./routes/radar";
 
 // Load ENV variables
 dotenv.config({ path: "./config/config.env" });
 
 // Connect to database
 connectDB();
-
-// Route files
-const auth = require("./routes/auth");
-const profile = require("./routes/profile");
-const application = require("./routes/application");
-const timeline = require("./routes/timeline");
-const radar = require("./routes/radar");
 
 const app = express();
 
@@ -54,7 +53,7 @@ const server = app.listen(
 );
 
 // Handle unhandled promise rejections
-process.on("unhandledRejection", (error, promise) => {
+process.on("unhandledRejection", (error: any, promise) => {
   console.log(`Error: ${error.message}`.red);
 
   // Close server and exit process

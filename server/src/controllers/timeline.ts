@@ -1,10 +1,12 @@
-const Timeline = require("../models/Timeline");
-const ErrorResponse = require("../utils/errorResponse");
+import Timeline from "../models/Timeline";
+import ErrorResponse from "../utils/errorResponse";
+
+// TODO: Fix all any types
 
 // @description:    Create new timeline activity
 // @route:          POST /api/v1/timeline/create
 // @access          Private
-exports.createTimelineActivity = (req, res, next) => {
+exports.createTimelineActivity = (req: any, res: any, next: any) => {
   const { activityTitle, activityBody, activityType, activityDate } = req.body;
 
   // Check if fields are empty
@@ -21,13 +23,13 @@ exports.createTimelineActivity = (req, res, next) => {
 
   timeline
     .save()
-    .then((result) => {
+    .then((result: any) => {
       res.status(201).json({
         timeline: result,
         message: "timeline activity successfully created",
       });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
       return next(new ErrorResponse(error, 401));
     });
@@ -36,13 +38,13 @@ exports.createTimelineActivity = (req, res, next) => {
 // @description:    Fetch all timeline activity
 // @route:          GET /api/v1/timeline/
 // @access          Private
-exports.getTimelineActivities = (req, res) => {
+exports.getTimelineActivities = (req: any, res: any) => {
   Timeline.find()
     .sort("-createdAt")
-    .then((activities) => {
+    .then((activities: any) => {
       res.status(200).json({ count: activities.length, result: activities });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
     });
 };

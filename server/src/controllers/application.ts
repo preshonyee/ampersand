@@ -1,11 +1,14 @@
-const Application = require("../models/Application");
-const ErrorResponse = require("../utils/errorResponse");
-const axios = require("axios");
+import { Request, Response, NextFunction } from "express";
+import Application from "../models/Application";
+import ErrorResponse from "../utils/errorResponse";
+import axios from "axios";
+
+// TODO: Fix all any types
 
 // @description:    Add new application
 // @route:          POST /api/v1/application/createApplication
 // @access          Private
-exports.createApplication = (req, res, next) => {
+exports.createApplication = (req: any, res: any, next: any) => {
   const {
     dateApplied,
     company,
@@ -77,7 +80,7 @@ exports.createApplication = (req, res, next) => {
   // save application to the database
   application
     .save()
-    .then((result) => {
+    .then((result: any) => {
       res.status(201).json({
         application: result,
         message: "application successfully created",
@@ -105,7 +108,7 @@ exports.createApplication = (req, res, next) => {
           console.log(error.message);
         });
     })
-    .catch((error) => {
+    .catch((error: AsyncGenerator) => {
       console.log(error);
       return next(new ErrorResponse(error, 401));
     });
@@ -114,15 +117,15 @@ exports.createApplication = (req, res, next) => {
 // @description:    Get all applications by user
 // @route:          GET /api/v1/application/myApplications
 // @access          Private
-exports.getUserApplications = (req, res) => {
+exports.getUserApplications = (req: any, res: any) => {
   Application.find({ addedBy: req.user._id })
     .sort("-createdAt")
-    .then((myApplications) => {
+    .then((myApplications: any) => {
       res
         .status(200)
         .json({ count: myApplications.length, applications: myApplications });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
     });
 };
@@ -130,10 +133,10 @@ exports.getUserApplications = (req, res) => {
 // @description:    Get single application by user
 // @route:          GET /api/v1/application/:applicationID
 // @access          Private
-exports.getApplication = (req, res) => {
+exports.getApplication = (req: any, res: any) => {
   Application.findById({ _id: req.params.applicationID })
     .populate("addedBy", "_id firstName lastName email")
-    .then((application) => {
+    .then((application: any) => {
       if (!application) {
         return res.status(422).json({
           success: false,
@@ -142,7 +145,7 @@ exports.getApplication = (req, res) => {
       }
       res.status(200).json({ success: true, application: application });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
     });
 };
@@ -150,9 +153,9 @@ exports.getApplication = (req, res) => {
 // @description:    Delete single application
 // @route:          DELETE /api/v1/applications/delete/:applicationID
 // @access          Private
-exports.deleteApplication = (req, res) => {
+exports.deleteApplication = (req: any, res: any) => {
   Application.findOne({ _id: req.params.applicationID }).exec(
-    (error, application) => {
+    (error: any, application: any) => {
       // Check that the selected application exists
       if (!application) {
         return res.status(422).json({
@@ -178,13 +181,13 @@ exports.deleteApplication = (req, res) => {
       if (application.addedBy._id.toString() === req.user._id.toString()) {
         application
           .remove()
-          .then((result) => {
+          .then((result: any) => {
             res.json({
               success: true,
               message: "Application successfully deleted",
             });
           })
-          .catch((error) => {
+          .catch((error: any) => {
             console.log({ error });
           });
       }
@@ -195,9 +198,9 @@ exports.deleteApplication = (req, res) => {
 // @description:    Update an application
 // @route:          PUT /api/v1/applications/update/:applicationID
 // @access          Private
-exports.updateApplication = (req, res, next) => {
+exports.updateApplication = (req: any, res: any, next: any) => {
   Application.findById({ _id: req.params.applicationID }).exec(
-    (error, application) => {
+    (error: any, application: any) => {
       // Check that the application exists
       if (!application) {
         return res.status(422).json({
@@ -271,7 +274,7 @@ exports.updateApplication = (req, res, next) => {
           runValidators: true,
         })
           .populate("addedBy", "_id firstName lastName email")
-          .exec((error, result) => {
+          .exec((error: any, result: any) => {
             // Check for error
             if (error) {
               return res.status(422).json({ error: error });

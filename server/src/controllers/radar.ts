@@ -1,15 +1,17 @@
-const Radar = require("../models/Radar");
-const ErrorResponse = require("../utils/errorResponse");
-const axios = require("axios");
+import Radar from "../models/Radar";
+import ErrorResponse from "../utils/errorResponse";
+import axios from "axios";
+
+// TODO: Fix all any types
 
 // @description:    Add new company to radar
 // @route:          POST /api/v1/radar
 // @access          Private
-exports.createRadar = (req, res, next) => {
+exports.createRadar = (req: any, res: any, next: any) => {
   const { avatar, companyName, linkToCareersPage } = req.body;
 
   // Check if fields are empty
-  if ((!companyName, !linkToCareersPage)) {
+  if (!companyName || !linkToCareersPage) {
     return next(new ErrorResponse("Please enter all the field", 422));
   }
 
@@ -20,7 +22,7 @@ exports.createRadar = (req, res, next) => {
   });
   radar
     .save()
-    .then((result) => {
+    .then((result: any) => {
       res.status(201).json({
         radar: result,
         message: "radar created successfully",
@@ -40,21 +42,21 @@ exports.createRadar = (req, res, next) => {
           console.log(response.data);
         });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error.message);
-      return next(new ErrorResponse(error));
+      return next(new ErrorResponse(error, 422));
     });
 };
 
 // @description:    Fetch all radar entries
 // @route:          GET /api/v1/radar
 // @access          Private
-exports.getRadarEntries = (req, res) => {
+exports.getRadarEntries = (req: any, res: any) => {
   Radar.find()
-    .then((radar) => {
+    .then((radar: any) => {
       res.status(200).json({ count: radar.length, result: radar });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
     });
 };

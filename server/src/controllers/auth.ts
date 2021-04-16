@@ -1,11 +1,13 @@
-const bcrypt = require("bcryptjs");
-const User = require("../models/User");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import User from "../models/User";
+import jwt from "jsonwebtoken";
+
+// TODO: Fix all any types
 
 // @description:    Register user
 // @route:          POST /api/v1/auth/signup
 // @access          Public
-exports.signup = (req, res) => {
+exports.signup = (req: any, res: any) => {
   const { firstName, lastName, email, password, profilePicture } = req.body;
 
   // Validate that fields are not empty
@@ -15,7 +17,7 @@ exports.signup = (req, res) => {
 
   // Check if user already exists
   User.findOne({ email: email })
-    .then((savedUser) => {
+    .then((savedUser: any) => {
       if (savedUser) {
         return res
           .status(400)
@@ -36,7 +38,7 @@ exports.signup = (req, res) => {
           // Save the user to the database
           user
             .save()
-            .then((user) => {
+            .then((user: any) => {
               // Return response result
               res.json({
                 message: "saved successfully",
@@ -50,7 +52,7 @@ exports.signup = (req, res) => {
               });
               console.log({ user });
             })
-            .catch((error) => {
+            .catch((error: any) => {
               console.log(error);
               res.json({ error: error });
             });
@@ -60,7 +62,7 @@ exports.signup = (req, res) => {
           res.json({ error: error });
         });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
       res.json({ error: error });
     });
@@ -69,13 +71,13 @@ exports.signup = (req, res) => {
 // @description:    Login user
 // @route:          POST /api/v1/auth/login
 // @access          Public
-exports.signin = (req, res) => {
+exports.signin = (req: any, res: any) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "Please add email or password" });
   }
   User.findOne({ email: email })
-    .then((savedUser) => {
+    .then((savedUser: any) => {
       if (!savedUser) {
         return res.status(422).json({ error: "Invalid email or password" });
       }
@@ -113,7 +115,7 @@ exports.signin = (req, res) => {
           console.log(error);
         });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
     });
 };
@@ -121,12 +123,12 @@ exports.signin = (req, res) => {
 // @description:    Get current logged in user
 // @route:          POST /api/v1/auth/me
 // @access          Private
-exports.getMe = (req, res) => {
+exports.getMe = (req: any, res: any) => {
   User.findById(req.user.id)
-    .then((user) => {
+    .then((user: any) => {
       return res.status(200).json({ success: true, data: user });
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error);
     });
 };
