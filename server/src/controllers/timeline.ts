@@ -19,8 +19,9 @@ const createTimelineActivity = (req: any, res: any, next: any) => {
     activityBody,
     activityType,
     activityDate,
+    addedBy: req.user,
   });
-
+  // save timeline activity to the database
   timeline
     .save()
     .then((result: any) => {
@@ -35,11 +36,11 @@ const createTimelineActivity = (req: any, res: any, next: any) => {
     });
 };
 
-// @description:    Fetch all timeline activity
+// @description:    Fetch all timeline activity by logged in user
 // @route:          GET /api/v1/timeline/
 // @access          Private
 const getTimelineActivities = (req: any, res: any) => {
-  Timeline.find()
+  Timeline.find({ addedBy: req.user._id })
     .sort("-createdAt")
     .then((activities: any) => {
       res.status(200).json({ count: activities.length, result: activities });

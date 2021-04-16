@@ -1,4 +1,5 @@
 import express from "express";
+import requireLogin from "../middleware/requireLogin";
 import {
   createTimelineActivity,
   getTimelineActivities,
@@ -11,8 +12,8 @@ const router = express.Router();
  */
 
 // create timeline route
-router.route("/create").post(createTimelineActivity);
+router.route("/create").post(requireLogin, createTimelineActivity);
 // get all timeline activities
-router.route("/").get(getTimelineActivities);
+router.route("/").get(requireLogin, getTimelineActivities);
 
 export default router;

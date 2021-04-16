@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 
+const { ObjectId } = Schema.Types;
+
 const TimelineSchema = new Schema(
   {
     activityTitle: {
@@ -52,6 +54,10 @@ const TimelineSchema = new Schema(
     activityDate: {
       type: Date,
       default: Date.now,
+    },
+    addedBy: {
+      type: ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }
