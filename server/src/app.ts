@@ -1,7 +1,7 @@
 import express from "express";
-import dotenv from "dotenv";
+import { config } from "dotenv";
 import morgan from "morgan";
-import { magenta } from "colors";
+import "colors";
 import connectDB from "./config/db";
 import cors from "cors";
 import errorHandler from "./middleware/error";
@@ -13,7 +13,9 @@ import timeline from "./routes/timeline";
 import radar from "./routes/radar";
 
 // Load ENV variables
-dotenv.config({ path: "./config/config.env" });
+config();
+
+console.log(process.env.NODE_ENV);
 
 // Connect to database
 connectDB();
@@ -41,7 +43,7 @@ app.use("/api/v1/radar", radar);
 app.use(errorHandler);
 
 // Define port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 // Configure server
 const server = app.listen(

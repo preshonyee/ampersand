@@ -4,7 +4,7 @@ import ErrorResponse from "../utils/errorResponse";
 const errorHandler = (
   err: any, // TODO: fix this any type
   req: Request,
-  res: Response,
+  res: any,
   next: NextFunction
 ) => {
   let error = { ...err };
