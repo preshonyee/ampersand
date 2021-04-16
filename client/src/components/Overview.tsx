@@ -1,9 +1,10 @@
-import {Tag, Timeline} from "antd";
+import { Tag, Timeline, Skeleton, Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { Compass, FileText, Folder, Mail } from "react-feather";
 import styled, { css } from "styled-components";
 import axios from "axios";
 import { BASE_URL } from "../constants/BaseURL";
+import { TOKEN } from "../constants/Token";
 
 const { Item } = Timeline;
 
@@ -22,7 +23,7 @@ interface IActivities {
     remote: string;
     tags: [];
     type: string;
-  }
+  };
   activityType: activityType;
   activityDate: Date;
 }
@@ -92,60 +93,60 @@ const OverviewContainer = styled.div`
 
 const DotContainer = styled.div<Partial<IOverview>>`
   ${(props) =>
-      props.activityType === "application" &&
-      css`
-        .ant-timeline-item-head-custom {
-          background-color: #e0f5f1;
-        }
-      `}
+    props.activityType === "application" &&
+    css`
+      .ant-timeline-item-head-custom {
+        background-color: #e0f5f1;
+      }
+    `}
   ${(props) =>
-      props.activityType === "email" &&
-      css`
-        .ant-timeline-item-head-custom {
-          background-color: #dae1fb;
-        }
-      `}
+    props.activityType === "email" &&
+    css`
+      .ant-timeline-item-head-custom {
+        background-color: #dae1fb;
+      }
+    `}
   ${(props) =>
-      props.activityType === "resume" &&
-      css`
-        .ant-timeline-item-head-custom {
-          background-color: #fde9d8;
-        }
-      `}
+    props.activityType === "resume" &&
+    css`
+      .ant-timeline-item-head-custom {
+        background-color: #fde9d8;
+      }
+    `}
   ${(props) =>
-      props.activityType === "radar" &&
-      css`
-        .ant-timeline-item-head-custom {
-          background-color: #ebe7fe;
-        }
-      `}
+    props.activityType === "radar" &&
+    css`
+      .ant-timeline-item-head-custom {
+        background-color: #ebe7fe;
+      }
+    `}
 `;
 
 const DotIcon = ({ activityType }: IOverview) => {
   switch (activityType) {
     case "application":
       return (
-          <span className="dot">
-            <Folder color="#1C6B5D" />
-          </span>
+        <span className="dot">
+          <Folder color="#1C6B5D" />
+        </span>
       );
     case "email":
       return (
-          <span className="dot">
-            <Mail color="#4C6CEB" />
-          </span>
+        <span className="dot">
+          <Mail color="#4C6CEB" />
+        </span>
       );
     case "resume":
       return (
-          <span className="dot">
-            <FileText color="#F59547" />
-          </span>
+        <span className="dot">
+          <FileText color="#F59547" />
+        </span>
       );
     case "radar":
       return (
-          <span className="dot">
-            <Compass color="#7052F6" />
-          </span>
+        <span className="dot">
+          <Compass color="#7052F6" />
+        </span>
       );
     default:
       return null;
@@ -154,75 +155,100 @@ const DotIcon = ({ activityType }: IOverview) => {
 
 const Overview: React.FC<IOverview> = () => {
   const [activities, setActivities] = useState<IActivities[]>([]);
+  const [dataLoaded, setDataLoaded] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const getTimelineActivities = () => {
-    axios.get(`${BASE_URL}/timeline`).then((response) => {
-      setActivities(response.data.result);
-    });
+    axios
+      .get(`${BASE_URL}/timeline`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then((response) => {
+        const result = response.data.result;
+        setActivities(result);
+        setDataLoaded(false);
+        if (response.data.count === 0) {
+          setIsEmpty(true);
+        }
+      });
   };
 
   useEffect(() => {
     getTimelineActivities();
   }, []);
 
-  console.log(activities)
+  console.log(activities);
 
   return (
-      <OverviewContainer>
-        <h1>Overview</h1>
-        <Timeline>
-          {activities.map((activity) => {
-            const {_id, activityBody, activityDate, activityTitle, activityType} = activity;
-            switch (activityType){
-              case "application":
-                return (
-                    <DotContainer key={_id} activityType={activityType}>
-                  <Item dot={<DotIcon activityType={activityType} />}>
-                  <span>
-                    <h3>{activityTitle}</h3>
-                    <p>
-                      <Tag color="magenta">{activityBody.position}</Tag>
-                      <Tag color="red">{activityBody.location}</Tag>
-                      <Tag color="volcano">{activityBody.type}</Tag>
-                      <Tag color="orange">{activityBody.remote}</Tag>
-                    </p>
-                    <p>{activityDate.toString().substring(0, 10)}</p>
-                  </span>
-                  </Item>
-                </DotContainer>
-                );
-              case "resume":
-                return (
+    <OverviewContainer>
+      <h1>Overview</h1>
+      <Skeleton active loading={dataLoaded} paragraph={{ rows: 15 }}>
+        {isEmpty ? (
+          <Empty />
+        ) : (
+          <Timeline>
+            {activities.map((activity) => {
+              const {
+                _id,
+                activityBody,
+                activityDate,
+                activityTitle,
+                activityType,
+              } = activity;
+              switch (activityType) {
+                case "application":
+                  return (
                     <DotContainer key={_id} activityType={activityType}>
                       <Item dot={<DotIcon activityType={activityType} />}>
-                      <span>
-                        <h3>{activityTitle}</h3>
-                        <p>{activityBody.message}</p>
-                        <p>{activityDate.toString().substring(0, 10)}</p>
-                      </span>
+                        <span>
+                          <h3>{activityTitle}</h3>
+                          <p>
+                            <Tag color="magenta">{activityBody.position}</Tag>
+                            <Tag color="red">{activityBody.location}</Tag>
+                            <Tag color="volcano">{activityBody.type}</Tag>
+                            <Tag color="orange">{activityBody.remote}</Tag>
+                          </p>
+                          <p>{activityDate.toString().substring(0, 10)}</p>
+                        </span>
                       </Item>
                     </DotContainer>
-                );
-              case "radar":
-                return (
+                  );
+                case "resume":
+                  return (
                     <DotContainer key={_id} activityType={activityType}>
                       <Item dot={<DotIcon activityType={activityType} />}>
-                      <span>
-                        <h3>{activityTitle}</h3>
-                        <p>
-                          <Tag color="geekblue">{activityBody.company}</Tag>
-                        </p>
-                        <p>{activityDate.toString().substring(0, 10)}</p>
-                      </span>
+                        <span>
+                          <h3>{activityTitle}</h3>
+                          <p>{activityBody.message}</p>
+                          <p>{activityDate.toString().substring(0, 10)}</p>
+                        </span>
                       </Item>
                     </DotContainer>
-                )
-              default:
-                return null;
-            }
-          })}
-        </Timeline>
-      </OverviewContainer>
+                  );
+                case "radar":
+                  return (
+                    <DotContainer key={_id} activityType={activityType}>
+                      <Item dot={<DotIcon activityType={activityType} />}>
+                        <span>
+                          <h3>{activityTitle}</h3>
+                          <p>
+                            <Tag color="geekblue">{activityBody.company}</Tag>
+                          </p>
+                          <p>{activityDate.toString().substring(0, 10)}</p>
+                        </span>
+                      </Item>
+                    </DotContainer>
+                  );
+                default:
+                  return null;
+              }
+            })}
+          </Timeline>
+        )}
+      </Skeleton>
+    </OverviewContainer>
   );
 };
 
