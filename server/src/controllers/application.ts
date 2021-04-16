@@ -8,7 +8,7 @@ import axios from "axios";
 // @description:    Add new application
 // @route:          POST /api/v1/application/createApplication
 // @access          Private
-exports.createApplication = (req: any, res: any, next: any) => {
+const createApplication = (req: any, res: any, next: any) => {
   const {
     dateApplied,
     company,
@@ -117,7 +117,7 @@ exports.createApplication = (req: any, res: any, next: any) => {
 // @description:    Get all applications by user
 // @route:          GET /api/v1/application/myApplications
 // @access          Private
-exports.getUserApplications = (req: any, res: any) => {
+const getUserApplications = (req: any, res: any) => {
   Application.find({ addedBy: req.user._id })
     .sort("-createdAt")
     .then((myApplications: any) => {
@@ -133,7 +133,7 @@ exports.getUserApplications = (req: any, res: any) => {
 // @description:    Get single application by user
 // @route:          GET /api/v1/application/:applicationID
 // @access          Private
-exports.getApplication = (req: any, res: any) => {
+const getApplication = (req: any, res: any) => {
   Application.findById({ _id: req.params.applicationID })
     .populate("addedBy", "_id firstName lastName email")
     .then((application: any) => {
@@ -153,7 +153,7 @@ exports.getApplication = (req: any, res: any) => {
 // @description:    Delete single application
 // @route:          DELETE /api/v1/applications/delete/:applicationID
 // @access          Private
-exports.deleteApplication = (req: any, res: any) => {
+const deleteApplication = (req: any, res: any) => {
   Application.findOne({ _id: req.params.applicationID }).exec(
     (error: any, application: any) => {
       // Check that the selected application exists
@@ -198,7 +198,7 @@ exports.deleteApplication = (req: any, res: any) => {
 // @description:    Update an application
 // @route:          PUT /api/v1/applications/update/:applicationID
 // @access          Private
-exports.updateApplication = (req: any, res: any, next: any) => {
+const updateApplication = (req: any, res: any, next: any) => {
   Application.findById({ _id: req.params.applicationID }).exec(
     (error: any, application: any) => {
       // Check that the application exists
@@ -311,4 +311,12 @@ exports.updateApplication = (req: any, res: any, next: any) => {
       }
     }
   );
+};
+
+export {
+  createApplication,
+  updateApplication,
+  deleteApplication,
+  getApplication,
+  getUserApplications,
 };

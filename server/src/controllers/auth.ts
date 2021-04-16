@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 // @description:    Register user
 // @route:          POST /api/v1/auth/signup
 // @access          Public
-exports.signup = (req: any, res: any) => {
+const signup = (req: any, res: any) => {
   const { firstName, lastName, email, password, profilePicture } = req.body;
 
   // Validate that fields are not empty
@@ -71,7 +71,7 @@ exports.signup = (req: any, res: any) => {
 // @description:    Login user
 // @route:          POST /api/v1/auth/login
 // @access          Public
-exports.signin = (req: any, res: any) => {
+const signin = (req: any, res: any) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "Please add email or password" });
@@ -123,7 +123,7 @@ exports.signin = (req: any, res: any) => {
 // @description:    Get current logged in user
 // @route:          POST /api/v1/auth/me
 // @access          Private
-exports.getMe = (req: any, res: any) => {
+const getMe = (req: any, res: any) => {
   User.findById(req.user.id)
     .then((user: any) => {
       return res.status(200).json({ success: true, data: user });
@@ -132,3 +132,5 @@ exports.getMe = (req: any, res: any) => {
       console.log(error);
     });
 };
+
+export { signup, signin, getMe };

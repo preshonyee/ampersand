@@ -7,7 +7,7 @@ import axios from "axios";
 // @description:    Add new company to radar
 // @route:          POST /api/v1/radar
 // @access          Private
-exports.createRadar = (req: any, res: any, next: any) => {
+const createRadar = (req: any, res: any, next: any) => {
   const { avatar, companyName, linkToCareersPage } = req.body;
 
   // Check if fields are empty
@@ -51,7 +51,7 @@ exports.createRadar = (req: any, res: any, next: any) => {
 // @description:    Fetch all radar entries
 // @route:          GET /api/v1/radar
 // @access          Private
-exports.getRadarEntries = (req: any, res: any) => {
+const getRadarEntries = (req: any, res: any) => {
   Radar.find()
     .then((radar: any) => {
       res.status(200).json({ count: radar.length, result: radar });
@@ -60,3 +60,5 @@ exports.getRadarEntries = (req: any, res: any) => {
       console.log(error);
     });
 };
+
+export { createRadar, getRadarEntries };

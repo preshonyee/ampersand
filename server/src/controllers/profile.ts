@@ -7,7 +7,7 @@ import axios from "axios";
 // @description:    Add new resume profile
 // @route:          POST /api/v1/profile/createProfile
 // @access          Private
-exports.createProfile = (req: any, res: any, next: any) => {
+const createProfile = (req: any, res: any, next: any) => {
   const {
     firstName,
     lastName,
@@ -91,7 +91,7 @@ exports.createProfile = (req: any, res: any, next: any) => {
 // @description:    Get logged in user resume profile
 // @route:          GET /api/v1/profile/myProfile
 // @access          Private
-exports.myProfile = (req: any, res: any) => {
+const myProfile = (req: any, res: any) => {
   Profile.find({ owner: req.user._id })
     .populate("owner", "_id firstName lastName email profilePicture")
     .then((profile: any) => {
@@ -105,7 +105,7 @@ exports.myProfile = (req: any, res: any) => {
 // @description:    Update user resume profile
 // @route:          PUT /api/v1/profile/update/:profileID
 // @access          Private
-exports.updateProfile = (req: any, res: any, next: any) => {
+const updateProfile = (req: any, res: any, next: any) => {
   Profile.findById({ _id: req.params.profileID }).exec(
     (error: any, profile: any) => {
       // Check that the resume profile exists
@@ -206,7 +206,7 @@ exports.updateProfile = (req: any, res: any, next: any) => {
 // @description:    Delete resume profile
 // @route:          DELETE /api/v1/profile/delete/:profileID
 // @access          Private
-exports.deleteProfile = (req: any, res: any) => {
+const deleteProfile = (req: any, res: any) => {
   Profile.findOne({ _id: req.params.profileID }).exec(
     (error: any, profile: any) => {
       // Check that the selected resume profile exists
@@ -248,3 +248,5 @@ exports.deleteProfile = (req: any, res: any) => {
     }
   );
 };
+
+export { createProfile, updateProfile, myProfile, deleteProfile };

@@ -6,7 +6,7 @@ import ErrorResponse from "../utils/errorResponse";
 // @description:    Create new timeline activity
 // @route:          POST /api/v1/timeline/create
 // @access          Private
-exports.createTimelineActivity = (req: any, res: any, next: any) => {
+const createTimelineActivity = (req: any, res: any, next: any) => {
   const { activityTitle, activityBody, activityType, activityDate } = req.body;
 
   // Check if fields are empty
@@ -38,7 +38,7 @@ exports.createTimelineActivity = (req: any, res: any, next: any) => {
 // @description:    Fetch all timeline activity
 // @route:          GET /api/v1/timeline/
 // @access          Private
-exports.getTimelineActivities = (req: any, res: any) => {
+const getTimelineActivities = (req: any, res: any) => {
   Timeline.find()
     .sort("-createdAt")
     .then((activities: any) => {
@@ -48,3 +48,5 @@ exports.getTimelineActivities = (req: any, res: any) => {
       console.log(error);
     });
 };
+
+export { createTimelineActivity, getTimelineActivities };
