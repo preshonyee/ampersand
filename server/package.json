@@ -2,7 +2,7 @@
   "name": "ampersand-api",
   "version": "1.0.0",
   "description": "backend API for ampersand",
-  "main": "dist/index.js",
+  "main": "./src/app.ts",
   "types": "./src/types/main.d.ts",
   "scripts": {
     "start": "npm run dev",
@@ -10,8 +10,8 @@
     "build": "tsc",
     "lint": "eslint . --quiet --fix & echo 'lint complete'",
     "dev": "ts-node-dev --respawn --transpile-only ./src/app.ts",
-    "prod": "tsc && node ./built/src/app.js",
-    "debug": "tsc && node --inspect ./built/src/app.js"
+    "prod": "tsc && node ./build/src/app.js",
+    "debug": "tsc && node --inspect ./build/src/app.js"
   },
   "repository": {
     "type": "git",

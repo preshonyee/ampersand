@@ -46,8 +46,7 @@ app.use(errorHandler);
 const { PORT } = process.env;
 
 // Configure server
-const server = app.listen(
-  PORT,
+const server = app.listen(PORT, () =>
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.magenta
       .bold
@@ -55,7 +54,7 @@ const server = app.listen(
 );
 
 // Handle unhandled promise rejections
-process.on("unhandledRejection", (error: any, promise) => {
+process.on("unhandledRejection", (error: any) => {
   console.log(`Error: ${error.message}`.red);
 
   // Close server and exit process

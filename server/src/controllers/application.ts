@@ -1,4 +1,3 @@
-import { Request, Response, NextFunction } from "express";
 import axios from "axios";
 import Application from "../models/Application";
 import ErrorResponse from "../utils/errorResponse";

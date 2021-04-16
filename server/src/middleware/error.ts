@@ -1,11 +1,8 @@
-import { Request, Response, NextFunction } from "express";
 import ErrorResponse from "../utils/errorResponse";
 
 const errorHandler = (
   err: any, // TODO: fix this any type
-  req: Request,
-  res: any,
-  next: NextFunction
+  res: any
 ) => {
   let error = { ...err };
 
