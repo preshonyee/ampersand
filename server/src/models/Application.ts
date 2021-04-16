@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
+import { Schema, model } from "mongoose";
+const { ObjectId } = Schema.Types;
 
-const ApplicationSchema = new mongoose.Schema(
+const ApplicationSchema = new Schema(
   {
     dateApplied: {
       type: Date,
@@ -171,4 +171,4 @@ const ApplicationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Application", ApplicationSchema);
+export default model("Application", ApplicationSchema);

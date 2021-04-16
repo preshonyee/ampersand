@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const RadarSchema = new mongoose.Schema(
+const RadarSchema = new Schema(
   {
     avatar: {
       type: String,
@@ -17,4 +17,4 @@ const RadarSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Radar", RadarSchema);
+export default model("Radar", RadarSchema);

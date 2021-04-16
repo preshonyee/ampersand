@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
+import { Schema, model } from "mongoose";
+const { ObjectId } = Schema.Types;
 
-const ProfileSchema = new mongoose.Schema(
+const ProfileSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -116,4 +116,4 @@ const ProfileSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Profile", ProfileSchema);
+export default model("Profile", ProfileSchema);

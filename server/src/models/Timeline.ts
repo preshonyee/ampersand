@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
+import { Schema, model } from "mongoose";
 
-const TimelineSchema = new mongoose.Schema(
+const TimelineSchema = new Schema(
   {
     activityTitle: {
       type: String,
@@ -58,4 +57,4 @@ const TimelineSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Timeline", TimelineSchema);
+export default model("Timeline", TimelineSchema);
