@@ -24,6 +24,12 @@
   },
   "homepage": "https://github.com/Preshonyee/ampersand-api#readme",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.10",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.11",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/morgan": "^1.9.2",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
@@ -32,7 +38,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "typescript": "^4.2.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
