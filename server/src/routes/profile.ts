@@ -1,12 +1,12 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createProfile,
   myProfile,
   updateProfile,
   deleteProfile,
-} = require("../controllers/profile");
+} from "../controllers/profile";
 
-const requireLogin = require("../middleware/requireLogin");
+import requireLogin from "../middleware/requireLogin";
 
 const router = express.Router();
 
@@ -21,4 +21,4 @@ router.route("/update/:profileID").put(requireLogin, updateProfile);
 // delete resume profile
 router.route("/delete/:profileID").delete(requireLogin, deleteProfile);
 
-module.exports = router;
+export default router;

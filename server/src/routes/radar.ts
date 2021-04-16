@@ -1,7 +1,7 @@
-const express = require("express");
-const { createRadar, getRadarEntries } = require("../controllers/radar");
+import express from "express";
+import { createRadar, getRadarEntries } from "../controllers/radar";
 
-const requireLogin = require("../middleware/requireLogin");
+import requireLogin from "../middleware/requireLogin";
 
 const router = express.Router();
 
@@ -12,4 +12,4 @@ router
   .post(requireLogin, createRadar)
   .get(requireLogin, getRadarEntries);
 
-module.exports = router;
+export default router;

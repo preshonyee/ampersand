@@ -1,8 +1,8 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createTimelineActivity,
   getTimelineActivities,
-} = require("../controllers/timeline");
+} from "../controllers/timeline";
 
 const router = express.Router();
 
@@ -15,4 +15,4 @@ router.route("/create").post(createTimelineActivity);
 // get all timeline activities
 router.route("/").get(getTimelineActivities);
 
-module.exports = router;
+export default router;

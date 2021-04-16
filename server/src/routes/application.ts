@@ -1,13 +1,13 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createApplication,
   getUserApplications,
   deleteApplication,
   updateApplication,
   getApplication,
-} = require("../controllers/application");
+} from "../controllers/application";
 
-const requireLogin = require("../middleware/requireLogin");
+import requireLogin from "../middleware/requireLogin";
 
 const router = express.Router();
 
@@ -26,4 +26,4 @@ router.route("/delete/:applicationID").delete(requireLogin, deleteApplication);
 // update application
 router.route("/update/:applicationID").put(requireLogin, updateApplication);
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const express = require("express");
-const { signup, signin, getMe } = require("../controllers/auth");
+import express from "express";
+import { signup, signin, getMe } from "../controllers/auth";
 
-const requireLogin = require("../middleware/requireLogin");
+import requireLogin from "../middleware/requireLogin";
 
 const router = express.Router();
 
@@ -13,4 +13,4 @@ router.route("/signup").post(signup);
 router.route("/signin").post(signin);
 router.route("/me").get(requireLogin, getMe);
 
-module.exports = router;
+export default router;
