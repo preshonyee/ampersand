@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+
 const { ObjectId } = Schema.Types;
 
 const ProfileSchema = new Schema(

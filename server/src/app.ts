@@ -2,8 +2,8 @@ import express from "express";
 import { config } from "dotenv";
 import morgan from "morgan";
 import "colors";
-import connectDB from "./config/db";
 import cors from "cors";
+import connectDB from "./config/db";
 import errorHandler from "./middleware/error";
 // Route files
 import auth from "./routes/auth";
@@ -43,7 +43,7 @@ app.use("/api/v1/radar", radar);
 app.use(errorHandler);
 
 // Define port
-const PORT = process.env.PORT;
+const { PORT } = process.env;
 
 // Configure server
 const server = app.listen(

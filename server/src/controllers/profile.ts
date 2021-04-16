@@ -1,6 +1,6 @@
+import axios from "axios";
 import Profile from "../models/Profile";
 import ErrorResponse from "../utils/errorResponse";
-import axios from "axios";
 
 // TODO: Fix all any types
 
@@ -44,18 +44,18 @@ const createProfile = (req: any, res: any, next: any) => {
   req.user.password = undefined; // To exempt the password from showing up in the response
 
   const profile = new Profile({
-    firstName: firstName,
-    lastName: lastName,
-    occupation: occupation,
-    location: location,
-    website: website,
-    email: email,
-    telephone: telephone,
-    education: education,
-    skills: skills,
-    projects: projects,
-    experience: experience,
-    achievements: achievements,
+    firstName,
+    lastName,
+    occupation,
+    location,
+    website,
+    email,
+    telephone,
+    education,
+    skills,
+    projects,
+    experience,
+    achievements,
     owner: req.user,
   });
   profile
@@ -118,7 +118,7 @@ const updateProfile = (req: any, res: any, next: any) => {
 
       // If any error occurs
       if (error) {
-        return res.status(422).json({ success: false, error: error });
+        return res.status(422).json({ success: false, error });
       }
 
       // Make sure that the user is the owner of the resume profile
@@ -173,14 +173,14 @@ const updateProfile = (req: any, res: any, next: any) => {
           .exec((error: any, result: any) => {
             // Check for error
             if (error) {
-              return res.status(422).json({ error: error });
-            } else {
-              res.status(200).json({
-                success: true,
-                message: "Resume profile updated successfully",
-                result: result,
-              });
+              return res.status(422).json({ error });
             }
+            res.status(200).json({
+              success: true,
+              message: "Resume profile updated successfully",
+              result,
+            });
+
             // log out profile updated activity to Timeline
             axios
               .post("http://localhost:5000/api/v1/timeline/create", {
@@ -219,7 +219,7 @@ const deleteProfile = (req: any, res: any) => {
 
       // If error occurs
       if (error) {
-        return res.status(422).json({ success: false, error: error });
+        return res.status(422).json({ success: false, error });
       }
 
       // Make sure the user is the owner of the profile

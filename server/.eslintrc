@@ -6,7 +6,7 @@
   "extends": [
     "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
+    "prettier",
     "plugin:prettier/recommended",
     "plugin:jest/recommended"
   ],
@@ -17,7 +17,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
   },
   "rules": {
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import axios from "axios";
 import Application from "../models/Application";
 import ErrorResponse from "../utils/errorResponse";
-import axios from "axios";
 
 // TODO: Fix all any types
 
@@ -56,24 +56,24 @@ const createApplication = (req: any, res: any, next: any) => {
   req.user.password = undefined; // To exempt the password from showing up in the response
 
   const application = new Application({
-    dateApplied: dateApplied,
-    company: company,
-    location: location,
-    position: position,
-    type: type,
-    source: source,
-    strategy: strategy,
-    coverLetter: coverLetter,
-    resume: resume,
-    referral: referral,
-    relocation: relocation,
-    remote: remote,
-    mainContact: mainContact,
-    receptionMail: receptionMail,
-    status: status,
-    likelihoodOfHiring: likelihoodOfHiring,
-    lastTimeContacted: lastTimeContacted,
-    tags: tags,
+    dateApplied,
+    company,
+    location,
+    position,
+    type,
+    source,
+    strategy,
+    coverLetter,
+    resume,
+    referral,
+    relocation,
+    remote,
+    mainContact,
+    receptionMail,
+    status,
+    likelihoodOfHiring,
+    lastTimeContacted,
+    tags,
     addedBy: req.user,
   });
 
@@ -143,7 +143,7 @@ const getApplication = (req: any, res: any) => {
           error: `Application with ${req.params.applicationID} ID doesn't exist`,
         });
       }
-      res.status(200).json({ success: true, application: application });
+      res.status(200).json({ success: true, application });
     })
     .catch((error: any) => {
       console.log(error);
@@ -166,7 +166,7 @@ const deleteApplication = (req: any, res: any) => {
 
       // If error occurs
       if (error) {
-        return res.status(422).json({ success: false, error: error });
+        return res.status(422).json({ success: false, error });
       }
 
       // Make sure user is the owner of the application
@@ -211,7 +211,7 @@ const updateApplication = (req: any, res: any, next: any) => {
 
       // If error occurs
       if (error) {
-        return res.status(422).json({ success: false, error: error });
+        return res.status(422).json({ success: false, error });
       }
 
       // Make sure that user is the owner of the application
@@ -277,36 +277,35 @@ const updateApplication = (req: any, res: any, next: any) => {
           .exec((error: any, result: any) => {
             // Check for error
             if (error) {
-              return res.status(422).json({ error: error });
-            } else {
-              res.status(200).json({
-                success: true,
-                message: "Application updated successfully",
-                result: result,
-              });
-              // log out application updated activity to Timeline
-              axios
-                .post("http://localhost:5000/api/v1/timeline/create", {
-                  activityTitle: `You updated your application at ${result.company}`,
-                  activityBody: {
-                    company: result.company,
-                    location: result.location,
-                    position: result.position[0].positionTitle,
-                    type: result.type,
-                    remote: result.remote,
-                    tags: result.tags,
-                    message: "You updated your application, good luck",
-                  },
-                  activityType: "application",
-                  activityDate: Date.now(),
-                })
-                .then((response) => {
-                  console.log(response.data);
-                })
-                .catch((error) => {
-                  console.log(error.message);
-                });
+              return res.status(422).json({ error });
             }
+            res.status(200).json({
+              success: true,
+              message: "Application updated successfully",
+              result,
+            });
+            // log out application updated activity to Timeline
+            axios
+              .post("http://localhost:5000/api/v1/timeline/create", {
+                activityTitle: `You updated your application at ${result.company}`,
+                activityBody: {
+                  company: result.company,
+                  location: result.location,
+                  position: result.position[0].positionTitle,
+                  type: result.type,
+                  remote: result.remote,
+                  tags: result.tags,
+                  message: "You updated your application, good luck",
+                },
+                activityType: "application",
+                activityDate: Date.now(),
+              })
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
           });
       }
     }

@@ -15,10 +15,10 @@ const createTimelineActivity = (req: any, res: any, next: any) => {
   }
 
   const timeline = new Timeline({
-    activityTitle: activityTitle,
-    activityBody: activityBody,
-    activityType: activityType,
-    activityDate: activityDate,
+    activityTitle,
+    activityBody,
+    activityType,
+    activityDate,
   });
 
   timeline

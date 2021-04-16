@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
-import User from "../models/User";
 import jwt from "jsonwebtoken";
+import User from "../models/User";
 
 // TODO: Fix all any types
 
@@ -16,7 +16,7 @@ const signup = (req: any, res: any) => {
   }
 
   // Check if user already exists
-  User.findOne({ email: email })
+  User.findOne({ email })
     .then((savedUser: any) => {
       if (savedUser) {
         return res
@@ -29,11 +29,11 @@ const signup = (req: any, res: any) => {
         .then((hashedPassword) => {
           // Create the new user
           const user = new User({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
+            firstName,
+            lastName,
+            email,
             password: hashedPassword,
-            profilePicture: profilePicture,
+            profilePicture,
           });
           // Save the user to the database
           user
@@ -44,27 +44,27 @@ const signup = (req: any, res: any) => {
                 message: "saved successfully",
                 result: {
                   _id: user._id,
-                  firstName: firstName,
-                  lastName: lastName,
-                  email: email,
-                  profilePicture: profilePicture,
+                  firstName,
+                  lastName,
+                  email,
+                  profilePicture,
                 },
               });
               console.log({ user });
             })
             .catch((error: any) => {
               console.log(error);
-              res.json({ error: error });
+              res.json({ error });
             });
         })
         .catch((error) => {
           console.log(error);
-          res.json({ error: error });
+          res.json({ error });
         });
     })
     .catch((error: any) => {
       console.log(error);
-      res.json({ error: error });
+      res.json({ error });
     });
 };
 
@@ -76,7 +76,7 @@ const signin = (req: any, res: any) => {
   if (!email || !password) {
     return res.status(422).json({ error: "Please add email or password" });
   }
-  User.findOne({ email: email })
+  User.findOne({ email })
     .then((savedUser: any) => {
       if (!savedUser) {
         return res.status(422).json({ error: "Invalid email or password" });
@@ -98,13 +98,13 @@ const signin = (req: any, res: any) => {
             } = savedUser;
 
             res.json({
-              token: token,
+              token,
               user: {
                 id: _id,
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                profilePicture: profilePicture,
+                firstName,
+                lastName,
+                email,
+                profilePicture,
               },
             });
           } else {

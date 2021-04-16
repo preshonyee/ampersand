@@ -1,6 +1,6 @@
+import axios from "axios";
 import Radar from "../models/Radar";
 import ErrorResponse from "../utils/errorResponse";
-import axios from "axios";
 
 // TODO: Fix all any types
 
@@ -16,9 +16,9 @@ const createRadar = (req: any, res: any, next: any) => {
   }
 
   const radar = new Radar({
-    avatar: avatar,
-    companyName: companyName,
-    linkToCareersPage: linkToCareersPage,
+    avatar,
+    companyName,
+    linkToCareersPage,
   });
   radar
     .save()
