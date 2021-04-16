@@ -7,7 +7,7 @@ interface IProfileLayout {
 }
 
 const Wrapper = styled.div`
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
   padding: 5rem 0;
   display: flex;

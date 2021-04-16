@@ -20,6 +20,8 @@ import AnalyticsPage from "./pages/Analytics";
 import LandingPage from "./pages/LandingPage";
 import AccountPage from "./pages/Account";
 import EditProfilePage from "./pages/EditProfile";
+import PasswordPage from "./pages/PasswordPage";
+import CloseAccount from "./pages/CloseAccount";
 
 const Routing = () => {
   const history = useHistory();
@@ -39,7 +41,9 @@ const Routing = () => {
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/app/@preshonyee" component={AccountPage} />
-      <Route exact path="/app/account" component={EditProfilePage} />
+      <Route exact path="/account" component={EditProfilePage} />
+      <Route exact path="/account/password" component={PasswordPage} />
+      <Route exact path="/account/close" component={CloseAccount} />
       <Route exact path="/app/tracker" component={ApplicationTracker} />
       <Route exact path="/app/add-application" component={AddApplication} />
       <Route
