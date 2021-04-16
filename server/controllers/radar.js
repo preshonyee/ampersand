@@ -1,5 +1,6 @@
 const Radar = require("../models/Radar");
 const ErrorResponse = require("../utils/errorResponse");
+const axios = require("axios");
 
 // @description:    Add new company to radar
 // @route:          POST /api/v1/radar
@@ -24,6 +25,20 @@ exports.createRadar = (req, res, next) => {
         radar: result,
         message: "radar created successfully",
       });
+      // log out profile updated activity to Timeline
+      axios
+          .post("http://localhost:5000/api/v1/timeline/create", {
+            activityTitle: `You added ${result.companyName} to your radar`,
+            activityBody: {
+              message: `You added ${result.companyName} to your radar`,
+              company: companyName
+            },
+            activityType: "radar",
+            activityDate: Date.now(),
+          })
+          .then((response) => {
+            console.log(response.data);
+          })
     })
     .catch((error) => {
       console.log(error.message);

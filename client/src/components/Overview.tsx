@@ -1,6 +1,9 @@
-import { Timeline } from "antd";
+import {Tag, Timeline} from "antd";
+import React, { useEffect, useState } from "react";
 import { Compass, FileText, Folder, Mail } from "react-feather";
 import styled, { css } from "styled-components";
+import axios from "axios";
+import { BASE_URL } from "../constants/BaseURL";
 
 const { Item } = Timeline;
 
@@ -8,14 +11,21 @@ type activityType = "application" | "email" | "resume" | "radar";
 interface IOverview {
   activityType?: activityType;
 }
-
-type IActivities = {
-  id: number;
+interface IActivities {
+  _id: number;
   activityTitle: string;
-  activityBody: string;
+  activityBody: {
+    company: string;
+    location: string;
+    message: string;
+    position: string;
+    remote: string;
+    tags: [];
+    type: string;
+  }
   activityType: activityType;
-  activityDate: string;
-};
+  activityDate: Date;
+}
 
 const OverviewContainer = styled.div`
   margin-top: 1rem;
@@ -82,139 +92,137 @@ const OverviewContainer = styled.div`
 
 const DotContainer = styled.div<Partial<IOverview>>`
   ${(props) =>
-    props.activityType === "application" &&
-    css`
-      .ant-timeline-item-head-custom {
-        background-color: #e0f5f1;
-      }
-    `}
+      props.activityType === "application" &&
+      css`
+        .ant-timeline-item-head-custom {
+          background-color: #e0f5f1;
+        }
+      `}
   ${(props) =>
-    props.activityType === "email" &&
-    css`
-      .ant-timeline-item-head-custom {
-        background-color: #dae1fb;
-      }
-    `}
+      props.activityType === "email" &&
+      css`
+        .ant-timeline-item-head-custom {
+          background-color: #dae1fb;
+        }
+      `}
   ${(props) =>
-    props.activityType === "resume" &&
-    css`
-      .ant-timeline-item-head-custom {
-        background-color: #fde9d8;
-      }
-    `}
+      props.activityType === "resume" &&
+      css`
+        .ant-timeline-item-head-custom {
+          background-color: #fde9d8;
+        }
+      `}
   ${(props) =>
-    props.activityType === "radar" &&
-    css`
-      .ant-timeline-item-head-custom {
-        background-color: #ebe7fe;
-      }
-    `}
+      props.activityType === "radar" &&
+      css`
+        .ant-timeline-item-head-custom {
+          background-color: #ebe7fe;
+        }
+      `}
 `;
 
 const DotIcon = ({ activityType }: IOverview) => {
   switch (activityType) {
     case "application":
       return (
-        <span className="dot">
-          <Folder color="#1C6B5D" />
-        </span>
+          <span className="dot">
+            <Folder color="#1C6B5D" />
+          </span>
       );
     case "email":
       return (
-        <span className="dot">
-          <Mail color="#4C6CEB" />
-        </span>
+          <span className="dot">
+            <Mail color="#4C6CEB" />
+          </span>
       );
     case "resume":
       return (
-        <span className="dot">
-          <FileText color="#F59547" />
-        </span>
+          <span className="dot">
+            <FileText color="#F59547" />
+          </span>
       );
     case "radar":
       return (
-        <span className="dot">
-          <Compass color="#7052F6" />
-        </span>
+          <span className="dot">
+            <Compass color="#7052F6" />
+          </span>
       );
     default:
       return null;
   }
 };
 
-const Overview: React.FC<IOverview> = ({ activityType }) => {
-  const activities: IActivities[] = [
-    {
-      id: 1,
-      activityTitle: "You submitted an application at Twitter",
-      activityBody:
-        "Use our automated actions and customizable templates to strengthen your hiring. Take your recruiting to the next level by introducing best practices and standardizing techniques.",
-      activityType: "application",
-      activityDate: "2021-03-27",
-    },
-    {
-      id: 2,
-      activityTitle: "You added Shopify to your radar",
-      activityBody:
-        "Use our automated actions and customizable templates to strengthen your hiring. Take your recruiting to the next level by introducing best practices and standardizing techniques.",
-      activityType: "radar",
-      activityDate: "2021-03-27",
-    },
-    {
-      id: 3,
-      activityTitle: "You updated your application at Webflow",
-      activityBody:
-        "Use our automated actions and customizable templates to strengthen your hiring. Take your recruiting to the next level by introducing best practices and standardizing techniques.",
-      activityType: "application",
-      activityDate: "2021-03-27",
-    },
-    {
-      id: 4,
-      activityTitle: "You created your resume profile",
-      activityBody:
-        "Use our automated actions and customizable templates to strengthen your hiring. Take your recruiting to the next level by introducing best practices and standardizing techniques.",
-      activityType: "resume",
-      activityDate: "2021-03-27",
-    },
-    {
-      id: 5,
-      activityTitle: "You created a new cover letter",
-      activityBody:
-        "Use our automated actions and customizable templates to strengthen your hiring. Take your recruiting to the next level by introducing best practices and standardizing techniques.",
-      activityType: "email",
-      activityDate: "2021-03-27",
-    },
-    {
-      id: 6,
-      activityTitle: "You updated resume profile",
-      activityBody:
-        "Use our automated actions and customizable templates to strengthen your hiring. Take your recruiting to the next level by introducing best practices and standardizing techniques.",
-      activityType: "resume",
-      activityDate: "2021-03-27",
-    },
-  ];
+const Overview: React.FC<IOverview> = () => {
+  const [activities, setActivities] = useState<IActivities[]>([]);
+
+  const getTimelineActivities = () => {
+    axios.get(`${BASE_URL}/timeline`).then((response) => {
+      setActivities(response.data.result);
+    });
+  };
+
+  useEffect(() => {
+    getTimelineActivities();
+  }, []);
+
+  console.log(activities)
 
   return (
-    <OverviewContainer>
-      <h1>Overview</h1>
-      <Timeline>
-        {activities.map((activity) => {
-          return (
-            <DotContainer activityType={activity.activityType}>
-              <Item
-                key={activity.id}
-                dot={<DotIcon activityType={activity.activityType} />}>
-                <span>
-                  <h3>{activity.activityTitle}</h3>
-                  <p>{activity.activityBody}</p>
-                  <p>{activity.activityDate}</p>
-                </span>
-              </Item>
-            </DotContainer>
-          );
-        })}
-      </Timeline>
-    </OverviewContainer>
+      <OverviewContainer>
+        <h1>Overview</h1>
+        <Timeline>
+          {activities.map((activity) => {
+            const {_id, activityBody, activityDate, activityTitle, activityType} = activity;
+            switch (activityType){
+              case "application":
+                return (
+                    <DotContainer key={_id} activityType={activityType}>
+                  <Item dot={<DotIcon activityType={activityType} />}>
+                  <span>
+                    <h3>{activityTitle}</h3>
+                    <p>
+                      <Tag color="magenta">{activityBody.position}</Tag>
+                      <Tag color="red">{activityBody.location}</Tag>
+                      <Tag color="volcano">{activityBody.type}</Tag>
+                      <Tag color="orange">{activityBody.remote}</Tag>
+                    </p>
+                    <p>{activityDate.toString().substring(0, 10)}</p>
+                  </span>
+                  </Item>
+                </DotContainer>
+                );
+              case "resume":
+                return (
+                    <DotContainer key={_id} activityType={activityType}>
+                      <Item dot={<DotIcon activityType={activityType} />}>
+                      <span>
+                        <h3>{activityTitle}</h3>
+                        <p>{activityBody.message}</p>
+                        <p>{activityDate.toString().substring(0, 10)}</p>
+                      </span>
+                      </Item>
+                    </DotContainer>
+                );
+              case "radar":
+                return (
+                    <DotContainer key={_id} activityType={activityType}>
+                      <Item dot={<DotIcon activityType={activityType} />}>
+                      <span>
+                        <h3>{activityTitle}</h3>
+                        <p>
+                          <Tag color="geekblue">{activityBody.company}</Tag>
+                        </p>
+                        <p>{activityDate.toString().substring(0, 10)}</p>
+                      </span>
+                      </Item>
+                    </DotContainer>
+                )
+              default:
+                return null;
+            }
+          })}
+        </Timeline>
+      </OverviewContainer>
   );
 };
 
