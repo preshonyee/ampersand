@@ -6,6 +6,8 @@ interface ILayout {
 }
 
 const Wrapper = styled.div`
+  background-color: #fff;
+  min-height: 100vh;
   main {
     margin: 3rem 0;
   }
