@@ -1,6 +1,6 @@
 # Ampersand
 
-> Ampersand is an open-source web platform that provides a set of tools to help anyone in search of a new job. The app comprises of a job application tracker, resume builder and an analytics dashboard that analyzes data from every single application. It is built with React, TypeScript, NodeJS, and MongoDB.
+Ampersand is an open-source web platform that provides a set of tools to help anyone in search of a new job. The app comprises of a job application tracker, resume builder and an analytics dashboard that analyzes data from every single application. It is built with React, TypeScript, NodeJS, and MongoDB.
 
 ## Backend API
 
