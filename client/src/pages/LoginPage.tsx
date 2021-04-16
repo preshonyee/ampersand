@@ -113,18 +113,12 @@ const LoginPage = () => {
         setLoading(false);
         dispatch(login({ payload: result }));
         message.success("Login successfully", 3);
-      })
-
-      .catch((error) => {
-        console.log(error);
-        // Remove all console.logs from the code afterwards
-        setLoading(false);
+        history.push("/app");
       })
       .then(() => {
-        history.push("/app");
         setTimeout(function () {
           window.location.reload();
-        }, 15);
+        }, 30);
       })
       .catch((error) => {
         message.error(error.response.data.error, 3);

@@ -3,10 +3,11 @@ import NavMenu from "./NavMenu";
 
 interface ILayout {
   children: React.ReactNode;
+  background?: string;
 }
 
-const Wrapper = styled.div`
-  background-color: #fff;
+const Wrapper = styled.div<ILayout>`
+  background-color: ${(props) => props.background || "#f2f2f2"};
   min-height: 100vh;
   main {
     margin: 3rem 0;
