@@ -4,7 +4,7 @@ import ErrorResponse from "../utils/errorResponse";
 
 // TODO: Fix all any types
 
-const requireLogin = (req: any, next: any) => {
+const requireLogin = (req: any, res: any, next: any) => {
   const { authorization } = req.headers;
   if (!authorization) {
     return next(new ErrorResponse("You must be logged in", 401));

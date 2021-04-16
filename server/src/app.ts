@@ -5,20 +5,19 @@ import "colors";
 import cors from "cors";
 import connectDB from "./config/db";
 import errorHandler from "./middleware/error";
+
+// Load ENV variables
+config();
+
+// Connect to database
+connectDB();
+
 // Route files
 import auth from "./routes/auth";
 import profile from "./routes/profile";
 import application from "./routes/application";
 import timeline from "./routes/timeline";
 import radar from "./routes/radar";
-
-// Load ENV variables
-config();
-
-console.log(process.env.NODE_ENV);
-
-// Connect to database
-connectDB();
 
 const app = express();
 

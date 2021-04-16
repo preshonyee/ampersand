@@ -91,7 +91,7 @@ const createProfile = (req: any, res: any, next: any) => {
 // @description:    Get logged in user resume profile
 // @route:          GET /api/v1/profile/myProfile
 // @access          Private
-const myProfile = (req: any, res: any) => {
+const myProfile = (req: any, res: any, next: any) => {
   Profile.find({ owner: req.user._id })
     .populate("owner", "_id firstName lastName email profilePicture")
     .then((profile: any) => {
@@ -99,6 +99,7 @@ const myProfile = (req: any, res: any) => {
     })
     .catch((error: any) => {
       console.log(error);
+      return next(new ErrorResponse(error, 422));
     });
 };
 
