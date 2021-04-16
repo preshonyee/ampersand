@@ -4,9 +4,7 @@ Ampersand is an open-source web platform that provides a set of tools to help an
 
 ## Backend API
 
-Ampersand backend is a REST API service entirely built with NodeJS and MongoDB cloud database. It is hosted on [Render](https://render.com).
-
-I'm currently working on migrating the backend API to TypeScript.
+Ampersand backend is a REST API service entirely built with TypeScript, NodeJS and MongoDB cloud database. It is hosted on [Render](https://render.com).
 
 ### Usage
 
