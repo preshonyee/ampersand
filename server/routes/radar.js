@@ -1,5 +1,5 @@
 const express = require("express");
-const { createRadar } = require("../controllers/radar");
+const { createRadar, getRadarEntries } = require("../controllers/radar");
 
 const requireLogin = require("../middleware/requireLogin");
 
@@ -7,7 +7,9 @@ const router = express.Router();
 
 // app.use("/api/v1/radar", radar);
 
-// create radar
-router.route("/").post(requireLogin, createRadar);
+router
+  .route("/")
+  .post(requireLogin, createRadar)
+  .get(requireLogin, getRadarEntries);
 
 module.exports = router;

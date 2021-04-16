@@ -27,21 +27,34 @@ exports.createRadar = (req, res, next) => {
       });
       // log out profile updated activity to Timeline
       axios
-          .post("http://localhost:5000/api/v1/timeline/create", {
-            activityTitle: `You added ${result.companyName} to your radar`,
-            activityBody: {
-              message: `You added ${result.companyName} to your radar`,
-              company: companyName
-            },
-            activityType: "radar",
-            activityDate: Date.now(),
-          })
-          .then((response) => {
-            console.log(response.data);
-          })
+        .post("http://localhost:5000/api/v1/timeline/create", {
+          activityTitle: `You added ${result.companyName} to your radar`,
+          activityBody: {
+            message: `You added ${result.companyName} to your radar`,
+            company: companyName,
+          },
+          activityType: "radar",
+          activityDate: Date.now(),
+        })
+        .then((response) => {
+          console.log(response.data);
+        });
     })
     .catch((error) => {
       console.log(error.message);
       return next(new ErrorResponse(error));
+    });
+};
+
+// @description:    Fetch all radar entries
+// @route:          GET /api/v1/radar
+// @access          Private
+exports.getRadarEntries = (req, res) => {
+  Radar.find()
+    .then((radar) => {
+      res.status(200).json({ count: radar.length, result: radar });
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
