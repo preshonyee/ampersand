@@ -7,8 +7,8 @@ interface ILayout {
 }
 
 const Wrapper = styled.div<ILayout>`
-  background-color: ${(props) => props.background || "#f2f2f2"};
   min-height: 100vh;
+  background-color: ${(props) => props.background || "#f5f5f5"};
   main {
     margin: 3rem 0;
   }
@@ -21,9 +21,9 @@ const Wrapper = styled.div<ILayout>`
   }
 `;
 
-const Layout: React.FC<ILayout> = ({ children }) => {
+const Layout: React.FC<ILayout> = ({ children, background }) => {
   return (
-    <Wrapper>
+    <Wrapper background={background}>
       <NavMenu />
       <main>{children}</main>
       <footer>

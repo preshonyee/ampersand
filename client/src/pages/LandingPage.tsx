@@ -87,7 +87,7 @@ const Wrapper = styled.div`
 
 const LandingPage = () => {
   return (
-    <Layout>
+    <Layout background="#fff">
       <Wrapper>
         <section>
           <h1>Empowering Your Job Search</h1>
