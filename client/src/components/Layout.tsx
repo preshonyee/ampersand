@@ -10,7 +10,7 @@ const Wrapper = styled.div<ILayout>`
   min-height: 100vh;
   background-color: ${(props) => props.background || "#f5f5f5"};
   main {
-    margin: 3rem 0;
+    padding: 3rem 0;
   }
   footer {
     text-align: center;

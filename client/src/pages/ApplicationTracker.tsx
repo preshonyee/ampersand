@@ -12,7 +12,7 @@ import { TOKEN } from "../constants/Token";
 
 const Wrapper = styled.div`
   width: 97%;
-  margin: 4rem auto;
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
 
@@ -359,7 +359,7 @@ const ApplicationTracker: React.FC = () => {
   ];
 
   return (
-    <Layout>
+    <Layout background="#fff">
       <Wrapper>
         <Table
           bordered
@@ -373,8 +373,11 @@ const ApplicationTracker: React.FC = () => {
               setPage(current);
             },
             pageSize: 10,
+            position: ["topRight", "bottomRight"],
             total: applicationsData.length,
-            showTotal: (total) => <p>{total} Total Applications</p>,
+            showTotal: (total: number, range) => (
+              <p>{`${range[0]}-${range[1]} of ${total} applications`}</p>
+            ),
           }}
           scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
           sticky

@@ -51,8 +51,9 @@ export const OPTIONS = {
   typeOptions: [
     { id: 1, label: "Part Time", value: "Part Time" },
     { id: 2, label: "Full Time", value: "Full Time" },
-    { id: 3, label: "Contract", value: "Contract" },
-    { id: 4, label: "Agency", value: "Agency" },
+    { id: 3, label: "Internship", value: "Internship" },
+    { id: 4, label: "Contract", value: "Contract" },
+    { id: 5, label: "Agency", value: "Agency" },
   ],
 
   referralOptions: [

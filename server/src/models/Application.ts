@@ -31,7 +31,7 @@ const ApplicationSchema = new Schema(
     ],
     type: {
       type: String,
-      enum: ["Part Time", "Full Time", "Contract", "Agency"],
+      enum: ["Part Time", "Full Time", "Contract", "Internship", "Agency"],
       required: [true, "Please choose a type"],
     },
     source: {
