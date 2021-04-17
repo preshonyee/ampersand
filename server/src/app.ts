@@ -4,6 +4,8 @@ import morgan from "morgan";
 import "colors";
 import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
+import XSS from "xss-clean";
 import cors from "cors";
 import connectDB from "./config/db";
 import errorHandler from "./middleware/error";
@@ -37,6 +39,12 @@ if (process.env.NODE_ENV === "development") {
 
 // Sanitize data
 app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+// Prevent XSS attacks
+app.use(XSS());
 
 // Enable CORS
 app.use(cors());
