@@ -6,9 +6,11 @@ import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import XSS from "xss-clean";
+import rateLimit from "express-rate-limit";
+import hpp from "hpp";
 import cors from "cors";
-import connectDB from "./config/db";
 import errorHandler from "./middleware/error";
+import connectDB from "./config/db";
 
 // Load ENV variables
 config();
@@ -45,6 +47,16 @@ app.use(helmet());
 
 // Prevent XSS attacks
 app.use(XSS());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 60 * 1000, // 10 minutes
+  max: 100,
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
 
 // Enable CORS
 app.use(cors());
