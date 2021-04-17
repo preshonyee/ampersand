@@ -40,26 +40,33 @@ const UserSchema = new Schema(
     },
     location: {
       type: String,
+      default: "",
     },
     portfolio: {
       type: String,
+      default: "",
     },
     bio: {
       type: String,
+      default: "",
     },
     interests: {
       type: String,
+      default: "",
     },
     twitter: {
       type: String,
+      default: "",
       unique: true,
     },
     linkedin: {
       type: String,
+      default: "",
       unique: true,
     },
     github: {
       type: String,
+      default: "",
       unique: true,
     },
   },

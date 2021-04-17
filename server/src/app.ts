@@ -18,6 +18,7 @@ import resume from "./routes/resume";
 import application from "./routes/application";
 import timeline from "./routes/timeline";
 import radar from "./routes/radar";
+import user from "./routes/user";
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/api/v1/resume", resume);
 app.use("/api/v1/application", application);
 app.use("/api/v1/timeline", timeline);
 app.use("/api/v1/radar", radar);
+app.use("/api/v1/user", user);
 
 app.use(errorHandler);
 

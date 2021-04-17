@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 
+const { ObjectId } = Schema.Types;
+
 const RadarSchema = new Schema(
   {
     avatar: {
@@ -12,6 +14,10 @@ const RadarSchema = new Schema(
     linkToCareersPage: {
       type: String,
       required: true,
+    },
+    addedBy: {
+      type: ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }

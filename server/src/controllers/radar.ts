@@ -19,7 +19,10 @@ const createRadar = (req: any, res: any, next: any) => {
     avatar,
     companyName,
     linkToCareersPage,
+    addedBy: req.user,
   });
+
+  // save radar to the database
   radar
     .save()
     .then((result: any) => {
@@ -27,7 +30,7 @@ const createRadar = (req: any, res: any, next: any) => {
         radar: result,
         message: "radar created successfully",
       });
-      // log out profile updated activity to Timeline
+      // log out radar created activity to Timeline
       axios
         .post("http://localhost:5000/api/v1/timeline/create", {
           activityTitle: `You added ${result.companyName} to your radar`,
@@ -40,6 +43,10 @@ const createRadar = (req: any, res: any, next: any) => {
         })
         .then((response) => {
           console.log(response.data);
+        })
+        .catch((error: any) => {
+          console.log(error.message);
+          return next(new ErrorResponse(error, 422));
         });
     })
     .catch((error: any) => {
@@ -48,16 +55,17 @@ const createRadar = (req: any, res: any, next: any) => {
     });
 };
 
-// @description:    Fetch all radar entries
+// @description:    Fetch all radar entries by logged in user
 // @route:          GET /api/v1/radar
 // @access          Private
-const getRadarEntries = (req: any, res: any) => {
-  Radar.find()
+const getRadarEntries = (req: any, res: any, next: any) => {
+  Radar.find({ addedBy: req.user._id })
     .then((radar: any) => {
       res.status(200).json({ count: radar.length, result: radar });
     })
     .catch((error: any) => {
       console.log(error);
+      return next(new ErrorResponse(error, 422));
     });
 };
 
