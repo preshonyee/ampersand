@@ -2,6 +2,8 @@ import express from "express";
 import { config } from "dotenv";
 import morgan from "morgan";
 import "colors";
+import cookieParser from "cookie-parser";
+import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import connectDB from "./config/db";
 import errorHandler from "./middleware/error";
@@ -25,10 +27,16 @@ const app = express();
 // Body parser
 app.use(express.json());
 
+// Cookie parser
+app.use(cookieParser());
+
 // Dev ENV logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+// Sanitize data
+app.use(mongoSanitize());
 
 // Enable CORS
 app.use(cors());
