@@ -1,4 +1,4 @@
-import { Avatar, Col, Row, Space, Statistic } from "antd";
+import { Avatar, Button, Col, Row, Skeleton, Space, Statistic } from "antd";
 import {
   Compass,
   Folder,
@@ -7,9 +7,11 @@ import {
   Mail,
   Twitter,
 } from "react-feather";
-import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { BASE_URL } from "../constants/BaseURL";
+import axios, { AxiosResponse } from "axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -41,11 +43,61 @@ interface IUserCard {
   isEmpty?: boolean;
 }
 
+interface IUserData {
+  user: {
+    profilePicture: string;
+    location: string;
+    portfolio: string;
+    bio: string;
+    interests: string;
+    twitter: string;
+    linkedin: string;
+    github: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    username: string;
+  };
+  coverLetter: number;
+  applications: number;
+  radar: number;
+}
+
 const UserCard: React.FC<IUserCard> = () => {
   const history = useHistory();
-  const { user } = useSelector((state: any) => state.user);
+  const [userData, setUserData] = useState<IUserData>({
+    user: {
+      profilePicture: "",
+      location: "",
+      portfolio: "",
+      bio: "",
+      interests: "",
+      twitter: "",
+      linkedin: "",
+      github: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      username: "",
+    },
+    coverLetter: 0,
+    applications: 0,
+    radar: 0,
+  });
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-  console.log({ user });
+  const getUserData = () => {
+    axios.get(`${BASE_URL}/user`).then((response: AxiosResponse<any>) => {
+      setUserData(response.data.user);
+      setDataLoaded(true);
+    });
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const { user, coverLetter, applications, radar } = userData;
 
   return (
     <Wrapper>
@@ -91,7 +143,13 @@ const UserCard: React.FC<IUserCard> = () => {
           </Col>
         </Row>
       </div>
-      <Link to="/app/editor">Go to profile</Link>
+      <Button
+        size="large"
+        shape="round"
+        block
+        onClick={() => history.push("/app/editor")}>
+        Go to profile
+      </Button>
     </Wrapper>
   );
 };
