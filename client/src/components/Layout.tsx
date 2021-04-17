@@ -25,7 +25,10 @@ const Layout: React.FC<ILayout> = ({ children, background }) => {
   return (
     <Wrapper background={background}>
       <NavMenu />
-      <main>{children}</main>
+      <main>
+        <h1>hello</h1>
+        {children}
+      </main>
       <footer>
         <p>
           &copy; 2021 Ampersand.careers, built with ❤ by{" "}

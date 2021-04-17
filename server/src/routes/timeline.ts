@@ -12,7 +12,7 @@ const router = express.Router();
  */
 
 // create timeline route
-router.route("/create").post(requireLogin, createTimelineActivity);
+router.route("/create").post(createTimelineActivity);
 // get all timeline activities
 router.route("/").get(requireLogin, getTimelineActivities);
 

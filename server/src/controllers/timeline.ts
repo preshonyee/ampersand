@@ -7,7 +7,13 @@ import ErrorResponse from "../utils/errorResponse";
 // @route:          POST /api/v1/timeline/create
 // @access          Private
 const createTimelineActivity = (req: any, res: any, next: any) => {
-  const { activityTitle, activityBody, activityType, activityDate } = req.body;
+  const {
+    activityTitle,
+    activityBody,
+    activityType,
+    activityDate,
+    addedBy,
+  } = req.body;
 
   // Check if fields are empty
   if (!activityTitle || !activityBody || !activityType || !activityDate) {
@@ -19,7 +25,7 @@ const createTimelineActivity = (req: any, res: any, next: any) => {
     activityBody,
     activityType,
     activityDate,
-    addedBy: req.user,
+    addedBy,
   });
   // save timeline activity to the database
   timeline

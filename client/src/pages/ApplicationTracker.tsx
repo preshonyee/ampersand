@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 import { BASE_URL } from "../constants/BaseURL";
 import { TOKEN } from "../constants/Token";
+import ButtonLink from "../components/ButtonLinks";
 
 const Wrapper = styled.div`
   width: 97%;
@@ -361,6 +362,7 @@ const ApplicationTracker: React.FC = () => {
   return (
     <Layout background="#fff">
       <Wrapper>
+        <ButtonLink to="/app/add-application">Add Application</ButtonLink>
         <Table
           bordered
           rowKey={(applicationsData) => applicationsData._id}

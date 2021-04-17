@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_URL } from "../utils/baseUrl";
 import Application from "../models/Application";
 import ErrorResponse from "../utils/errorResponse";
 
@@ -86,20 +87,25 @@ const createApplication = (req: any, res: any, next: any) => {
       });
       // log out application created activity to Timeline
       axios
-        .post("http://localhost:5000/api/v1/timeline/create", {
-          activityTitle: `You submitted an application at ${result.company}`,
-          activityBody: {
-            company: result.company,
-            location: result.location,
-            position: result.position[0].positionTitle,
-            type: result.type,
-            remote: result.remote,
-            tags: result.tags,
-            message: "You added a new application, good luck",
+        .post(
+          `${BASE_URL}/timeline/create`,
+          {
+            activityTitle: `You submitted an application at ${result.company}`,
+            activityBody: {
+              company: result.company,
+              location: result.location,
+              position: result.position[0].positionTitle,
+              type: result.type,
+              remote: result.remote,
+              tags: result.tags,
+              message: "You added a new application, good luck",
+            },
+            activityType: "application",
+            activityDate: Date.now(),
+            addedBy: req.user,
           },
-          activityType: "application",
-          activityDate: Date.now(),
-        })
+          {}
+        )
         .then((response) => {
           console.log(response.data);
         })
@@ -285,7 +291,7 @@ const updateApplication = (req: any, res: any, next: any) => {
             });
             // log out application updated activity to Timeline
             axios
-              .post("http://localhost:5000/api/v1/timeline/create", {
+              .post(`${BASE_URL}/timeline/create`, {
                 activityTitle: `You updated your application at ${result.company}`,
                 activityBody: {
                   company: result.company,

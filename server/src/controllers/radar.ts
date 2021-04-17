@@ -1,6 +1,7 @@
 import axios from "axios";
 import Radar from "../models/Radar";
 import ErrorResponse from "../utils/errorResponse";
+import { BASE_URL } from "../utils/baseUrl";
 
 // TODO: Fix all any types
 
@@ -32,7 +33,7 @@ const createRadar = (req: any, res: any, next: any) => {
       });
       // log out radar created activity to Timeline
       axios
-        .post("http://localhost:5000/api/v1/timeline/create", {
+        .post(`${BASE_URL}/timeline/create`, {
           activityTitle: `You added ${result.companyName} to your radar`,
           activityBody: {
             message: `You added ${result.companyName} to your radar`,

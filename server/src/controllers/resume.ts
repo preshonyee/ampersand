@@ -1,6 +1,7 @@
 import axios from "axios";
 import Resume from "../models/Resume";
 import ErrorResponse from "../utils/errorResponse";
+import { BASE_URL } from "../utils/baseUrl";
 
 // TODO: Fix all any types
 
@@ -69,7 +70,7 @@ const createResume = (req: any, res: any, next: any) => {
       });
       // log out resume created activity to Timeline
       axios
-        .post("http://localhost:5000/api/v1/timeline/create", {
+        .post(`${BASE_URL}/timeline/create`, {
           activityTitle: `You created your resume`,
           activityBody: {
             message: `You have just created your resume, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,
@@ -186,7 +187,7 @@ const updateResume = (req: any, res: any, next: any) => {
 
             // log out resume updated activity to Timeline
             axios
-              .post("http://localhost:5000/api/v1/timeline/create", {
+              .post(`${BASE_URL}/timeline/create`, {
                 activityTitle: `You updated your resume`,
                 activityBody: {
                   message: `You updated your resume, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,
