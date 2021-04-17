@@ -1,4 +1,5 @@
 import { Button, Input, Form } from "antd";
+import { useState } from "react";
 import styled from "styled-components";
 import ProfileLayout from "../components/ProfileLayout";
 
@@ -8,6 +9,7 @@ const Wrapper = styled.div``;
 
 const PasswordPage = () => {
   const [form] = Form.useForm();
+  const [loading] = useState(false);
 
   return (
     <ProfileLayout>
@@ -28,7 +30,7 @@ const PasswordPage = () => {
               <Input size="large" />
             </Item>
           </div>
-          <Button size="large" block type="primary">
+          <Button loading={loading} size="large" block type="primary">
             Change Password
           </Button>
         </Form>

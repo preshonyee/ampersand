@@ -1,4 +1,5 @@
 import { Button, Input, Form } from "antd";
+import { useState } from "react";
 import styled from "styled-components";
 import ProfileLayout from "../components/ProfileLayout";
 
@@ -8,6 +9,7 @@ const Wrapper = styled.div``;
 
 const CloseAccount = () => {
   const [form] = Form.useForm();
+  const [loading] = useState(false);
 
   return (
     <ProfileLayout>
@@ -20,7 +22,7 @@ const CloseAccount = () => {
               <Input size="large" />
             </Item>
           </div>
-          <Button size="large" type="primary">
+          <Button loading={loading} size="large" type="primary">
             Delete account
           </Button>
         </Form>

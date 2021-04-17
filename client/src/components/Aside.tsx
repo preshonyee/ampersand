@@ -50,6 +50,7 @@ interface IEntries {
 }
 
 const Aside = () => {
+  const [loading] = useState(false);
   const [entries, setEntries] = useState<IEntries[]>([]);
 
   const getRadarEntries = () => {
@@ -74,7 +75,7 @@ const Aside = () => {
       <Radar>
         <div className="title">
           <h2>On Your Radar</h2>
-          <Button shape="round" icon={<PlusOutlined />}>
+          <Button loading={loading} shape="round" icon={<PlusOutlined />}>
             Add company
           </Button>
         </div>

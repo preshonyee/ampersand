@@ -106,7 +106,11 @@ const AddApplication: React.FC = () => {
                 message: "Please select the application date!",
               },
             ]}>
-            <DatePicker format={dateFormat} style={{ width: "100%" }} />
+            <DatePicker
+              size="large"
+              format={dateFormat}
+              style={{ width: "100%" }}
+            />
           </Item>
         </div>
 
@@ -117,7 +121,7 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please input the company name!" },
             ]}>
-            <Input placeholder="Name of Company" />
+            <Input size="large" placeholder="Name of Company" />
           </Item>
         </div>
 
@@ -128,7 +132,7 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please input the company location!" },
             ]}>
-            <Input placeholder="Location" />
+            <Input size="large" placeholder="Location" />
           </Item>
         </div>
 
@@ -139,7 +143,7 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please input the job position!" },
             ]}>
-            <Input placeholder="Position" />
+            <Input size="large" placeholder="Position" />
           </Item>
         </div>
 
@@ -153,7 +157,11 @@ const AddApplication: React.FC = () => {
                 message: "Please input the link to the opening!",
               },
             ]}>
-            <Input addonBefore="https://" placeholder="Link To Opening" />
+            <Input
+              size="large"
+              addonBefore="https://"
+              placeholder="Link To Opening"
+            />
           </Item>
         </div>
 
@@ -164,7 +172,11 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please select the job type!" },
             ]}>
-            <Select placeholder="Select Type Options" options={typeOptions} />
+            <Select
+              size="large"
+              placeholder="Select Type Options"
+              options={typeOptions}
+            />
           </Item>
         </div>
 
@@ -175,7 +187,11 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please select the job source!" },
             ]}>
-            <Select placeholder="Select Source" options={sourceOptions} />
+            <Select
+              size="large"
+              placeholder="Select Source"
+              options={sourceOptions}
+            />
           </Item>
         </div>
 
@@ -186,7 +202,11 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please select a job hunt strategy!" },
             ]}>
-            <Select placeholder="Select Strategy" options={strategyOptions} />
+            <Select
+              size="large"
+              placeholder="Select Strategy"
+              options={strategyOptions}
+            />
           </Item>
         </div>
 
@@ -231,7 +251,11 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please select a referral option!" },
             ]}>
-            <Select placeholder="Select Referral" options={referralOptions} />
+            <Select
+              size="large"
+              placeholder="Select Referral"
+              options={referralOptions}
+            />
           </Item>
         </div>
 
@@ -270,7 +294,7 @@ const AddApplication: React.FC = () => {
             rules={[
               { required: true, message: "Please input a contact name!" },
             ]}>
-            <Input placeholder="Contact Name" />
+            <Input size="large" placeholder="Contact Name" />
           </Item>
         </div>
 
@@ -284,7 +308,7 @@ const AddApplication: React.FC = () => {
                 message: "Please input the contact phone number!",
               },
             ]}>
-            <Input placeholder="Contact Phone" />
+            <Input size="large" placeholder="Contact Phone" />
           </Item>
         </div>
 
@@ -350,7 +374,11 @@ const AddApplication: React.FC = () => {
                 message: "Please include the last time you were contacted!",
               },
             ]}>
-            <DatePicker format={dateFormat} style={{ width: "100%" }} />
+            <DatePicker
+              size="large"
+              format={dateFormat}
+              style={{ width: "100%" }}
+            />
           </Item>
         </div>
 
@@ -377,7 +405,11 @@ const AddApplication: React.FC = () => {
         </div>
 
         <div>
-          <Button loading={loading} type="primary" htmlType="submit">
+          <Button
+            size="large"
+            loading={loading}
+            type="primary"
+            htmlType="submit">
             Add Application
           </Button>
         </div>

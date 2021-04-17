@@ -135,21 +135,21 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
           <div>
             <label>First Name</label>
             <Item name="firstName">
-              <Input />
+              <Input size="large" />
             </Item>
           </div>
 
           <div>
             <label>Last Name</label>
             <Item name="lastName">
-              <Input />
+              <Input size="large" />
             </Item>
           </div>
 
           <div>
             <label>Occupation</label>
             <Item name="occupation">
-              <Input />
+              <Input size="large" />
             </Item>
           </div>
         </div>
@@ -160,28 +160,28 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
           <div>
             <label>Location</label>
             <Item name="location">
-              <Input />
+              <Input size="large" />
             </Item>
           </div>
 
           <div>
             <label>Website</label>
             <Item name="website">
-              <Input />
+              <Input size="large" />
             </Item>
           </div>
 
           <div>
             <label>Email</label>
             <Item name="email">
-              <Input />
+              <Input size="large" />
             </Item>
           </div>
 
           <div>
             <label>Telephone</label>
             <Item name="telephone">
-              <Input />
+              <Input size="large" />
             </Item>
           </div>
         </div>
@@ -203,7 +203,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         rules={[
                           { required: true, message: "Missing company" },
                         ]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -214,7 +214,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "role"]}
                         fieldKey={[field.fieldKey, "role"]}
                         rules={[{ required: true, message: "Missing role" }]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -227,7 +227,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         rules={[
                           { required: true, message: "Missing location" },
                         ]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -238,7 +238,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "date"]}
                         fieldKey={[field.fieldKey, "date"]}
                         rules={[{ required: true, message: "Missing date" }]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -251,7 +251,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         rules={[
                           { required: true, message: "Missing description" },
                         ]}>
-                        <TextArea autoSize />
+                        <TextArea size="large" autoSize />
                       </Item>
                     </div>
                     {fields.length > 1 ? (
@@ -296,7 +296,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "title"]}
                         fieldKey={[field.fieldKey, "title"]}
                         rules={[{ required: true, message: "Missing title" }]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -309,7 +309,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         rules={[
                           { required: true, message: "Missing description" },
                         ]}>
-                        <TextArea autoSize />
+                        <TextArea size="large" autoSize />
                       </Item>
                     </div>
                     {fields.length > 1 ? (
@@ -356,7 +356,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                             message: "Missing Name of Institution",
                           },
                         ]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -369,7 +369,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         rules={[
                           { required: true, message: "Missing Year Ended" },
                         ]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -380,7 +380,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "honors"]}
                         fieldKey={[field.fieldKey, "honors"]}
                         rules={[{ required: true, message: "Missing honors" }]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -393,7 +393,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         rules={[
                           { required: true, message: "Missing discipline" },
                         ]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
                     {fields.length > 1 ? (
@@ -437,7 +437,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "skill"]}
                         fieldKey={[field.fieldKey, "skill"]}
                         rules={[{ required: true, message: "Missing skill" }]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -448,7 +448,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "tools"]}
                         fieldKey={[field.fieldKey, "tools"]}
                         rules={[{ required: true, message: "Missing tools" }]}>
-                        <TextArea />
+                        <TextArea size="large" />
                       </Item>
                     </div>
                     {fields.length > 1 ? (
@@ -495,7 +495,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                             message: "Missing achievement title",
                           },
                         ]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -508,7 +508,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         rules={[
                           { required: true, message: "Missing awarder" },
                         ]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -519,7 +519,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "date"]}
                         fieldKey={[field.fieldKey, "date"]}
                         rules={[{ required: true, message: "Missing date" }]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
 
@@ -530,7 +530,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
                         name={[field.name, "event"]}
                         fieldKey={[field.fieldKey, "event"]}
                         rules={[{ required: true, message: "Missing event" }]}>
-                        <Input />
+                        <Input size="large" />
                       </Item>
                     </div>
                     {fields.length > 1 ? (
@@ -559,7 +559,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
           }}
         </List>
 
-        <Button loading={loading} type="primary" htmlType="submit">
+        <Button size="large" loading={loading} type="primary" htmlType="submit">
           Save resume
         </Button>
       </Form>

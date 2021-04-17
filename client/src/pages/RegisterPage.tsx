@@ -142,32 +142,43 @@ const RegisterPage = () => {
             <div>
               <label>First Name</label>
               <Item name="firstName">
-                <Input placeholder="First Name" />
+                <Input size="large" placeholder="First Name" />
               </Item>
             </div>
 
             <div>
               <label>Last Name</label>
               <Item name="lastName">
-                <Input placeholder="Last Name" />
+                <Input size="large" placeholder="Last Name" />
               </Item>
             </div>
 
             <div>
               <label>Email Address</label>
-              <Item name="email">
-                <Input placeholder="Email" />
+              <Item
+                name="email"
+                rules={[
+                  {
+                    pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  },
+                ]}>
+                <Input size="large" placeholder="Email" />
               </Item>
             </div>
 
             <div>
               <label>Password</label>
               <Item name="password">
-                <Input type="password" placeholder="password" />
+                <Input size="large" type="password" placeholder="password" />
               </Item>
             </div>
 
-            <Button loading={loading} block type="primary" htmlType="submit">
+            <Button
+              size="large"
+              loading={loading}
+              block
+              type="primary"
+              htmlType="submit">
               Create account
             </Button>
           </Form>

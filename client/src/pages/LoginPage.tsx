@@ -146,19 +146,30 @@ const LoginPage = () => {
           <Form form={form} onFinish={loginUser}>
             <div>
               <label>Email Address</label>
-              <Item name="email">
-                <Input placeholder="Email" />
+              <Item
+                name="email"
+                rules={[
+                  {
+                    pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  },
+                ]}>
+                <Input size="large" placeholder="Email" />
               </Item>
             </div>
 
             <div>
               <label>Password</label>
               <Item name="password">
-                <Input type="password" placeholder="password" />
+                <Input size="large" type="password" placeholder="password" />
               </Item>
             </div>
 
-            <Button loading={loading} block type="primary" htmlType="submit">
+            <Button
+              size="large"
+              loading={loading}
+              block
+              type="primary"
+              htmlType="submit">
               Login
             </Button>
           </Form>

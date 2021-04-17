@@ -1,4 +1,5 @@
 import { Avatar, Button, Input, Form } from "antd";
+import { useState } from "react";
 import styled from "styled-components";
 import ProfileLayout from "../components/ProfileLayout";
 
@@ -39,6 +40,7 @@ const Wrapper = styled.div`
 
 const EditProfilePage = () => {
   const [form] = Form.useForm();
+  const [loading] = useState(false);
 
   return (
     <ProfileLayout>
@@ -103,7 +105,7 @@ const EditProfilePage = () => {
               <Input size="large" addonBefore="@" />
             </Item>
           </div>
-          <Button block type="primary">
+          <Button loading={loading} block type="primary">
             Update account
           </Button>
         </Form>

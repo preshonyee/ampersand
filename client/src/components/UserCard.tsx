@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Row, Space, Statistic } from "antd";
+import { Avatar, Col, Row, Space, Statistic } from "antd";
 import {
   Compass,
   Folder,
@@ -8,7 +8,7 @@ import {
   Twitter,
 } from "react-feather";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -91,9 +91,7 @@ const UserCard: React.FC<IUserCard> = () => {
           </Col>
         </Row>
       </div>
-      <Button shape="round" block onClick={() => history.push("/app/editor")}>
-        Go to profile
-      </Button>
+      <Link to="/app/editor">Go to profile</Link>
     </Wrapper>
   );
 };
