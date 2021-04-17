@@ -27,6 +27,7 @@ import {
 } from "@ant-design/icons";
 import Layout from "../components/Layout";
 import FAB from "../components/FloatingActionButton";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const { primary, black100, black200 } = COLORS.light;
 
@@ -231,7 +232,7 @@ const ResumePage: React.FC = () => {
 
   const fetchResumeData = () => {
     axios
-      .get(`${BASE_URL}/profile/myProfile`, {
+      .get(`${BASE_URL}/resume/dummy`, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
@@ -262,7 +263,7 @@ const ResumePage: React.FC = () => {
     <Layout>
       <ResumePageWrapper>
         {!isReady ? (
-          <div>Loading...</div>
+          <LoadingSpinner />
         ) : (
           <>
             <PaneWrapper>
