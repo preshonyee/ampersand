@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const { ObjectId } = Schema.Types;
 
-const ProfileSchema = new Schema(
+const ResumeSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -117,4 +117,4 @@ const ProfileSchema = new Schema(
   { timestamps: true }
 );
 
-export default model("Profile", ProfileSchema);
+export default model("Resume", ResumeSchema);

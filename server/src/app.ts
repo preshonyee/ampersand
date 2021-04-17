@@ -14,7 +14,7 @@ connectDB();
 
 // Route files
 import auth from "./routes/auth";
-import profile from "./routes/profile";
+import resume from "./routes/resume";
 import application from "./routes/application";
 import timeline from "./routes/timeline";
 import radar from "./routes/radar";
@@ -34,7 +34,7 @@ app.use(cors());
 
 // Mount routers
 app.use("/api/v1/auth", auth);
-app.use("/api/v1/profile", profile);
+app.use("/api/v1/resume", resume);
 app.use("/api/v1/application", application);
 app.use("/api/v1/timeline", timeline);
 app.use("/api/v1/radar", radar);
