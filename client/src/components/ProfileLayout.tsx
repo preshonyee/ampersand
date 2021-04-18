@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 
@@ -7,14 +8,17 @@ interface IProfileLayout {
 }
 
 const Wrapper = styled.div`
-  width: 70%;
+  width: 60%;
   margin: 0 auto;
-  padding: 5rem 0;
   display: flex;
 `;
 
 const Navigation = styled.div`
   width: 30%;
+
+  .account-nav-links {
+    margin: 2rem 0;
+  }
 `;
 
 const ContentPane = styled.div`
@@ -23,10 +27,21 @@ const ContentPane = styled.div`
 
 const ProfileLayout: React.FC<IProfileLayout> = ({ children }) => {
   return (
-    <Layout>
+    <Layout background="#fff">
       <Wrapper>
         <Navigation>
           <h2>Account Settings</h2>
+          <div className="account-nav-links">
+            <p>
+              <Link to="/account">Edit profile</Link>
+            </p>
+            <p>
+              <Link to="/account/password">Change password</Link>
+            </p>
+            <p>
+              <Link to="/account/close">Close account</Link>
+            </p>
+          </div>
         </Navigation>
         <ContentPane>{children}</ContentPane>
       </Wrapper>

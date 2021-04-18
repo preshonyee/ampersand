@@ -5,8 +5,6 @@ type UserType = {
   name: string;
   email: string;
   profilePicture: string;
-  followers: string[];
-  following: string[];
 };
 
 export interface ILoginSuccess {
@@ -40,18 +38,6 @@ const slice = createSlice({
       state.user = null;
       localStorage.clear();
     },
-    updateUserOnFollow: (state, action) => {
-      state.user = action.payload.user;
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
-    },
-    updateProfilePictureSuccess: (state, action) => {
-      console.log({ state, action });
-      state.user.profilePicture = action.payload;
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ ...state.user, profilePicture: action.payload })
-      );
-    },
   },
 });
 export default slice.reducer;
@@ -59,12 +45,7 @@ export default slice.reducer;
 /**
  * ACTIONS FUNCTION
  */
-const {
-  loginSuccess,
-  logoutSuccess,
-  updateUserOnFollow,
-  updateProfilePictureSuccess,
-} = slice.actions;
+const { loginSuccess, logoutSuccess } = slice.actions;
 // Login action
 export const login = ({ payload }: ILoginSuccess) => async (
   dispatch: (arg0: { payload: ILoginSuccess }) => void
@@ -83,28 +64,6 @@ export const logout = ({ history }: any) => async (
     // const res = await api.post('/api/auth/logout/')
     dispatch(logoutSuccess());
     history.push("/login");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// OnFollow action
-export const onFollowUser = ({ payload }: any) => async (
-  dispatch: (arg0: { payload: any }) => void
-) => {
-  try {
-    dispatch(updateUserOnFollow(payload));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// Update profile picture action
-export const updateProfilePicture = ({ payload }: any) => async (
-  dispatch: (arg0: { payload: any }) => void
-) => {
-  try {
-    dispatch(updateProfilePictureSuccess(payload));
   } catch (error) {
     console.log(error);
   }

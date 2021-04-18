@@ -40,33 +40,33 @@ const UserSchema = new Schema(
     },
     location: {
       type: String,
-      default: "",
+      default: "No location added",
     },
     portfolio: {
       type: String,
-      default: "",
+      default: "No portfolio added",
     },
     bio: {
       type: String,
-      default: "",
+      default: "No Bio added",
     },
     interests: {
       type: String,
-      default: "",
+      default: "No interests added",
     },
     twitter: {
       type: String,
-      default: "",
+      default: "Twitter profile not yet added",
       unique: true,
     },
     linkedin: {
       type: String,
-      default: "",
+      default: "Linkedin profile not yet added",
       unique: true,
     },
     github: {
       type: String,
-      default: "",
+      default: "GitHub profile not yet added",
       unique: true,
     },
   },

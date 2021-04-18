@@ -8,7 +8,7 @@ import {
   Twitter,
 } from "react-feather";
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { BASE_URL } from "../constants/BaseURL";
 import axios, { AxiosResponse } from "axios";
@@ -119,18 +119,24 @@ const UserCard: React.FC<IUserCard> = () => {
             <p>{user.email}</p>
             {/* Add social icons here */}
             <Space size="middle">
-              <Link to={user.github}>
+              <a
+                href={`https://github.com/${user.github}`}
+                target="_blank"
+                rel="noreferrer noopener">
                 <GitHub size={16} />
-              </Link>
-              <Link to={user.linkedin}>
+              </a>
+              <a
+                href={`https://linkedin.com/in/${user.linkedin}`}
+                target="_blank"
+                rel="noreferrer noopener">
                 <Linkedin size={16} />
-              </Link>
-              <Link to={user.twitter}>
+              </a>
+              <a
+                href={`https://twitter.com/${user.twitter}`}
+                target="_blank"
+                rel="noreferrer noopener">
                 <Twitter size={16} />
-              </Link>
-              <Link to={user.email}>
-                <Mail size={16} />
-              </Link>
+              </a>
               <p></p>
             </Space>
           </div>
