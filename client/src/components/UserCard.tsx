@@ -8,10 +8,11 @@ import {
   Twitter,
 } from "react-feather";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { BASE_URL } from "../constants/BaseURL";
 import axios, { AxiosResponse } from "axios";
+import { TOKEN } from "../constants/Token";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -84,13 +85,19 @@ const UserCard: React.FC<IUserCard> = () => {
     applications: 0,
     radar: 0,
   });
-  const [dataLoaded, setDataLoaded] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(true);
 
   const getUserData = () => {
-    axios.get(`${BASE_URL}/user`).then((response: AxiosResponse<any>) => {
-      setUserData(response.data.user);
-      setDataLoaded(true);
-    });
+    axios
+      .get(`${BASE_URL}/user`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then((response: AxiosResponse<any>) => {
+        setUserData(response.data.data);
+        setDataLoaded(false);
+      });
   };
 
   useEffect(() => {
@@ -102,54 +109,76 @@ const UserCard: React.FC<IUserCard> = () => {
   return (
     <Wrapper>
       <div className="profile">
-        <Avatar size={80} src={user.profilePicture} />
-        <div className="bio">
-          <h2>
-            {user.firstName} {user.lastName}
-          </h2>
-          <p>{user.email}</p>
-          {/* Add social icons here */}
-          <Space size="middle">
-            <GitHub size={16} />
-            <Linkedin size={16} />
-            <Twitter size={16} />
-            <Mail size={16} />
-            <p></p>
-          </Space>
-        </div>
+        <Skeleton loading={dataLoaded} active avatar={{ size: 80 }}>
+          <Avatar size={80} src={user.profilePicture} />
+          <div className="bio">
+            <h2>
+              {user.firstName} {user.lastName}
+            </h2>
+            <p>{user.email}</p>
+            {/* Add social icons here */}
+            <Space size="middle">
+              <Link to={user.github}>
+                <GitHub size={16} />
+              </Link>
+              <Link to={user.linkedin}>
+                <Linkedin size={16} />
+              </Link>
+              <Link to={user.twitter}>
+                <Twitter size={16} />
+              </Link>
+              <Link to={user.email}>
+                <Mail size={16} />
+              </Link>
+              <p></p>
+            </Space>
+          </div>
+        </Skeleton>
       </div>
       <div className="stats">
         <Row gutter={[8, 16]}>
           <Col span={8}>
-            <Statistic
-              title="Applications"
-              value={112}
-              prefix={<Folder color="#bbb" size={16} />}
-            />
+            <Skeleton loading={dataLoaded} active paragraph={{ rows: 1 }}>
+              <Statistic
+                title="Applications"
+                value={applications}
+                prefix={<Folder color="#bbb" size={16} />}
+              />
+            </Skeleton>
           </Col>
           <Col span={8}>
-            <Statistic
-              title="Cover Letters"
-              value={18}
-              prefix={<Mail color="#bbb" size={16} />}
-            />
+            <Skeleton loading={dataLoaded} active paragraph={{ rows: 1 }}>
+              <Statistic
+                title="Cover Letters"
+                value={coverLetter}
+                prefix={<Mail color="#bbb" size={16} />}
+              />
+            </Skeleton>
           </Col>
           <Col span={8}>
-            <Statistic
-              title="Your Radar"
-              value={42}
-              prefix={<Compass color="#bbb" size={16} />}
-            />
+            <Skeleton loading={dataLoaded} active paragraph={{ rows: 1 }}>
+              <Statistic
+                title="Your Radar"
+                value={radar}
+                prefix={<Compass color="#bbb" size={16} />}
+              />
+            </Skeleton>
           </Col>
         </Row>
       </div>
-      <Button
-        size="large"
-        shape="round"
-        block
-        onClick={() => history.push("/app/editor")}>
-        Go to profile
-      </Button>
+      <Skeleton
+        loading={dataLoaded}
+        active
+        paragraph={{ rows: 1, width: "100%" }}
+        title={false}>
+        <Button
+          size="large"
+          shape="round"
+          block
+          onClick={() => history.push("/app/editor")}>
+          Go to profile
+        </Button>
+      </Skeleton>
     </Wrapper>
   );
 };

@@ -20,7 +20,7 @@ const createRadar = (req: any, res: any, next: any) => {
     avatar,
     companyName,
     linkToCareersPage,
-    addedBy: req.user,
+    addedBy: req.user._id,
   });
 
   // save radar to the database
@@ -41,6 +41,7 @@ const createRadar = (req: any, res: any, next: any) => {
           },
           activityType: "radar",
           activityDate: Date.now(),
+          addedBy: req.user._id,
         })
         .then((response) => {
           console.log(response.data);

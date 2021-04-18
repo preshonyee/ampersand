@@ -155,6 +155,7 @@ const DotIcon = ({ activityType }: IOverview) => {
 
 const Overview: React.FC<IOverview> = () => {
   const [activities, setActivities] = useState<IActivities[]>([]);
+  const [loading, setLoading] = useState(true);
   const [dataLoaded, setDataLoaded] = useState(true);
   const [isEmpty, setIsEmpty] = useState(false);
 
@@ -168,7 +169,10 @@ const Overview: React.FC<IOverview> = () => {
       .then((response) => {
         const result = response.data.result;
         setActivities(result);
-        setDataLoaded(false);
+        setLoading(false);
+        setTimeout(() => {
+          setDataLoaded(false);
+        }, 1000);
         if (response.data.count === 0) {
           setIsEmpty(true);
         }
@@ -184,10 +188,11 @@ const Overview: React.FC<IOverview> = () => {
   return (
     <OverviewContainer>
       <h1>Overview</h1>
-      <Skeleton active loading={dataLoaded} paragraph={{ rows: 15 }}>
-        {isEmpty ? (
-          <Empty />
-        ) : (
+
+      {isEmpty ? (
+        <Empty />
+      ) : (
+        <Skeleton active loading={loading} paragraph={{ rows: 10 }}>
           <Timeline>
             {activities.map((activity) => {
               const {
@@ -202,16 +207,18 @@ const Overview: React.FC<IOverview> = () => {
                   return (
                     <DotContainer key={_id} activityType={activityType}>
                       <Item dot={<DotIcon activityType={activityType} />}>
-                        <span>
-                          <h3>{activityTitle}</h3>
-                          <p>
-                            <Tag color="magenta">{activityBody.position}</Tag>
-                            <Tag color="red">{activityBody.location}</Tag>
-                            <Tag color="volcano">{activityBody.type}</Tag>
-                            <Tag color="orange">{activityBody.remote}</Tag>
-                          </p>
-                          <p>{activityDate.toString().substring(0, 10)}</p>
-                        </span>
+                        <Skeleton active loading={dataLoaded}>
+                          <span>
+                            <h3>{activityTitle}</h3>
+                            <p>
+                              <Tag color="magenta">{activityBody.position}</Tag>
+                              <Tag color="red">{activityBody.location}</Tag>
+                              <Tag color="volcano">{activityBody.type}</Tag>
+                              <Tag color="orange">{activityBody.remote}</Tag>
+                            </p>
+                            <p>{activityDate.toString().substring(0, 10)}</p>
+                          </span>
+                        </Skeleton>
                       </Item>
                     </DotContainer>
                   );
@@ -219,11 +226,13 @@ const Overview: React.FC<IOverview> = () => {
                   return (
                     <DotContainer key={_id} activityType={activityType}>
                       <Item dot={<DotIcon activityType={activityType} />}>
-                        <span>
-                          <h3>{activityTitle}</h3>
-                          <p>{activityBody.message}</p>
-                          <p>{activityDate.toString().substring(0, 10)}</p>
-                        </span>
+                        <Skeleton active loading={dataLoaded}>
+                          <span>
+                            <h3>{activityTitle}</h3>
+                            <p>{activityBody.message}</p>
+                            <p>{activityDate.toString().substring(0, 10)}</p>
+                          </span>
+                        </Skeleton>
                       </Item>
                     </DotContainer>
                   );
@@ -231,13 +240,15 @@ const Overview: React.FC<IOverview> = () => {
                   return (
                     <DotContainer key={_id} activityType={activityType}>
                       <Item dot={<DotIcon activityType={activityType} />}>
-                        <span>
-                          <h3>{activityTitle}</h3>
-                          <p>
-                            <Tag color="geekblue">{activityBody.company}</Tag>
-                          </p>
-                          <p>{activityDate.toString().substring(0, 10)}</p>
-                        </span>
+                        <Skeleton active loading={dataLoaded}>
+                          <span>
+                            <h3>{activityTitle}</h3>
+                            <p>
+                              <Tag color="geekblue">{activityBody.company}</Tag>
+                            </p>
+                            <p>{activityDate.toString().substring(0, 10)}</p>
+                          </span>
+                        </Skeleton>
                       </Item>
                     </DotContainer>
                   );
@@ -246,8 +257,8 @@ const Overview: React.FC<IOverview> = () => {
               }
             })}
           </Timeline>
-        )}
-      </Skeleton>
+        </Skeleton>
+      )}
     </OverviewContainer>
   );
 };

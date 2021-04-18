@@ -58,6 +58,7 @@ const TimelineSchema = new Schema(
     addedBy: {
       type: ObjectId,
       ref: "User",
+      required: [true],
     },
   },
   { timestamps: true }

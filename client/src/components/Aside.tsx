@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button, Avatar } from "antd";
+import { Button, Avatar, Empty, Skeleton } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import UserCard from "./UserCard";
 import { useEffect, useState } from "react";
@@ -10,20 +10,19 @@ import { ExternalLink } from "react-feather";
 
 const Radar = styled.div`
   width: 100%;
-  height: 400px;
+  height: 100%;
   background-color: #fff;
   border-radius: 1rem;
   padding: 1rem;
-  .title {
-    display: flex;
-    justify-content: space-between;
-  }
   .list-item {
     display: flex;
     margin: 1.5rem 0;
   }
   .company {
     margin: 0 0.5rem;
+  }
+  .empty {
+    padding: 2rem 0;
   }
 `;
 
@@ -50,7 +49,8 @@ interface IEntries {
 }
 
 const Aside = () => {
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);
   const [entries, setEntries] = useState<IEntries[]>([]);
 
   const getRadarEntries = () => {
@@ -62,6 +62,10 @@ const Aside = () => {
       })
       .then((response: AxiosResponse<any>) => {
         setEntries(response.data.result);
+        setLoading(false);
+        if (response.data.count === 0) {
+          setIsEmpty(true);
+        }
       });
   };
 
@@ -73,24 +77,37 @@ const Aside = () => {
     <Wrapper>
       <UserCard />
       <Radar>
-        <div className="title">
-          <h2>On Your Radar</h2>
-          <Button loading={loading} shape="round" icon={<PlusOutlined />}>
+        <h2>On Your Radar</h2>
+        <Skeleton active loading={loading}>
+          {isEmpty ? (
+            <div className="empty">
+              <Empty />
+            </div>
+          ) : (
+            <>
+              {entries.map((entry) => (
+                <div key={entry._id} className="list-item">
+                  <Avatar size={48} src={entry.avatar} />
+                  <div className="company">
+                    <h3>{entry.companyName}</h3>
+                    <span>
+                      <a href={entry.linkToCareersPage}>See openings</a>{" "}
+                      <ExternalLink color="#ff5a5f" size={14} />
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+          <Button
+            block
+            size="large"
+            loading={loading}
+            shape="round"
+            icon={<PlusOutlined />}>
             Add company
           </Button>
-        </div>
-        {entries.map((entry) => (
-          <div key={entry._id} className="list-item">
-            <Avatar size={48} src={entry.avatar} />
-            <div className="company">
-              <h3>{entry.companyName}</h3>
-              <span>
-                <a href={entry.linkToCareersPage}>See openings</a>{" "}
-                <ExternalLink color="#ff5a5f" size={14} />
-              </span>
-            </div>
-          </div>
-        ))}
+        </Skeleton>
       </Radar>
     </Wrapper>
   );
