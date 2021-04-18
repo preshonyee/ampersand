@@ -29,13 +29,13 @@ interface IActivities {
 }
 
 const OverviewContainer = styled.div`
-  margin-top: 1rem;
   width: 100%;
+  min-height: 70vh;
   background-color: #fff;
-  padding: 2rem 1rem;
+  padding: 0 1rem;
   border-radius: 1rem;
   h1 {
-    margin: 0 0 3rem 1rem;
+    padding: 1rem;
   }
   span {
     display: inline-block;
@@ -43,10 +43,10 @@ const OverviewContainer = styled.div`
     margin-top: 0.5rem;
   }
   .ant-timeline {
-    margin: 2rem;
+    margin: 1rem 2rem;
   }
   .ant-timeline-item {
-    padding-bottom: 50px;
+    padding-bottom: 2rem;
   }
   .ant-timeline-item-tail {
     /* border: 1px solid #dadce0; */
@@ -155,7 +155,6 @@ const DotIcon = ({ activityType }: IOverview) => {
 
 const Overview: React.FC<IOverview> = () => {
   const [activities, setActivities] = useState<IActivities[]>([]);
-  const [loading, setLoading] = useState(true);
   const [dataLoaded, setDataLoaded] = useState(true);
   const [isEmpty, setIsEmpty] = useState(false);
 
@@ -169,7 +168,6 @@ const Overview: React.FC<IOverview> = () => {
       .then((response) => {
         const result = response.data.result;
         setActivities(result);
-        setLoading(false);
         setTimeout(() => {
           setDataLoaded(false);
         }, 1000);
@@ -192,72 +190,70 @@ const Overview: React.FC<IOverview> = () => {
       {isEmpty ? (
         <Empty />
       ) : (
-        <Skeleton active loading={loading} paragraph={{ rows: 10 }}>
-          <Timeline>
-            {activities.map((activity) => {
-              const {
-                _id,
-                activityBody,
-                activityDate,
-                activityTitle,
-                activityType,
-              } = activity;
-              switch (activityType) {
-                case "application":
-                  return (
-                    <DotContainer key={_id} activityType={activityType}>
-                      <Item dot={<DotIcon activityType={activityType} />}>
-                        <Skeleton active loading={dataLoaded}>
-                          <span>
-                            <h3>{activityTitle}</h3>
-                            <p>
-                              <Tag color="magenta">{activityBody.position}</Tag>
-                              <Tag color="red">{activityBody.location}</Tag>
-                              <Tag color="volcano">{activityBody.type}</Tag>
-                              <Tag color="orange">{activityBody.remote}</Tag>
-                            </p>
-                            <p>{activityDate.toString().substring(0, 10)}</p>
-                          </span>
-                        </Skeleton>
-                      </Item>
-                    </DotContainer>
-                  );
-                case "resume":
-                  return (
-                    <DotContainer key={_id} activityType={activityType}>
-                      <Item dot={<DotIcon activityType={activityType} />}>
-                        <Skeleton active loading={dataLoaded}>
-                          <span>
-                            <h3>{activityTitle}</h3>
-                            <p>{activityBody.message}</p>
-                            <p>{activityDate.toString().substring(0, 10)}</p>
-                          </span>
-                        </Skeleton>
-                      </Item>
-                    </DotContainer>
-                  );
-                case "radar":
-                  return (
-                    <DotContainer key={_id} activityType={activityType}>
-                      <Item dot={<DotIcon activityType={activityType} />}>
-                        <Skeleton active loading={dataLoaded}>
-                          <span>
-                            <h3>{activityTitle}</h3>
-                            <p>
-                              <Tag color="geekblue">{activityBody.company}</Tag>
-                            </p>
-                            <p>{activityDate.toString().substring(0, 10)}</p>
-                          </span>
-                        </Skeleton>
-                      </Item>
-                    </DotContainer>
-                  );
-                default:
-                  return null;
-              }
-            })}
-          </Timeline>
-        </Skeleton>
+        <Timeline>
+          {activities.map((activity) => {
+            const {
+              _id,
+              activityBody,
+              activityDate,
+              activityTitle,
+              activityType,
+            } = activity;
+            switch (activityType) {
+              case "application":
+                return (
+                  <DotContainer key={_id} activityType={activityType}>
+                    <Item dot={<DotIcon activityType={activityType} />}>
+                      <Skeleton active loading={dataLoaded}>
+                        <span>
+                          <h3>{activityTitle}</h3>
+                          <p>
+                            <Tag color="magenta">{activityBody.position}</Tag>
+                            <Tag color="red">{activityBody.location}</Tag>
+                            <Tag color="volcano">{activityBody.type}</Tag>
+                            <Tag color="orange">{activityBody.remote}</Tag>
+                          </p>
+                          <p>{activityDate.toString().substring(0, 10)}</p>
+                        </span>
+                      </Skeleton>
+                    </Item>
+                  </DotContainer>
+                );
+              case "resume":
+                return (
+                  <DotContainer key={_id} activityType={activityType}>
+                    <Item dot={<DotIcon activityType={activityType} />}>
+                      <Skeleton active loading={dataLoaded}>
+                        <span>
+                          <h3>{activityTitle}</h3>
+                          <p>{activityBody.message}</p>
+                          <p>{activityDate.toString().substring(0, 10)}</p>
+                        </span>
+                      </Skeleton>
+                    </Item>
+                  </DotContainer>
+                );
+              case "radar":
+                return (
+                  <DotContainer key={_id} activityType={activityType}>
+                    <Item dot={<DotIcon activityType={activityType} />}>
+                      <Skeleton active loading={dataLoaded}>
+                        <span>
+                          <h3>{activityTitle}</h3>
+                          <p>
+                            <Tag color="geekblue">{activityBody.company}</Tag>
+                          </p>
+                          <p>{activityDate.toString().substring(0, 10)}</p>
+                        </span>
+                      </Skeleton>
+                    </Item>
+                  </DotContainer>
+                );
+              default:
+                return null;
+            }
+          })}
+        </Timeline>
       )}
     </OverviewContainer>
   );

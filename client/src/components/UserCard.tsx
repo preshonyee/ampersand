@@ -16,9 +16,10 @@ import { TOKEN } from "../constants/Token";
 
 const Wrapper = styled.div`
   width: 100%;
-  margin: 1rem 0;
+  height: 40%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: #fff;
   padding: 1rem;
   border-radius: 1rem;
@@ -138,7 +139,7 @@ const UserCard: React.FC<IUserCard> = () => {
       <div className="stats">
         <Row gutter={[8, 16]}>
           <Col span={8}>
-            <Skeleton loading={dataLoaded} active paragraph={{ rows: 1 }}>
+            <Skeleton loading={dataLoaded} active paragraph={{ rows: 0 }}>
               <Statistic
                 title="Applications"
                 value={applications}
@@ -147,7 +148,7 @@ const UserCard: React.FC<IUserCard> = () => {
             </Skeleton>
           </Col>
           <Col span={8}>
-            <Skeleton loading={dataLoaded} active paragraph={{ rows: 1 }}>
+            <Skeleton loading={dataLoaded} active paragraph={{ rows: 0 }}>
               <Statistic
                 title="Cover Letters"
                 value={coverLetter}
@@ -156,7 +157,7 @@ const UserCard: React.FC<IUserCard> = () => {
             </Skeleton>
           </Col>
           <Col span={8}>
-            <Skeleton loading={dataLoaded} active paragraph={{ rows: 1 }}>
+            <Skeleton loading={dataLoaded} active paragraph={{ rows: 0 }}>
               <Statistic
                 title="Your Radar"
                 value={radar}

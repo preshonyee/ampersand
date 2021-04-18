@@ -52,6 +52,11 @@ a:hover {
   color: #ff5a5f;
 }
 
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  }
+
 .ant-table-header.ant-table-sticky-header > table > thead > tr > th {
   background-color: #f2f2f2;
 }
@@ -63,10 +68,21 @@ a:hover {
   font-size: 12px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.ant-modal-body {
+  padding: 0.5rem;
 }
+
+.ant-modal-content {
+    border-radius: 0.625rem;
+    padding: 0.5rem;
+  }
+
+ .form-buttons {
+    margin: 1.5rem 0 0 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
 `;
 
 export default GlobalStyle;

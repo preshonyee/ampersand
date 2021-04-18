@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     width: 90%;
     flex-direction: row;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: flex-start;
     margin: 0 auto;
   }
 
@@ -26,7 +26,7 @@ const Wrapper = styled.div`
     width: 70%;
     flex-direction: row;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: flex-start;
     margin: 0 auto;
   }
 
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
     width: 50%;
     flex-direction: row;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: flex-start;
     margin: 0 auto;
   }
 `;
