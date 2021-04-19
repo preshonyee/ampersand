@@ -281,22 +281,47 @@ const updatePassword = (req: any, res: any, next: any) => {
 // @route:          DELETE /api/v1/auth/delete-user
 // @access          Private
 const deleteUser = (req: any, res: any) => {
+  // Delete Applications
+  // Delete Radar
+  // Delete Timeline
+  // Delete Resume
+  // Delete Analytics
+  // Then delete the user
+  const { password } = req.body;
+  if (!password) {
+    return res
+      .status(422)
+      .json({ success: false, message: "Please provide a valid credential" });
+  }
   User.findByIdAndDelete(req.user._id).exec((error: any, user: any) => {
     // If error occurs
     if (error) {
-      return res.status(422).json({ success: false, error });
+      return res.status(422).json({ success: false, message: error.message });
     }
-    user
-      .remove()
-      .then((result: any) => {
-        res.json({
-          success: true,
-          message: "Your account has been deleted successfully",
-        });
-      })
-      .catch((error: any) => {
-        console.log({ error });
-      });
+    // compare entered password with record in database
+    bcrypt.compare(password, user.password).then((doMatch) => {
+      if (doMatch) {
+        user
+          .remove()
+          .then((result: any) => {
+            res.json({
+              success: true,
+              message: "Your account has been deleted successfully",
+            });
+          })
+          .catch((error: any) => {
+            console.log({ error });
+            return res.status(422).json({
+              success: false,
+              message: error.message,
+            });
+          });
+      } else {
+        return res
+          .status(422)
+          .json({ success: false, message: "Incorrect credentials provided" });
+      }
+    });
   });
 };
 

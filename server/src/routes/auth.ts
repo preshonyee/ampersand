@@ -23,6 +23,6 @@ router.route("/logout").get(logout);
 router.route("/me").get(requireLogin, getMe);
 router.route("/update-details").put(requireLogin, updateDetails);
 router.route("/update-password").put(requireLogin, updatePassword);
-router.route("/delete-user").delete(requireLogin, deleteUser);
+router.route("/delete-user").post(requireLogin, deleteUser);
 
 export default router;
