@@ -52,7 +52,7 @@ const Routing = () => {
         component={EditApplication}
       />
       <Route exact path="/app/resume" component={ResumePage} />
-      <Route exact path="/app/editor" component={Editor} />
+      <Route exact path="/app/resume/:resumeID" component={Editor} />
       <Route exact path="/app/analytics" component={AnalyticsPage} />
       <Route component={ErrorPage} />
     </Switch>

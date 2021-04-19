@@ -1,13 +1,11 @@
-import { Avatar, Button, Drawer, Dropdown, Menu } from "antd";
+import { Avatar, Dropdown, Menu } from "antd";
 import {
-  CloseCircleFilled,
   DisconnectOutlined,
   DownOutlined,
-  MenuOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +63,7 @@ const StyledMenuActions = styled.div`
   display: flex;
 
   .routeLinks .links,
-  .dropdown {
+  .desktop-dropdown {
     display: none;
   }
 
@@ -74,32 +72,23 @@ const StyledMenuActions = styled.div`
     margin-right: 1.5rem;
   }
 
-  .dropdown {
+  .desktop-dropdown {
     p:hover {
       cursor: pointer;
     }
   }
+  .mobile-dropdown {
+  }
 
   @media (min-width: 1200px) {
     .routeLinks .links,
-    .dropdown {
+    .desktop-dropdown {
       display: block;
     }
 
-    .routeLinks button {
+    .routeLinks .mobile-dropdown {
       display: none;
     }
-  }
-`;
-
-const StyledDrawerLinks = styled.div`
-  a {
-    display: block;
-    margin: 1rem 0;
-    font-size: 1rem;
-    border-left: 5px solid #ff5a5f;
-    background-color: #ffecec;
-    padding: 0.5rem 0 0.5rem 1rem;
   }
 `;
 
@@ -109,16 +98,6 @@ const NavMenu: React.FC = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const [visible, setVisible] = useState(false);
-
-  const showDrawer = () => {
-    setVisible(true);
-  };
-
-  const onClose = () => {
-    setVisible(false);
-  };
 
   const UserMenu = () => {
     const handleMenuClick = (e: any) => {
@@ -146,6 +125,50 @@ const NavMenu: React.FC = () => {
     );
   };
 
+  const MobileMenu = () => {
+    const handleMenuClick = (e: any) => {
+      if (e.key === "1") {
+        history.push("/app");
+      }
+      if (e.key === "2") {
+        history.push("/app/tracker");
+      }
+      if (e.key === "3") {
+        history.push("/app/resume");
+      }
+      if (e.key === "4") {
+        history.push("/account");
+      }
+      if (e.key === "5") {
+        dispatch(logout({ history }));
+      }
+    };
+    return (
+      <div className="dropdown-menu">
+        <Menu onClick={handleMenuClick}>
+          <Item key="1" icon={<UserOutlined />}>
+            Home
+          </Item>
+          <Item key="2" icon={<UserOutlined />}>
+            Tracker
+          </Item>
+          <Item key="3" icon={<UserOutlined />}>
+            Resume
+          </Item>
+          <Item key="4" icon={<UserOutlined />}>
+            Profile
+          </Item>
+          <Item key="5" icon={<DisconnectOutlined />}>
+            Logout
+          </Item>
+          <Item disabled key="6" icon={<SettingOutlined />}>
+            Dark Mode
+          </Item>
+        </Menu>
+      </div>
+    );
+  };
+
   return (
     <StyledMenu>
       <div className="brandItems">
@@ -162,9 +185,28 @@ const NavMenu: React.FC = () => {
               <Link to="/app/resume">Resume Profile</Link>
               {/* <Link to="/app/analytics">Analytics</Link> */}
             </div>
-            <Button onClick={showDrawer} icon={<MenuOutlined />} />
+            <div className="mobile-dropdown">
+              <Dropdown
+                placement="bottomLeft"
+                overlayStyle={{
+                  boxShadow:
+                    "0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%)",
+                }}
+                overlay={MobileMenu}
+                trigger={["click"]}>
+                <p className="ant-dropdown-link">
+                  <Avatar
+                    size={24}
+                    src={user.profilePicture && user.profilePicture}
+                    style={{ backgroundColor: "#FF5A5F" }}
+                    icon={<UserOutlined />}
+                  />{" "}
+                  {`${user.firstName} ${user.lastName}`} <DownOutlined />
+                </p>
+              </Dropdown>
+            </div>
           </span>
-          <div className="dropdown">
+          <div className="desktop-dropdown">
             <Dropdown
               overlayStyle={{
                 boxShadow:
@@ -179,24 +221,10 @@ const NavMenu: React.FC = () => {
                   style={{ backgroundColor: "#FF5A5F" }}
                   icon={<UserOutlined />}
                 />{" "}
-                {`${user.firstName}`} <DownOutlined />
+                {`${user.firstName} ${user.lastName}`} <DownOutlined />
               </p>
             </Dropdown>
           </div>
-          <Drawer
-            title="Menu"
-            placement="right"
-            closable={true}
-            closeIcon={<CloseCircleFilled />}
-            onClose={onClose}
-            visible={visible}>
-            <StyledDrawerLinks>
-              <Link to="/app">Home</Link>
-              <Link to="/app/tracker">Track Applications</Link>
-              <Link to="/app/resume">Resume Profile</Link>
-              <Link to="/app/analytics">Analytics</Link>
-            </StyledDrawerLinks>
-          </Drawer>
         </StyledMenuActions>
       ) : (
         <div className="login-links">

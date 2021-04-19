@@ -5,7 +5,6 @@ import { BASE_URL } from "../constants/BaseURL";
 import axios from "axios";
 import { TOKEN } from "../constants/Token";
 import { useHistory } from "react-router-dom";
-import NavMenu from "../components/NavMenu";
 import Layout from "../components/Layout";
 import { OPTIONS } from "../constants/Options";
 import { IValues } from "../Types";
@@ -13,15 +12,29 @@ import { IValues } from "../Types";
 const { Item } = Form;
 
 const Wrapper = styled.div`
-  width: 97%;
-  margin: 2rem auto;
+  width: 90%;
+  margin: 0 auto;
+  .heading {
+    margin-bottom: 2rem;
+  }
   form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
   form > * {
-    width: 32%;
+    width: 100%;
+  }
+
+  @media (min-width: 800px) {
+    form > * {
+      width: 48%;
+    }
+  }
+  @media (min-width: 1200px) {
+    form > * {
+      width: 32%;
+    }
   }
 `;
 
@@ -96,7 +109,12 @@ const AddApplication: React.FC = () => {
   return (
     <Layout background="#fff">
       <Wrapper>
-        <NavMenu />
+        <div className="heading">
+          <h1>Track new application</h1>
+          <p>
+            Fill in the details below to add a new application to the tracker
+          </p>
+        </div>
         <Form name="applicationForm" form={form} onFinish={onFinish}>
           <div>
             <label>Date Applied</label>

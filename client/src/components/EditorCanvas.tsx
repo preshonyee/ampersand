@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BASE_URL } from "../constants/BaseURL";
 import { TOKEN } from "../constants/Token";
@@ -13,6 +13,7 @@ import {
   projectType,
   skillType,
 } from "../Types";
+import LoadingSpinner from "./LoadingSpinner";
 
 const MainWrapper = styled.div`
   width: 80%;
@@ -39,7 +40,7 @@ interface IFormData {
   skills: skillType[];
 }
 
-const EditorCanvas = () => {
+const EditorCanvas: React.FC = (props: any) => {
   const [isReady, setIsReady] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [formData, setFormData] = useState<Array<IFormData>>([
@@ -91,9 +92,11 @@ const EditorCanvas = () => {
     },
   ]);
 
+  const { resumeID } = props.match.params;
+
   const fetchFormData = () => {
     axios
-      .get(`${BASE_URL}/profile/myProfile`, {
+      .get(`${BASE_URL}/resume/${resumeID}`, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
@@ -116,15 +119,14 @@ const EditorCanvas = () => {
 
   useEffect(() => {
     fetchFormData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <MainWrapper>
       <CanvasWrapper>
         {!isReady ? (
-          <div>
-            <p>Loading...</p>
-          </div>
+          <LoadingSpinner />
         ) : (
           <>
             <ResumePane profile={formData} />

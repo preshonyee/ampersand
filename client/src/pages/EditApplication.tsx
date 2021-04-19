@@ -5,27 +5,38 @@ import { BASE_URL } from "../constants/BaseURL";
 import axios from "axios";
 import { TOKEN } from "../constants/Token";
 import { useHistory } from "react-router-dom";
-import NavMenu from "../components/NavMenu";
 import Layout from "../components/Layout";
 import { OPTIONS } from "../constants/Options";
 import { IValues } from "../Types";
 import moment from "moment";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const { Item } = Form;
 
 const Wrapper = styled.div`
-  width: 97%;
-  margin: 2rem auto;
+  width: 90%;
+  margin: 0 auto;
   form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
   form > * {
-    width: 32%;
+    width: 100%;
   }
-  label {
-    font-weight: 700;
+
+  @media (min-width: 800px) {
+    form > * {
+      width: 48%;
+    }
+  }
+  @media (min-width: 1200px) {
+    form > * {
+      width: 32%;
+    }
+  }
+  .heading {
+    margin-bottom: 2rem;
   }
 `;
 
@@ -184,9 +195,12 @@ const EditApplication: React.FC = (props: any) => {
   return (
     <Layout background="#fff">
       <Wrapper>
-        <NavMenu />
+        <div className="heading">
+          <h1>Update your application at {initialFormData.company}</h1>
+          <p>Update the details of your application</p>
+        </div>
         {!formDataLoaded ? (
-          <p>Loading...</p>
+          <LoadingSpinner />
         ) : (
           <Form
             name="applicationForm"

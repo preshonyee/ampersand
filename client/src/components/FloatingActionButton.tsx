@@ -1,5 +1,5 @@
+import { Button } from "antd";
 import { Download, Edit, MoreHorizontal, Trash } from "react-feather";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -12,10 +12,8 @@ const Wrapper = styled.div`
   }
 
   .fab-icon-holder {
-    width: 50px;
-    height: 50px;
+    margin: 1rem 0;
     border-radius: 100%;
-    background: #fff;
 
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   }
@@ -82,7 +80,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const FAB: React.FC = () => {
+const FAB: React.FC = (props: any) => {
   return (
     <Wrapper>
       <div className="fab-container">
@@ -90,18 +88,12 @@ const FAB: React.FC = () => {
           <MoreHorizontal />
         </div>
         <ul className="fab-options">
-          {/* <li>
-            <span className="fab-label">Documentation</span>
-            <div className="fab-icon-holder">
-              <i className="fas fa-file-alt"></i>
-            </div>
-          </li> */}
           <li>
             <span className="fab-label">Edit Resume</span>
             <div className="fab-icon-holder">
-              <Link to="/app/editor">
+              <Button shape="circle" size="large" onClick={props.editAction}>
                 <Edit color="#ff5a5f" />
-              </Link>
+              </Button>
             </div>
           </li>
           <li>

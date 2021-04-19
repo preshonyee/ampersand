@@ -39,16 +39,17 @@ interface IUserData {
 }
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 90%;
   margin: 0 auto;
 
   .profile {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
   }
 
   .bio {
-    margin-left: 3rem;
+    margin: 1rem 0;
   }
 
   .title {
@@ -63,7 +64,7 @@ const Wrapper = styled.div`
 
   h1 {
     text-transform: capitalize;
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .username {
@@ -83,6 +84,46 @@ const Wrapper = styled.div`
   .map svg {
     margin: 0 0.5rem 0 0;
     vertical-align: middle;
+  }
+
+  @media (min-width: 640px) {
+    width: 90%;
+    .profile {
+      flex-direction: row;
+    }
+    .bio {
+      margin-left: 3rem;
+    }
+    h1 {
+      text-transform: capitalize;
+      font-size: 3rem;
+    }
+  }
+  @media (min-width: 800px) {
+    width: 70%;
+    .profile {
+      flex-direction: row;
+    }
+    .bio {
+      margin-left: 3rem;
+    }
+    h1 {
+      text-transform: capitalize;
+      font-size: 3rem;
+    }
+  }
+  @media (min-width: 1200px) {
+    width: 50%;
+    .profile {
+      flex-direction: row;
+    }
+    .bio {
+      margin-left: 3rem;
+    }
+    h1 {
+      text-transform: capitalize;
+      font-size: 3rem;
+    }
   }
 `;
 

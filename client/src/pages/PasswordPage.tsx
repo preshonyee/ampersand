@@ -17,7 +17,11 @@ interface IPasswordUpdate {
 
 const { Item } = Form;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  h2 {
+    margin-bottom: 1rem;
+  }
+`;
 
 const PasswordPage = () => {
   const dispatch = useDispatch();

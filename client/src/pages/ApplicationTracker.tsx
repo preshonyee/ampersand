@@ -362,7 +362,11 @@ const ApplicationTracker: React.FC = () => {
   return (
     <Layout background="#fff">
       <Wrapper>
-        <ButtonLink to="/app/add-application">Add Application</ButtonLink>
+        <div>
+          <h1>Applications Tracker</h1>
+          <p>Keep track of all your job applications</p>
+          <ButtonLink to="/app/add-application">Add Application</ButtonLink>
+        </div>
         <Table
           bordered
           rowKey={(applicationsData) => applicationsData._id}
@@ -375,7 +379,6 @@ const ApplicationTracker: React.FC = () => {
               setPage(current);
             },
             pageSize: 10,
-            position: ["topRight", "bottomRight"],
             total: applicationsData.length,
             showTotal: (total: number, range) => (
               <p>{`${range[0]}-${range[1]} of ${total} applications`}</p>

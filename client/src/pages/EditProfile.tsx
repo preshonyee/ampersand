@@ -31,18 +31,15 @@ interface IUserData {
 const Wrapper = styled.div`
   .top-section {
     display: flex;
-    justify-content: space-between;
-    margin: 2rem 0;
+    flex-direction: column;
   }
 
   .profile-picture {
-    width: 30%;
-    margin: 0 auto;
-    text-align: center;
+    margin-bottom: 2rem;
   }
 
   .personal-info {
-    width: 65%;
+    width: 100%;
   }
 
   .names,
@@ -50,13 +47,71 @@ const Wrapper = styled.div`
   .social-section {
     width: 100%;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
   }
 
   .about-section > *,
   .social-section > * {
-    width: 48%;
+    width: 100%;
+  }
+
+  @media (min-width: 800px) {
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem 0;
+    }
+
+    .profile-picture {
+      width: 30%;
+      margin: 0 auto;
+      text-align: center;
+      flex: none;
+    }
+
+    .personal-info {
+      width: 100%;
+    }
+    .about-section > *,
+    .social-section > * {
+      width: 100%;
+    }
+  }
+  @media (min-width: 1200px) {
+    .top-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 2rem 0;
+    }
+
+    .profile-picture {
+      width: 30%;
+      margin: 0 auto;
+      text-align: center;
+      flex: none;
+    }
+
+    .personal-info {
+      width: 65%;
+    }
+
+    .names,
+    .about-section,
+    .social-section {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .names > * {
+      width: 48%;
+    }
+
+    .about-section > *,
+    .social-section > * {
+      width: 48%;
+    }
   }
 `;
 

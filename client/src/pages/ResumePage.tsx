@@ -18,21 +18,17 @@ import {
 } from "../components/ListItem";
 import { TOKEN } from "../constants/Token";
 import { COLORS } from "../constants/Colors";
-import { Empty, Space } from "antd";
+import { Empty } from "antd";
 import Button from "antd/es/button";
-import {
-  DeleteOutlined,
-  DownloadOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
 import Layout from "../components/Layout";
 import FAB from "../components/FloatingActionButton";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useHistory } from "react-router-dom";
 
 const { primary, black100, black200 } = COLORS.light;
 
 const ResumePageWrapper = styled.div`
-  margin: 4rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -50,6 +46,9 @@ const ResumePageWrapper = styled.div`
   @media (min-width: 1600px) {
     width: 60%;
     justify-content: space-between;
+  }
+  .heading {
+    margin-bottom: 2rem;
   }
 `;
 
@@ -209,6 +208,7 @@ const initialState = [
 ];
 
 const ResumePage: React.FC = () => {
+  const history = useHistory();
   const [isReady, setIsReady] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
   const [resumeData, setResumeData] = useState<IResumeData[]>(initialState);
@@ -257,11 +257,20 @@ const ResumePage: React.FC = () => {
     fetchResumeData();
   }, []);
 
-  console.log(resumeData);
+  const handleEdit = (resumeID: string) => {
+    history.push(`/app/resume/${resumeID}`);
+  };
 
   return (
-    <Layout>
+    <Layout background="#f8f8f8">
       <ResumePageWrapper>
+        <div className="heading">
+          <h1>Resume Profile</h1>
+          <p>
+            Elevate your resume with well designed templates that summarizes
+            your story beautifully
+          </p>
+        </div>
         {!isReady ? (
           <LoadingSpinner />
         ) : (
@@ -407,19 +416,6 @@ const ResumePage: React.FC = () => {
                 )}
               </div>
             </PaneWrapper>
-            <ActionMenu>
-              <Space direction="vertical">
-                <Button block icon={<EditOutlined />}>
-                  Edit resume profile
-                </Button>
-                <Button block icon={<DownloadOutlined />}>
-                  Download resume profile
-                </Button>
-                <Button type="primary" block danger icon={<DeleteOutlined />}>
-                  Delete resume profile
-                </Button>
-              </Space>
-            </ActionMenu>
           </>
         )}
         <FAB />

@@ -21,6 +21,7 @@ const Wrapper = styled.div`
     &:hover,
     &:focus {
       opacity: 0.9;
+      color: #fff;
     }
   }
 `;

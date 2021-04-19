@@ -55,6 +55,7 @@ a:hover {
 label {
   display: block;
   margin-bottom: 0.25rem;
+  font-weight: 500;
   }
 
 .ant-table-header.ant-table-sticky-header > table > thead > tr > th {
