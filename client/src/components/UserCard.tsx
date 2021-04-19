@@ -182,7 +182,7 @@ const UserCard: React.FC<IUserCard> = () => {
           size="large"
           shape="round"
           block
-          onClick={() => history.push("/app/editor")}>
+          onClick={() => history.push("/account")}>
           Go to profile
         </Button>
       </Skeleton>

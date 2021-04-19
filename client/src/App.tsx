@@ -40,8 +40,8 @@ const Routing = () => {
       <Route exact path="/app" component={Homepage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/login" component={LoginPage} />
-      <Route exact path="/app/@preshonyee" component={AccountPage} />
-      <Route exact path="/account" component={EditProfilePage} />
+      <Route exact path="/account" component={AccountPage} />
+      <Route exact path="/account/edit" component={EditProfilePage} />
       <Route exact path="/account/password" component={PasswordPage} />
       <Route exact path="/account/close" component={CloseAccount} />
       <Route exact path="/app/tracker" component={ApplicationTracker} />

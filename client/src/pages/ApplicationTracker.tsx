@@ -13,7 +13,7 @@ import ButtonLink from "../components/ButtonLinks";
 
 const Wrapper = styled.div`
   width: 97%;
-  margin: 1rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 

@@ -122,6 +122,9 @@ const NavMenu: React.FC = () => {
 
   const UserMenu = () => {
     const handleMenuClick = (e: any) => {
+      if (e.key === "1") {
+        history.push("/account");
+      }
       if (e.key === "2") {
         dispatch(logout({ history }));
       }

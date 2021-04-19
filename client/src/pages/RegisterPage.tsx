@@ -159,6 +159,8 @@ const RegisterPage = () => {
                 name="email"
                 rules={[
                   {
+                    required: true,
+                    message: "Please enter a valid email address",
                     pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                   },
                 ]}>
@@ -168,8 +170,20 @@ const RegisterPage = () => {
 
             <div>
               <label>Password</label>
-              <Item name="password">
-                <Input size="large" type="password" placeholder="password" />
+              <Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your password",
+                    min: 6,
+                  },
+                ]}>
+                <Input.Password
+                  size="large"
+                  type="password"
+                  placeholder="password"
+                />
               </Item>
             </div>
 

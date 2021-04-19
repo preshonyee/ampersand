@@ -156,7 +156,9 @@ const AccountPage = () => {
                   {firstName}
                   {lastName}
                 </h1>
-                <Button onClick={() => history.push("/account")} shape="round">
+                <Button
+                  onClick={() => history.push("/account/edit")}
+                  shape="round">
                   Edit profile
                 </Button>
               </span>

@@ -133,26 +133,50 @@ const EditProfilePage = () => {
                 <div className="names">
                   <div>
                     <label>First name</label>
-                    <Item name="firstName">
+                    <Item
+                      name="firstName"
+                      rules={[
+                        { required: true, message: "Please enter first name" },
+                      ]}>
                       <Input size="large" />
                     </Item>
                   </div>
                   <div>
                     <label>Last name</label>
-                    <Item name="lastName">
+                    <Item
+                      name="lastName"
+                      rules={[
+                        { required: true, message: "Please enter last name" },
+                      ]}>
                       <Input size="large" />
                     </Item>
                   </div>
                 </div>
                 <div>
                   <label>Email address</label>
-                  <Item name="email">
+                  <Item
+                    name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter a valid email",
+                        pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      },
+                    ]}>
                     <Input size="large" />
                   </Item>
                 </div>
                 <div>
                   <label>Username</label>
-                  <Item name="username">
+                  <Item
+                    name="username"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter username",
+                        pattern: /^[a-z0-9_-]{3,16}$/,
+                      },
+                    ]}>
                     <Input size="large" />
                   </Item>
                   <small>https://ampersand.careers/@preshonyee</small>
