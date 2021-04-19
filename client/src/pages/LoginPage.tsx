@@ -179,9 +179,10 @@ const LoginPage = () => {
             </div>
 
             <Button
-              size="large"
-              loading={loading}
               block
+              size="large"
+              shape="round"
+              loading={loading}
               type="primary"
               htmlType="submit">
               Login

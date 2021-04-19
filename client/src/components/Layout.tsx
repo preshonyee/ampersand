@@ -10,7 +10,7 @@ const Wrapper = styled.div<ILayout>`
   min-height: 100vh;
   background-color: ${(props) => props.background || "#f5f5f5"};
   main {
-    padding: 3rem 0;
+    padding: 5rem 0;
   }
   footer {
     text-align: center;
@@ -25,10 +25,7 @@ const Layout: React.FC<ILayout> = ({ children, background }) => {
   return (
     <Wrapper background={background}>
       <NavMenu />
-      <main>
-        <h1>hello</h1>
-        {children}
-      </main>
+      <main>{children}</main>
       <footer>
         <p>
           &copy; 2021 Ampersand.careers, built with ❤ by{" "}

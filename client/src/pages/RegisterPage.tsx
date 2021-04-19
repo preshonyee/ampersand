@@ -93,6 +93,14 @@ const FormContainer = styled.div`
       font-weight: 700;
     }
   }
+  .name {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .name > * {
+    width: 49%;
+  }
 `;
 
 const RegisterPage = () => {
@@ -139,17 +147,34 @@ const RegisterPage = () => {
             </p>
           </div>
           <Form form={form} onFinish={registerUser}>
-            <div>
-              <label>First Name</label>
-              <Item name="firstName">
-                <Input size="large" placeholder="First Name" />
-              </Item>
+            <div className="name">
+              <div>
+                <label>First Name</label>
+                <Item name="firstName">
+                  <Input size="large" placeholder="First Name" />
+                </Item>
+              </div>
+
+              <div>
+                <label>Last Name</label>
+                <Item name="lastName">
+                  <Input size="large" placeholder="Last Name" />
+                </Item>
+              </div>
             </div>
 
             <div>
-              <label>Last Name</label>
-              <Item name="lastName">
-                <Input size="large" placeholder="Last Name" />
+              <label>Username</label>
+              <Item
+                name="username"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter a username",
+                    pattern: /^[a-z0-9_-]{3,16}$/,
+                  },
+                ]}>
+                <Input size="large" placeholder="Username" />
               </Item>
             </div>
 
@@ -188,9 +213,10 @@ const RegisterPage = () => {
             </div>
 
             <Button
-              size="large"
-              loading={loading}
               block
+              size="large"
+              shape="round"
+              loading={loading}
               type="primary"
               htmlType="submit">
               Create account

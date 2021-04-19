@@ -30,12 +30,12 @@ const Wrapper = styled.div`
   .top-section {
     display: flex;
     justify-content: space-between;
+    margin: 2rem 0;
   }
 
   .profile-picture {
     width: 30%;
     margin: 0 auto;
-    padding: 2rem 0;
     text-align: center;
   }
 
@@ -63,6 +63,7 @@ const EditProfilePage = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(undefined || "");
   const [userData, setUserData] = useState<IUserData>({
     profilePicture: "",
     location: "",
@@ -107,13 +108,19 @@ const EditProfilePage = () => {
       .then((response: AxiosResponse<any>) => {
         setLoading(false);
         message.success(response.data.message, 3);
-        history.push("/app/@preshonyee");
+        history.push("/account");
       })
       .catch((error) => {
         setLoading(false);
         message.error(error.response.data.message, 3);
       });
   };
+
+  const updateProfilePictureHandler = (file: any) => {
+    setProfilePicture(file);
+  };
+
+  console.log(profilePicture);
 
   return (
     <ProfileLayout>
@@ -125,9 +132,16 @@ const EditProfilePage = () => {
           <Form form={form} initialValues={userData} onFinish={onFinish}>
             <div className="top-section">
               <div className="profile-picture">
+                <p>Update profile picture</p>
                 <Item name="profilePicture">
                   <Avatar size={160} src={userData.profilePicture} />
                 </Item>
+                <input
+                  type="file"
+                  onChange={(e: any) =>
+                    updateProfilePictureHandler(e.target.files[0])
+                  }
+                />
               </div>
               <div className="personal-info">
                 <div className="names">
@@ -179,7 +193,7 @@ const EditProfilePage = () => {
                     ]}>
                     <Input size="large" />
                   </Item>
-                  <small>https://ampersand.careers/@preshonyee</small>
+                  {/* <small>https://ampersand.careers/@preshonyee</small> */}
                 </div>
               </div>
             </div>
@@ -232,6 +246,7 @@ const EditProfilePage = () => {
             <Button
               block
               size="large"
+              shape="round"
               loading={loading}
               htmlType="submit"
               type="primary">

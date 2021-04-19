@@ -1,5 +1,5 @@
 import express from "express";
-import { getUser } from "../controllers/user";
+import { getUser, updateProfilePicture } from "../controllers/user";
 import requireLogin from "../middleware/requireLogin";
 
 const router = express.Router();
@@ -9,5 +9,6 @@ const router = express.Router();
  */
 
 router.route("/").get(requireLogin, getUser);
+router.route("/picture").put(requireLogin, updateProfilePicture);
 
 export default router;

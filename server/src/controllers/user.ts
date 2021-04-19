@@ -39,4 +39,34 @@ const getUser = async (req: any, res: any, next: any) => {
     });
 };
 
-export { getUser };
+// @description:    Update user profile picture
+// @route:          GET /api/v1/user/picture
+// @access          Private
+const updateProfilePicture = (req: any, res: any) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { profilePicture: req.body.profilePicture } },
+    { new: true },
+    (error: any, result: any) => {
+      if (error) {
+        return res.status(422).json({
+          success: false,
+          message: "Could not update profile picture",
+        });
+      }
+      res.json({
+        success: true,
+        result: {
+          profilePicture: result.profilePicture,
+          firstName: result.firstName,
+          lastName: result.lastName,
+          email: result.email,
+          _id: result._id,
+        },
+        message: "Profile picture updated successfully",
+      });
+    }
+  );
+};
+
+export { getUser, updateProfilePicture };
