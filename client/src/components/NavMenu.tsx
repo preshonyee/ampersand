@@ -179,7 +179,7 @@ const NavMenu: React.FC = () => {
                   style={{ backgroundColor: "#FF5A5F" }}
                   icon={<UserOutlined />}
                 />{" "}
-                {`${user.firstName} ${user.lastName}`} <DownOutlined />
+                {`${user.firstName}`} <DownOutlined />
               </p>
             </Dropdown>
           </div>

@@ -1,7 +1,7 @@
-import { Avatar, Button, Input, Form, message } from "antd";
+import { Avatar, Button, Input, Form, message, Skeleton } from "antd";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -61,11 +61,14 @@ const Wrapper = styled.div`
 `;
 
 const EditProfilePage = () => {
+  const { user } = useSelector((state: any) => state.user);
   const history = useHistory();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [profilePictureLoading, setProfilePictureLoading] = useState(false);
+  const [profilePictureURL, setProfilePictureURL] = useState("");
   const [profilePicture, setProfilePicture] = useState(undefined || "");
   const [userData, setUserData] = useState<IUserData>({
     profilePicture: "",
@@ -92,6 +95,7 @@ const EditProfilePage = () => {
       .then((response: AxiosResponse<any>) => {
         setUserData(response.data.data.user);
         setDataLoaded(true);
+        setProfilePictureLoading(false);
       });
   };
 
@@ -103,11 +107,15 @@ const EditProfilePage = () => {
   const onFinish = (values: IUserData) => {
     setLoading(true);
     axios
-      .put(`${BASE_URL}/auth/update-details`, values, {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
+      .put(
+        `${BASE_URL}/auth/update-details`,
+        { ...values, profilePicture: profilePictureURL },
+        {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      )
       .then((response: AxiosResponse<any>) => {
         setLoading(false);
         message.success(response.data.message, 3);
@@ -121,6 +129,7 @@ const EditProfilePage = () => {
 
   useEffect(() => {
     if (profilePicture) {
+      setProfilePictureLoading(true);
       const data = new FormData();
       data.append("file", profilePicture);
       data.append("upload_preset", "beaniegram");
@@ -139,14 +148,18 @@ const EditProfilePage = () => {
             )
             .then((response) => {
               const result = response.data.result.profilePicture;
+              setProfilePictureLoading(false);
               dispatch(updateProfilePicture({ payload: result }));
+              setProfilePictureURL(result);
             })
             .catch((error) => {
               console.log(error);
+              setProfilePictureLoading(false);
             });
         })
         .catch((error) => {
           console.log(error);
+          setProfilePictureLoading(false);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -169,9 +182,16 @@ const EditProfilePage = () => {
             <div className="top-section">
               <div className="profile-picture">
                 <p>Update profile picture</p>
-                <Item name="profilePicture">
-                  <Avatar size={160} src={userData.profilePicture} />
-                </Item>
+                <Skeleton
+                  active
+                  loading={profilePictureLoading}
+                  avatar={{ size: 160 }}
+                  title={false}
+                  paragraph={false}>
+                  <Item name="profilePicture">
+                    <Avatar size={160} src={user.profilePicture} />
+                  </Item>
+                </Skeleton>
                 <input
                   type="file"
                   onChange={(e: any) =>
