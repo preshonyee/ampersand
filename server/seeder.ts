@@ -1,15 +1,15 @@
-const fs = require("fs");
-const mongoose = require("mongoose");
-const colors = require("colors");
-const dotenv = require("dotenv");
+import fs from "fs";
+import mongoose from "mongoose";
+import "colors";
+import { config } from "dotenv";
 
 // Load env vars
-dotenv.config({ path: "./config/config.env" });
+config();
 
 // Load models
-const Profile = require("./models/Profile");
-const Application = require("./models/Application");
-const User = require("./models/User");
+import Resume from "./src/models/Resume";
+import Application from "./src/models/Application";
+import User from "./src/models/User";
 
 // Connect to DB
 mongoose.connect(process.env.MONGO_URI, {
@@ -20,22 +20,22 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // Read the JSON files
-const profiles = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/profiles.json`, "utf-8")
+const resume = JSON.parse(
+  fs.readFileSync(`${__dirname}/src/_data/resume.json`, "utf-8")
 );
 const applications = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/applications.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/src/_data/applications.json`, "utf-8")
 );
 const users = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/users.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/src/_data/users.json`, "utf-8")
 );
 
 // Import into DB
 const importData = async () => {
   try {
-    await Profile.create(profiles);
+    await Resume.create(resume);
     await Application.create(applications);
-    // await User.create(users);
+    await User.create(users);
     console.log("Data Imported...".green.inverse);
     process.exit();
   } catch (error) {
@@ -46,7 +46,7 @@ const importData = async () => {
 // Delete from DB
 const deleteData = async () => {
   try {
-    await Profile.deleteMany();
+    await Resume.deleteMany();
     await Application.deleteMany();
     await User.deleteMany();
     console.log("Data Destroyed...".red.inverse);
