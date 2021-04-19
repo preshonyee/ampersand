@@ -107,7 +107,10 @@ const signin = (req: any, res: any, next: any) => {
   if (!email || !password) {
     return res.status(422).json({ error: "Please add email or password" });
   }
-  User.findOne({ email }, "password")
+  User.findOne(
+    { email },
+    "password firstName lastName email username profilePicture"
+  )
     .then((savedUser: any) => {
       if (!savedUser) {
         return res.status(422).json({ error: "Invalid email or password" });
@@ -120,11 +123,13 @@ const signin = (req: any, res: any, next: any) => {
               { _id: savedUser._id },
               process.env.JWT_SECRET
             );
+
             const {
               _id,
               firstName,
               lastName,
               email,
+              username,
               profilePicture,
             } = savedUser;
 
@@ -135,6 +140,7 @@ const signin = (req: any, res: any, next: any) => {
                 firstName,
                 lastName,
                 email,
+                username,
                 profilePicture,
               },
             });

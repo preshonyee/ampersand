@@ -1,12 +1,14 @@
 import { Avatar, Button, Input, Form, message } from "antd";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ProfileLayout from "../components/ProfileLayout";
 import { BASE_URL } from "../constants/BaseURL";
 import { TOKEN } from "../constants/Token";
+import { updateProfilePicture } from "../redux/store/user";
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -60,6 +62,7 @@ const Wrapper = styled.div`
 
 const EditProfilePage = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -115,6 +118,39 @@ const EditProfilePage = () => {
         message.error(error.response.data.message, 3);
       });
   };
+
+  useEffect(() => {
+    if (profilePicture) {
+      const data = new FormData();
+      data.append("file", profilePicture);
+      data.append("upload_preset", "beaniegram");
+      data.append("cloud_name", "beaniegram");
+      axios
+        .post("https://api.cloudinary.com/v1_1/beaniegram/image/upload", data)
+        .then((response) => {
+          const URL = response.data.secure_url;
+          console.log({ URL });
+
+          axios
+            .put(
+              `${BASE_URL}/user/picture`,
+              { profilePicture: URL },
+              { headers: { Authorization: `Bearer ${TOKEN}` } }
+            )
+            .then((response) => {
+              const result = response.data.result.profilePicture;
+              dispatch(updateProfilePicture({ payload: result }));
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profilePicture]);
 
   const updateProfilePictureHandler = (file: any) => {
     setProfilePicture(file);
