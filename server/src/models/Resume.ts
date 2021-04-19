@@ -112,6 +112,7 @@ const ResumeSchema = new Schema(
     owner: {
       type: ObjectId,
       ref: "User",
+      required: [true, "You must be logged in"],
     },
   },
   { timestamps: true }

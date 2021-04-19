@@ -27,8 +27,8 @@ const Wrapper = styled.div`
   }
 
   section {
-    margin: 2rem auto;
-    padding: 2rem 3rem;
+    margin: -2.2rem auto;
+    padding: 5rem 3rem;
   }
 
   small {

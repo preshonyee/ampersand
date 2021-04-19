@@ -14,7 +14,7 @@ const router = express.Router();
 // app.use("/api/v1/resume", resume);
 
 // create resume, get resume
-router.route("/").post(requireLogin, createResume).get(requireLogin, myResume);
+router.route("/").post(createResume).get(requireLogin, myResume);
 
 // get dummy resume
 router.route("/dummy").get(requireLogin, dummyResume);

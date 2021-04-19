@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import ErrorResponse from "../utils/errorResponse";
 import User from "../models/User";
+import axios, { AxiosResponse } from "axios";
+import { BASE_URL } from "../utils/baseUrl";
 
 // TODO: Fix all any types
 
@@ -81,7 +83,142 @@ const signup = (req: any, res: any) => {
                   github,
                 },
               });
-              console.log({ user });
+              // create dummy resume for new user
+              axios
+                .post(`${BASE_URL}/resume`, {
+                  owner: user._id,
+                  firstName: user.firstName,
+                  lastName: user.lastName,
+                  occupation: "Occupation",
+                  location: "City, Country",
+                  website: "https://example.com",
+                  email: user.email,
+                  telephone: "+234 0123 4567",
+                  education: [
+                    {
+                      nameOfInstitution: "Example University",
+                      yearEnded: "2018",
+                      honors: "Bsc",
+                      discipline: "Computer Science and Mathematics",
+                    },
+                    {
+                      nameOfInstitution: "Example University",
+                      yearEnded: "2020",
+                      honors: "Msc",
+                      discipline: "Applied Mathematics",
+                    },
+                    {
+                      nameOfInstitution: "Example University",
+                      yearEnded: "2021",
+                      honors: "Phd",
+                      discipline: "Machine Learning and Data Science",
+                    },
+                  ],
+                  skills: [
+                    {
+                      skill: "Skill 1",
+                      tools: "Tool 1, Tool 2, Tool 3",
+                    },
+                    {
+                      skill: "Skill 2",
+                      tools: "Tool 1, Tool 2, Tool 3",
+                    },
+                    {
+                      id: 3,
+                      skill: "Web Development",
+                      tools: "React, HTML, CSS, JavaScript",
+                    },
+                    {
+                      id: 4,
+                      skill: "Backend Development",
+                      tools: "NodeJS, MongoDB, AWS",
+                    },
+                  ],
+                  projects: [
+                    {
+                      id: 1,
+                      title: "Project 1",
+                      description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    },
+                    {
+                      id: 2,
+                      title: "Project 2",
+                      description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    },
+                    {
+                      id: 3,
+                      title: "Project 3",
+                      description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    },
+                  ],
+                  experience: [
+                    {
+                      id: 1,
+                      company: "Company 1 Name",
+                      role: "Role 1",
+                      location: "Location 1",
+                      date: "Year Started - Year Ended",
+                      description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    },
+                    {
+                      id: 2,
+                      company: "Company 2 Name",
+                      role: "Role 2",
+                      location: "Location 2",
+                      date: "Year Started - Year Ended",
+                      description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    },
+                    {
+                      id: 3,
+                      company: "Company 3 Name",
+                      role: "Role 3",
+                      location: "Location 3",
+                      date: "Year Started - Year Ended",
+                      description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    },
+                    {
+                      id: 4,
+                      company: "Company 4 Name",
+                      role: "Role 4",
+                      location: "Location 4",
+                      date: "Year Started - Year Ended",
+                      description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    },
+                  ],
+                  achievements: [
+                    {
+                      achievementTitle: "Semi Finalist",
+                      awarder: "Digital Ocean",
+                      date: "Summer 2021",
+                      event: "Hacktober Fest",
+                    },
+                    {
+                      achievementTitle: "1st Prize Winner",
+                      awarder: "Google Inc.",
+                      date: "Summer 2021",
+                      event: "Google Summer of Code",
+                    },
+                    {
+                      achievementTitle: "Second Runner Up",
+                      awarder: "Microsoft",
+                      date: "Summer 2021",
+                      event: "Imagine Cup Competition",
+                    },
+                  ],
+                })
+                .then((response: AxiosResponse<any>) => {
+                  console.log(response.data.message);
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
             })
             .catch((error: any) => {
               console.log(error);

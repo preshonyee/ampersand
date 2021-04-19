@@ -22,6 +22,7 @@ const createResume = (req: any, res: any, next: any) => {
     projects,
     experience,
     achievements,
+    owner,
   } = req.body;
 
   // Check if fields are empty
@@ -42,8 +43,6 @@ const createResume = (req: any, res: any, next: any) => {
     return next(new ErrorResponse("Please enter all the fields", 422));
   }
 
-  req.user.password = undefined; // To exempt the password from showing up in the response
-
   const resume = new Resume({
     firstName,
     lastName,
@@ -57,7 +56,7 @@ const createResume = (req: any, res: any, next: any) => {
     projects,
     experience,
     achievements,
-    owner: req.user,
+    owner,
   });
 
   // save resume to the database
@@ -77,6 +76,7 @@ const createResume = (req: any, res: any, next: any) => {
           },
           activityType: "resume",
           activityDate: Date.now(),
+          addedBy: owner,
         })
         .then((response) => {
           console.log(response.data);

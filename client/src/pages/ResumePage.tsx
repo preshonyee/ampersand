@@ -19,7 +19,6 @@ import {
 import { TOKEN } from "../constants/Token";
 import { COLORS } from "../constants/Colors";
 import { Empty } from "antd";
-import Button from "antd/es/button";
 import Layout from "../components/Layout";
 import FAB from "../components/FloatingActionButton";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -50,11 +49,6 @@ const ResumePageWrapper = styled.div`
   .heading {
     margin-bottom: 2rem;
   }
-`;
-
-const ActionMenu = styled.div`
-  width: 18%;
-  display: none;
 `;
 
 const PaneWrapper = styled.div`
@@ -144,13 +138,14 @@ const RightSide = styled.div`
 `;
 
 interface IResumeData {
-  firstName: String;
-  lastName: String;
-  occupation: String;
-  location: String;
-  website: String;
-  email: String;
-  telephone: String;
+  _id: string;
+  firstName: string;
+  lastName: string;
+  occupation: string;
+  location: string;
+  website: string;
+  email: string;
+  telephone: string;
   projects: projectType[];
   experience: experienceType[];
   education: educationType[];
@@ -160,6 +155,7 @@ interface IResumeData {
 
 const initialState = [
   {
+    _id: "",
     achievements: [
       {
         achievementTitle: "",
@@ -214,6 +210,7 @@ const ResumePage: React.FC = () => {
   const [resumeData, setResumeData] = useState<IResumeData[]>(initialState);
 
   const {
+    _id,
     firstName,
     lastName,
     occupation,
@@ -232,7 +229,7 @@ const ResumePage: React.FC = () => {
 
   const fetchResumeData = () => {
     axios
-      .get(`${BASE_URL}/resume/dummy`, {
+      .get(`${BASE_URL}/resume`, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
@@ -260,6 +257,22 @@ const ResumePage: React.FC = () => {
   const handleEdit = (resumeID: string) => {
     history.push(`/app/resume/${resumeID}`);
   };
+
+  // const handleDelete = (resumeID: string) => {
+  //   axios
+  //     .delete(`${BASE_URL}/resume/${resumeID}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${TOKEN}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       message.success(response.data.message, 3);
+  //       setIsEmpty(true);
+  //     })
+  //     .catch((error) => {
+  //       message.error(error.message);
+  //     });
+  // };
 
   return (
     <Layout background="#f8f8f8">
@@ -418,7 +431,10 @@ const ResumePage: React.FC = () => {
             </PaneWrapper>
           </>
         )}
-        <FAB />
+        <FAB
+          editAction={() => handleEdit(_id)}
+          // deleteAction={() => handleDelete(_id)}
+        />
       </ResumePageWrapper>
     </Layout>
   );

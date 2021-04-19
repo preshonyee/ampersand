@@ -84,23 +84,10 @@ const PasswordPage = () => {
                 <Input.Password size="large" type="password" />
               </Item>
             </div>
-            <div>
-              <label>Password Confirmation</label>
-              <Item
-                name="passwordConfirmation"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter new password again",
-                    min: 6,
-                  },
-                ]}>
-                <Input.Password size="large" type="password" />
-              </Item>
-            </div>
           </div>
           <Button
             block
+            shape="round"
             loading={loading}
             size="large"
             htmlType="submit"

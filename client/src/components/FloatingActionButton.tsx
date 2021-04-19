@@ -1,6 +1,11 @@
 import { Button } from "antd";
-import { Download, Edit, MoreHorizontal, Trash } from "react-feather";
+import { Edit, MoreHorizontal } from "react-feather";
 import styled from "styled-components";
+
+interface IFAB {
+  editAction: () => void;
+  deleteAction?: () => void;
+}
 
 const Wrapper = styled.div`
   .fab-container {
@@ -80,7 +85,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const FAB: React.FC = (props: any) => {
+const FAB: React.FC<IFAB> = ({ editAction }: any) => {
   return (
     <Wrapper>
       <div className="fab-container">
@@ -91,23 +96,27 @@ const FAB: React.FC = (props: any) => {
           <li>
             <span className="fab-label">Edit Resume</span>
             <div className="fab-icon-holder">
-              <Button shape="circle" size="large" onClick={props.editAction}>
+              <Button shape="circle" size="large" onClick={editAction}>
                 <Edit color="#ff5a5f" />
               </Button>
             </div>
           </li>
-          <li>
+          {/* <li>
             <span className="fab-label">Download Resume</span>
             <div className="fab-icon-holder">
-              <Download color="#ff5a5f" />
+              <Button shape="circle" size="large">
+                <Download color="#ff5a5f" />
+              </Button>
             </div>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <span className="fab-label">Delete Resume</span>
             <div className="fab-icon-holder">
-              <Trash color="#ff5a5f" />
+              <Button shape="circle" size="large" onClick={deleteAction}>
+                <Trash color="#ff5a5f" />
+              </Button>
             </div>
-          </li>
+          </li> */}
         </ul>
       </div>
     </Wrapper>

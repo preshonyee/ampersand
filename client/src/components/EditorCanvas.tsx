@@ -16,13 +16,21 @@ import {
 import LoadingSpinner from "./LoadingSpinner";
 
 const MainWrapper = styled.div`
-  width: 80%;
-  margin: 4rem auto;
+  width: 95%;
+  margin: 0 auto;
+  @media (min-width: 1200px) {
+    width: 90%;
+  }
 `;
 
 const CanvasWrapper = styled.div`
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
+
+  @media (min-width: 1200px) {
+    flex-direction: row;
+  }
 `;
 
 interface IFormData {
@@ -40,9 +48,12 @@ interface IFormData {
   skills: skillType[];
 }
 
-const EditorCanvas: React.FC = (props: any) => {
+interface IEditorCanvas {
+  resumeID: string;
+}
+
+const EditorCanvas: React.FC<IEditorCanvas> = ({ resumeID }) => {
   const [isReady, setIsReady] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(true);
   const [formData, setFormData] = useState<Array<IFormData>>([
     {
       achievements: [
@@ -92,24 +103,16 @@ const EditorCanvas: React.FC = (props: any) => {
     },
   ]);
 
-  const { resumeID } = props.match.params;
-
   const fetchFormData = () => {
     axios
-      .get(`${BASE_URL}/resume/${resumeID}`, {
+      .get(`${BASE_URL}/resume/`, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
       })
       .then((response) => {
         const result = response.data.result;
-        console.log({ result });
-        if (result[0] === undefined) {
-          setIsEmpty(true);
-        } else {
-          setIsEmpty(false);
-          setFormData(result);
-        }
+        setFormData(result);
         setIsReady(true);
       })
       .catch((error) => {
@@ -124,20 +127,22 @@ const EditorCanvas: React.FC = (props: any) => {
 
   return (
     <MainWrapper>
-      <CanvasWrapper>
-        {!isReady ? (
-          <LoadingSpinner />
-        ) : (
-          <>
-            <ResumePane profile={formData} />
-            {isEmpty ? (
-              <EditForm formData={formData} setFormData={setFormData} />
-            ) : (
-              <EditForm formData={formData} setFormData={setFormData} />
-            )}
-          </>
-        )}
-      </CanvasWrapper>
+      <div>
+        <h1>Update Resume</h1>
+        <p>Keep your resume fresh and up to date</p>
+      </div>
+      {!isReady ? (
+        <LoadingSpinner />
+      ) : (
+        <CanvasWrapper>
+          <ResumePane profile={formData} />
+          <EditForm
+            resumeID={resumeID}
+            formData={formData}
+            setFormData={setFormData}
+          />
+        </CanvasWrapper>
+      )}
     </MainWrapper>
   );
 };

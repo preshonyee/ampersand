@@ -1,10 +1,10 @@
 import EditorCanvas from "../components/EditorCanvas";
 import Layout from "../components/Layout";
 
-const Editor = () => {
+const Editor = (props: any) => {
   return (
-    <Layout>
-      <EditorCanvas />
+    <Layout background="#f2f2f2">
+      <EditorCanvas resumeID={props.match.params.resumeID} />
     </Layout>
   );
 };

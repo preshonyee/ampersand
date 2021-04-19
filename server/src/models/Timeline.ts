@@ -58,7 +58,7 @@ const TimelineSchema = new Schema(
     addedBy: {
       type: ObjectId,
       ref: "User",
-      required: [true],
+      required: [true, "You must be logged in"],
     },
   },
   { timestamps: true }

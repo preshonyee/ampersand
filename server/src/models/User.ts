@@ -57,17 +57,14 @@ const UserSchema = new Schema(
     twitter: {
       type: String,
       default: "Twitter profile not yet added",
-      unique: true,
     },
     linkedin: {
       type: String,
       default: "Linkedin profile not yet added",
-      unique: true,
     },
     github: {
       type: String,
       default: "GitHub profile not yet added",
-      unique: true,
     },
   },
   { timestamps: true }

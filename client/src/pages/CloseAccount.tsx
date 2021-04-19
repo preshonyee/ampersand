@@ -58,8 +58,9 @@ const CloseAccount = () => {
         />
         <Form form={form} onFinish={onFinish}>
           <div className="close">
+            <label>Current Password</label>
             <Item
-              name="currentPassword"
+              name="password"
               rules={[
                 {
                   required: true,
@@ -67,13 +68,13 @@ const CloseAccount = () => {
                   min: 6,
                 },
               ]}>
-              <label>Current Password</label>
               <Input.Password size="large" />
             </Item>
           </div>
           <Button
             loading={loading}
             size="large"
+            shape="round"
             htmlType="submit"
             type="primary">
             Delete account

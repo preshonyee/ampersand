@@ -19,13 +19,17 @@ import { useHistory } from "react-router-dom";
 const { Item, List } = Form;
 
 const FormWrapper = styled.div`
-  width: 38%;
+  width: 100%;
   height: 85vh;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 1rem;
   overflow-y: auto;
   scrollbar-width: thin;
   border-bottom: 1px solid #dadce0;
+
+  @media (min-width: 1200px) {
+    width: 38%;
+  }
 
   ::-webkit-scrollbar {
     width: 8px;
@@ -83,21 +87,24 @@ interface IFormData {
 }
 
 interface IEditForm {
+  resumeID: string;
   formData: IFormData[];
   setFormData: Dispatch<SetStateAction<IFormData[]>>;
 }
 
-const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
+const EditForm: React.FC<IEditForm> = ({ formData, setFormData, resumeID }) => {
   const history = useHistory();
   const [form] = Form.useForm();
 
   const [loading, setLoading] = useState(false);
 
+  console.log(resumeID);
+
   const onFinish = (values: any) => {
     console.log({ values });
     setLoading(true);
     axios
-      .post(`${BASE_URL}/profile/createProfile`, values, {
+      .put(`${BASE_URL}/resume/${resumeID}`, values, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
@@ -105,7 +112,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
       .then((response) => {
         message.success(response.data.message);
         setLoading(false);
-        history.push("/app");
+        history.push("/app/resume");
       })
       .catch((error) => {
         setLoading(false);
@@ -559,7 +566,12 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData }) => {
           }}
         </List>
 
-        <Button size="large" loading={loading} type="primary" htmlType="submit">
+        <Button
+          shape="round"
+          size="large"
+          loading={loading}
+          type="primary"
+          htmlType="submit">
           Save resume
         </Button>
       </Form>
