@@ -8,7 +8,7 @@ Ampersand backend is a REST API service entirely built with TypeScript, NodeJS a
 
 ### Usage
 
-`cd` into the `server` directory. Update the values in "config/config.env" to your own
+`cd` into the `server` directory. Rename `.env.txt` to `.env` and update the values in it to your own
 
 ### Install Dependencies
 
@@ -29,14 +29,14 @@ cd server && npm run dev
 cd server && yarn dev
 
 # Run in prod mode
-cd server && npm run start
+cd server && npm run prod
 # or
-cd server && yarn start
+cd server && yarn prod
 ```
 
 ### Database Seeder
 
-To seed the database with users, applications, profiles, radars and timeline activities with data from the "\_data" folder, run
+To seed the database with users, applications, resumes, radars and timeline activities with data from the "\_data" folder, run
 
 ```bash
 # Destroy all data
@@ -48,7 +48,7 @@ node seeder -import
 
 ### Demo
 
-The API is live at [ampersand-careers.render.com](https://ampersand-careers.onrender.com/)
+The API is live at [ampersand-careers.render.com](https://ampersand-careers.onrender.com/api/v1)
 
 Extensive documentation with examples and a Postman collection will be added soon
 
