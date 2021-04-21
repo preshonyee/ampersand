@@ -2,7 +2,6 @@ import express from "express";
 import { config } from "dotenv";
 import morgan from "morgan";
 import "colors";
-import cookieParser from "cookie-parser";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import XSS from "xss-clean";
@@ -32,7 +31,7 @@ const app = express();
 app.use(express.json());
 
 // Cookie parser
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // Dev ENV logging middleware
 if (process.env.NODE_ENV === "development") {

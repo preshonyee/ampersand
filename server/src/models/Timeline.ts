@@ -28,7 +28,12 @@ const TimelineSchema = new Schema(
       },
       remote: {
         type: String,
-        enum: ["Fully Remote", "Remote (US-Only)", "No Remote"],
+        enum: [
+          "Fully Remote",
+          "Remote (US-Only)",
+          "No Remote",
+          "Remote/On-site",
+        ],
       },
       tags: {
         type: [String],
