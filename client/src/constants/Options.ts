@@ -46,6 +46,7 @@ export const OPTIONS = {
     { id: 1, label: "Fully Remote", value: "Fully Remote" },
     { id: 2, label: "Remote (US-Only)", value: "Remote (US-Only)" },
     { id: 3, label: "No Remote", value: "No Remote" },
+    { id: 4, label: "Remote/On-site", value: "Remote/On-site" },
   ],
 
   typeOptions: [

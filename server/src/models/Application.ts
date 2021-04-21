@@ -89,7 +89,7 @@ const ApplicationSchema = new Schema(
     },
     remote: {
       type: String,
-      enum: ["Fully Remote", "Remote (US-Only)", "No Remote"],
+      enum: ["Fully Remote", "Remote (US-Only)", "No Remote", "Remote/On-site"],
       required: [true, "Please select a remote option"],
     },
     receptionMail: {
