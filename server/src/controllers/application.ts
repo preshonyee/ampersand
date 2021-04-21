@@ -290,6 +290,7 @@ const updateApplication = (req: any, res: any, next: any) => {
                 },
                 activityType: "application",
                 activityDate: Date.now(),
+                addedBy: req.user,
               })
               .then((response) => {
                 console.log(response.data);
