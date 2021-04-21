@@ -385,10 +385,6 @@ const AddApplication: React.FC = () => {
             </Item>
           </div>
 
-          <div>
-            <Item></Item>
-          </div>
-
           <Space size="small">
             <Button
               size="large"

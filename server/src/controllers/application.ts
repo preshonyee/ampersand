@@ -22,7 +22,6 @@ const createApplication = (req: any, res: any, next: any) => {
     referral,
     relocation,
     remote,
-    mainContact,
     receptionMail,
     status,
     likelihoodOfHiring,
@@ -37,17 +36,13 @@ const createApplication = (req: any, res: any, next: any) => {
     !type ||
     !source ||
     !strategy ||
-    !coverLetter ||
     !resume ||
     !referral ||
     !relocation ||
     !remote ||
-    !mainContact ||
     !receptionMail ||
     !status ||
-    !likelihoodOfHiring ||
-    !lastTimeContacted ||
-    !tags
+    !likelihoodOfHiring
   ) {
     return next(new ErrorResponse("Please enter all the fields", 422));
   }
@@ -68,7 +63,6 @@ const createApplication = (req: any, res: any, next: any) => {
     referral,
     relocation,
     remote,
-    mainContact,
     receptionMail,
     status,
     likelihoodOfHiring,
@@ -237,17 +231,13 @@ const updateApplication = (req: any, res: any, next: any) => {
           type,
           source,
           strategy,
-          coverLetter,
           resume,
           referral,
           relocation,
           remote,
-          mainContact,
           receptionMail,
           status,
           likelihoodOfHiring,
-          lastTimeContacted,
-          tags,
         } = req.body;
 
         // Check if fields are empty
@@ -259,17 +249,13 @@ const updateApplication = (req: any, res: any, next: any) => {
           !type ||
           !source ||
           !strategy ||
-          !coverLetter ||
           !resume ||
           !referral ||
           !relocation ||
           !remote ||
-          !mainContact ||
           !receptionMail ||
           !status ||
-          !likelihoodOfHiring ||
-          !lastTimeContacted ||
-          !tags
+          !likelihoodOfHiring
         ) {
           return next(new ErrorResponse("Please enter all the fields", 422));
         }
