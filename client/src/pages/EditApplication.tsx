@@ -58,8 +58,6 @@ const EditApplication: React.FC = (props: any) => {
   const [loading, setLoading] = useState(false);
   const [formDataLoaded, setFormDataLoaded] = useState(false);
   const [initialFormData, setInitialFormData] = useState({
-    contactName: "",
-    contactPhone: "",
     position: "",
     linkToOpening: "",
     dateApplied: moment(Date.now()),
@@ -86,13 +84,7 @@ const EditApplication: React.FC = (props: any) => {
 
   const onFinishEdit = async (values: IValues) => {
     setLoading(true);
-    const {
-      contactName,
-      contactPhone,
-      position,
-      linkToOpening,
-      ...rest
-    } = values;
+    const { position, linkToOpening, ...rest } = values;
 
     const updatedValues = {
       ...rest,
@@ -100,12 +92,6 @@ const EditApplication: React.FC = (props: any) => {
         {
           positionTitle: values.position,
           linkToOpening: values.linkToOpening,
-        },
-      ],
-      mainContact: [
-        {
-          mainContactName: values.contactName,
-          mainContactPhone: values.contactPhone,
         },
       ],
     };
@@ -152,7 +138,6 @@ const EditApplication: React.FC = (props: any) => {
           referral,
           relocation,
           remote,
-          mainContact,
           receptionMail,
           status,
           likelihoodOfHiring,
@@ -160,8 +145,6 @@ const EditApplication: React.FC = (props: any) => {
         } = application;
         setInitialFormData((prev) => ({
           ...prev,
-          contactName: mainContact[0]?.mainContactName,
-          contactPhone: mainContact[0]?.mainContactPhone,
           position: position[0]?.positionTitle,
           linkToOpening: position[0]?.linkToOpening,
           dateApplied: moment(dateApplied),
@@ -329,15 +312,7 @@ const EditApplication: React.FC = (props: any) => {
 
             <div>
               <label>Copy of Cover Letter</label>
-              <Item
-                name="coverLetter"
-                rules={[
-                  {
-                    required: true,
-                    message:
-                      "Please input the link to the copy of cover letter!",
-                  },
-                ]}>
+              <Item name="coverLetter">
                 <Input
                   size="large"
                   addonBefore="https://"
@@ -416,31 +391,6 @@ const EditApplication: React.FC = (props: any) => {
             </div>
 
             <div>
-              <label>Main Contact Name</label>
-              <Item
-                name="contactName"
-                rules={[
-                  { required: true, message: "Please input a contact name!" },
-                ]}>
-                <Input size="large" placeholder="Contact Name" />
-              </Item>
-            </div>
-
-            <div>
-              <label>Main Contact Phone</label>
-              <Item
-                name="contactPhone"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the contact phone number!",
-                  },
-                ]}>
-                <Input size="large" placeholder="Contact Phone" />
-              </Item>
-            </div>
-
-            <div>
               <label>Reception Mail (thanks for applying)</label>
               <Item
                 name="receptionMail"
@@ -496,14 +446,7 @@ const EditApplication: React.FC = (props: any) => {
 
             <div>
               <label>Last Time Contacted</label>
-              <Item
-                name="lastTimeContacted"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please include the last time you were contacted!",
-                  },
-                ]}>
+              <Item name="lastTimeContacted">
                 <DatePicker
                   size="large"
                   format={dateFormat}
@@ -514,14 +457,7 @@ const EditApplication: React.FC = (props: any) => {
 
             <div>
               <label>Tags</label>
-              <Item
-                name="tags"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select multiple appropriate tags!",
-                  },
-                ]}>
+              <Item name="tags">
                 <Select
                   size="large"
                   mode="tags"
@@ -529,10 +465,6 @@ const EditApplication: React.FC = (props: any) => {
                   options={tagsOptions}
                 />
               </Item>
-            </div>
-
-            <div>
-              <Item></Item>
             </div>
 
             <Space size="small">

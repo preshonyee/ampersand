@@ -176,18 +176,24 @@ const ApplicationTracker: React.FC = () => {
       key: "coverLetter",
       responsive: ["md"],
       width: 120,
-      render: (coverLetter: string) => (
-        <span>
-          <a
-            className="external-link"
-            href={coverLetter}
-            target="_blank"
-            rel="noopener noreferrer">
-            Cover Letter
-          </a>
-          <ExternalLink size={12} />
-        </span>
-      ),
+      render: (coverLetter: string) => {
+        if (coverLetter) {
+          return (
+            <span>
+              <a
+                className="external-link"
+                href={coverLetter}
+                target="_blank"
+                rel="noopener noreferrer">
+                Cover Letter
+              </a>
+              <ExternalLink size={12} />
+            </span>
+          );
+        } else {
+          return <span>No cover letter</span>;
+        }
+      },
     },
     {
       title: "Resume",
@@ -228,22 +234,6 @@ const ApplicationTracker: React.FC = () => {
       responsive: ["md"],
     },
     {
-      title: "Main Contact",
-      dataIndex: "mainContact",
-      key: "mainContact",
-      width: 100,
-      responsive: ["md"],
-      render: (text: any) => (
-        <div>
-          {text.map((text: any, index: any) => (
-            <span key={index}>
-              {text.mainContactName} {text.mainContactPhone}
-            </span>
-          ))}
-        </div>
-      ),
-    },
-    {
       title: "Reception Mail",
       dataIndex: "receptionMail",
       key: "receptionMail",
@@ -267,9 +257,13 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "lastTimeContacted",
       key: "lastTimeContacted",
       responsive: ["md"],
-      render: (dateApplied: string) => (
-        <span>{new Date(dateApplied).toDateString()}</span>
-      ),
+      render: (dateApplied: string) => {
+        if (dateApplied) {
+          return <span>{new Date(dateApplied).toDateString()}</span>;
+        } else {
+          return <span></span>;
+        }
+      },
     },
     {
       title: "Tags",
