@@ -67,7 +67,6 @@ const ApplicationSchema = new Schema(
     },
     coverLetter: {
       type: String,
-      required: [true, "Please add a link to your cover letter"],
     },
     resume: {
       type: String,
@@ -84,7 +83,7 @@ const ApplicationSchema = new Schema(
         "Require Relocation",
         "Support With Relocation",
         "No Relocation Support",
-        "N/A",
+        "Doesn't require relocation",
       ],
       required: [true, "Please select a relocation option"],
     },
@@ -93,18 +92,6 @@ const ApplicationSchema = new Schema(
       enum: ["Fully Remote", "Remote (US-Only)", "No Remote"],
       required: [true, "Please select a remote option"],
     },
-    mainContact: [
-      {
-        mainContactName: {
-          type: String,
-          required: [true, "Please add main contact name"],
-        },
-        mainContactPhone: {
-          type: String,
-          required: [true, "Please add main contact phone number"],
-        },
-      },
-    ],
     receptionMail: {
       type: String,
       enum: ["YES", "NO"],
@@ -146,7 +133,6 @@ const ApplicationSchema = new Schema(
     },
     lastTimeContacted: {
       type: Date,
-      required: [true, "Please select an option"],
     },
     tags: {
       type: [String],
@@ -162,7 +148,6 @@ const ApplicationSchema = new Schema(
         "Strong Parental Leave Policy",
         "Weak Parental Leave Policy",
       ],
-      required: [true, "Please choose a tag"],
     },
     addedBy: {
       type: ObjectId,

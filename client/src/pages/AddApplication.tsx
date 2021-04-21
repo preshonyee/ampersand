@@ -77,12 +77,6 @@ const AddApplication: React.FC = () => {
           linkToOpening: values.linkToOpening,
         },
       ],
-      mainContact: [
-        {
-          mainContactName: values.contactName,
-          mainContactPhone: values.contactPhone,
-        },
-      ],
     };
 
     axios
@@ -238,14 +232,7 @@ const AddApplication: React.FC = () => {
 
           <div>
             <label>Copy of Cover Letter</label>
-            <Item
-              name="coverLetter"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input the link to the copy of cover letter!",
-                },
-              ]}>
+            <Item name="coverLetter">
               <Input
                 size="large"
                 addonBefore="https://"
@@ -321,31 +308,6 @@ const AddApplication: React.FC = () => {
           </div>
 
           <div>
-            <label>Main Contact Name</label>
-            <Item
-              name="contactName"
-              rules={[
-                { required: true, message: "Please input a contact name!" },
-              ]}>
-              <Input size="large" placeholder="Contact Name" />
-            </Item>
-          </div>
-
-          <div>
-            <label>Main Contact Phone</label>
-            <Item
-              name="contactPhone"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input the contact phone number!",
-                },
-              ]}>
-              <Input size="large" placeholder="Contact Phone" />
-            </Item>
-          </div>
-
-          <div>
             <label>Reception Mail (thanks for applying)</label>
             <Item
               name="receptionMail"
@@ -402,14 +364,7 @@ const AddApplication: React.FC = () => {
 
           <div>
             <label>Last Time Contacted</label>
-            <Item
-              name="lastTimeContacted"
-              rules={[
-                {
-                  required: true,
-                  message: "Please include the last time you were contacted!",
-                },
-              ]}>
+            <Item name="lastTimeContacted">
               <DatePicker
                 size="large"
                 format={dateFormat}
@@ -420,14 +375,7 @@ const AddApplication: React.FC = () => {
 
           <div>
             <label>Tags</label>
-            <Item
-              name="tags"
-              rules={[
-                {
-                  required: true,
-                  message: "Please select multiple appropriate tags!",
-                },
-              ]}>
+            <Item name="tags">
               <Select
                 size="large"
                 mode="tags"

@@ -74,7 +74,11 @@ export const OPTIONS = {
       value: "Support With Relocation",
     },
     { id: 3, label: "No Relocation Support", value: "No Relocation Support" },
-    { id: 4, label: "N/A", value: "N/A" },
+    {
+      id: 4,
+      label: "Doesn't require relocation",
+      value: "Doesn't require relocation",
+    },
   ],
 
   tagsOptions: [
