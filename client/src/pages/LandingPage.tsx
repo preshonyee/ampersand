@@ -1,5 +1,5 @@
-import { Button } from "antd";
 import styled from "styled-components";
+import ButtonLink from "../components/ButtonLinks";
 import Layout from "../components/Layout";
 import HomeImage from "../images/screenshot-1.png";
 import TrackerImage from "../images/screenshot-2.png";
@@ -97,9 +97,9 @@ const LandingPage = () => {
             and powerful analytics, Ampersand empowers you with the right tools
             you need to be on top of 'looking for that next opportunity'.
           </p>
-          <Button type="primary" shape="round">
+          <ButtonLink noFlex to="/register">
             Get started
-          </Button>
+          </ButtonLink>
           <img src={HomeImage} alt="screenshot of app homepage" />
         </section>
 
@@ -110,9 +110,9 @@ const LandingPage = () => {
             Stay on top of your job applications. Keep track of every
             application down to the finest detail
           </p>
-          <Button type="primary" shape="round">
-            Track your application
-          </Button>
+          <ButtonLink noFlex to="/register">
+            Track applications
+          </ButtonLink>
           <img src={TrackerImage} alt="screenshot of app tracker page" />
         </section>
 
@@ -124,9 +124,9 @@ const LandingPage = () => {
             Customize your resume with your experiences, projects skills,
             awards, and more.
           </p>
-          <Button type="primary" shape="round">
+          <ButtonLink noFlex to="/register">
             Create your resume profile
-          </Button>
+          </ButtonLink>
           <img src={ResumeImage} alt="screenshot of app resume page" />
         </section>
       </Wrapper>
