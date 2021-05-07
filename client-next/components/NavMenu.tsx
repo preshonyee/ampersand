@@ -5,7 +5,7 @@ import {
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -98,9 +98,11 @@ const NavMenu: React.FC = () => {
 
   let MODE;
 
-  if (!ISSERVER) {
-    MODE = localStorage.getItem("appMode");
-  }
+  useEffect(() => {
+    if (!ISSERVER) {
+      MODE = localStorage.getItem("appMode");
+    }
+  }, []);
 
   const router = useRouter();
   const dispatch = useDispatch();

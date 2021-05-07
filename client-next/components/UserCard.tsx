@@ -8,7 +8,7 @@ import {
   Twitter,
 } from "react-feather";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { BASE_URL } from "../constants/BaseURL";
 import axios, { AxiosResponse } from "axios";
@@ -66,7 +66,7 @@ interface IUserData {
 }
 
 const UserCard: React.FC<IUserCard> = () => {
-  const history = useHistory();
+  const router = useRouter();
   const [userData, setUserData] = useState<IUserData>({
     user: {
       profilePicture: "",
@@ -182,7 +182,7 @@ const UserCard: React.FC<IUserCard> = () => {
           size="large"
           shape="round"
           block
-          onClick={() => history.push("/account")}>
+          onClick={() => router.push("/account")}>
           Go to profile
         </Button>
       </Skeleton>
