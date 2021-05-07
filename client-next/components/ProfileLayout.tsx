@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 
@@ -66,13 +66,13 @@ const ProfileLayout: React.FC<IProfileLayout> = ({ children }) => {
           <h2>Account Settings</h2>
           <div className="account-nav-links">
             <p>
-              <Link to="/account">Edit profile</Link>
+              <Link href="/account">Edit profile</Link>
             </p>
             <p>
-              <Link to="/account/password">Change password</Link>
+              <Link href="/account/password">Change password</Link>
             </p>
             <p>
-              <Link to="/account/close">Close account</Link>
+              <Link href="/account/close">Close account</Link>
             </p>
           </div>
         </Navigation>
