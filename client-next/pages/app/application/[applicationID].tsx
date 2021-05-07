@@ -1,15 +1,15 @@
 import { Button, DatePicker, Form, Input, message, Select, Space } from "antd";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../constants/BaseURL";
+import { BASE_URL } from "../../../constants/BaseURL";
 import axios from "axios";
-import { TOKEN } from "../constants/Token";
-import { useHistory } from "react-router-dom";
-import Layout from "../components/Layout";
-import { OPTIONS } from "../constants/Options";
-import { IValues } from "../Types";
+import { TOKEN } from "../../../constants/Token";
+import { useRouter } from "next/router";
+import Layout from "../../../components/Layout";
+import { OPTIONS } from "../../../constants/Options";
+import { IValues } from "../../../Types";
 import moment from "moment";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const { Item } = Form;
 
@@ -78,7 +78,7 @@ const EditApplication: React.FC = (props: any) => {
     tags: [],
   });
 
-  const history = useHistory();
+  const router = useRouter();
 
   const { applicationID } = props.match.params;
 
@@ -107,7 +107,7 @@ const EditApplication: React.FC = (props: any) => {
         setLoading(false);
         message.success(result.message, 3);
         form.resetFields();
-        history.push("/app/tracker");
+        router.push("/app/tracker");
       })
       .catch((error) => {
         message.error(error.message, 3);
@@ -479,7 +479,7 @@ const EditApplication: React.FC = (props: any) => {
               <Button
                 size="large"
                 shape="round"
-                onClick={() => history.push("/app/tracker")}>
+                onClick={() => router.push("/app/tracker")}>
                 Cancel Update
               </Button>
             </Space>

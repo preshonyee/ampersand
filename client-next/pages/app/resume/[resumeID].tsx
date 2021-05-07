@@ -1,5 +1,5 @@
-import EditorCanvas from "../components/EditorCanvas";
-import Layout from "../components/Layout";
+import EditorCanvas from "../../../components/EditorCanvas";
+import Layout from "../../../components/Layout";
 
 const Editor = (props: any) => {
   return (
