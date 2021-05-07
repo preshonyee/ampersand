@@ -1,13 +1,13 @@
 import { Button, DatePicker, Form, Input, message, Select, Space } from "antd";
 import styled from "styled-components";
 import React, { useState } from "react";
-import { BASE_URL } from "../../constants/BaseURL";
+import { BASE_URL } from "../../../constants/BaseURL";
 import axios from "axios";
-import { TOKEN } from "../../constants/Token";
+import { TOKEN } from "../../../constants/Token";
 import { useRouter } from "next/router";
-import Layout from "../../components/Layout";
-import { OPTIONS } from "../../constants/Options";
-import { IValues } from "../../Types";
+import Layout from "../../../components/Layout";
+import { OPTIONS } from "../../../constants/Options";
+import { IValues } from "../../../Types";
 
 const { Item } = Form;
 

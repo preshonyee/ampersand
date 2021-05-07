@@ -1,5 +1,7 @@
+import Head from "next/head";
 import styled from "styled-components";
 import NavMenu from "./NavMenu";
+import SEO from "./SEO";
 
 interface ILayout {
   children: React.ReactNode;
@@ -24,6 +26,14 @@ const Wrapper = styled.div<ILayout>`
 const Layout: React.FC<ILayout> = ({ children, background }) => {
   return (
     <Wrapper background={background}>
+      <SEO />
+      <Head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <NavMenu />
       <main>{children}</main>
       <footer>

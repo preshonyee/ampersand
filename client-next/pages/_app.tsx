@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import store from "../redux";
-import "antd/dist/antd.css";
-import GlobalStyle from "../GlobalStyle";
+import "../styles/antd.less";
+import GlobalStyle from "../styles/GlobalStyle";
 
 function MyApp({ Component, pageProps }) {
   return (

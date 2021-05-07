@@ -181,7 +181,9 @@ const NavMenu: React.FC = () => {
     <StyledMenu>
       <div className="brandItems">
         <Link href="/app">
-          <img src="/logo-wordmark.svg" alt="Ampersand Logo" />
+          <a>
+            <img src="/logo-wordmark.svg" alt="Ampersand Logo" />
+          </a>
         </Link>
       </div>
       {user && MODE === "app" ? (

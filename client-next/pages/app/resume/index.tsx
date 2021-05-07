@@ -1,27 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BASE_URL } from "../../constants/BaseURL";
+import { BASE_URL } from "../../../constants/BaseURL";
 import {
   achievementType,
   educationType,
   experienceType,
   projectType,
   skillType,
-} from "../../Types";
+} from "../../../Types";
 import {
   AchievementItem,
   EducationItem,
   ExperienceItem,
   ProjectItem,
   SkillItem,
-} from "../../components/ListItem";
-import { TOKEN } from "../../constants/Token";
-import { COLORS } from "../../constants/Colors";
+} from "../../../components/ListItem";
+import { TOKEN } from "../../../constants/Token";
+import { COLORS } from "../../../constants/Colors";
 import { Empty } from "antd";
-import Layout from "../../components/Layout";
-import FAB from "../../components/FloatingActionButton";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import Layout from "../../../components/Layout";
+import FAB from "../../../components/FloatingActionButton";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import { useRouter } from "next/router";
 
 const { primary, black100, black200 } = COLORS.light;

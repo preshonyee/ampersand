@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Overview from "../components/Overview";
-import Aside from "../components/Aside";
-import Layout from "../components/Layout";
+import Overview from "../../components/Overview";
+import Aside from "../../components/Aside";
+import Layout from "../../components/Layout";
 
 const Wrapper = styled.div`
   width: 90%;
