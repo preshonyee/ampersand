@@ -1,12 +1,17 @@
+import { NextFunction, Response } from "express";
+import { ITimeline } from "timeline.interface";
+import { IGetUserAuthInfoRequest } from "user-auth";
 import Timeline from "../models/Timeline";
 import ErrorResponse from "../utils/errorResponse";
 
-// TODO: Fix all any types
-
 // @description:    Create new timeline activity
-// @route:          POST /api/v1/timeline/create
+// @route:          POST /api/v1/timeline
 // @access          Private
-const createTimelineActivity = (req: any, res: any, next: any) => {
+const createTimelineActivity = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const {
     activityTitle,
     activityBody,
@@ -30,13 +35,13 @@ const createTimelineActivity = (req: any, res: any, next: any) => {
   // save timeline activity to the database
   timeline
     .save()
-    .then((result: any) => {
+    .then((result: ITimeline) => {
       res.status(201).json({
         timeline: result,
         message: "timeline activity successfully created",
       });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
       return next(new ErrorResponse(error, 401));
     });
@@ -45,13 +50,13 @@ const createTimelineActivity = (req: any, res: any, next: any) => {
 // @description:    Fetch all timeline activity by logged in user
 // @route:          GET /api/v1/timeline/
 // @access          Private
-const getTimelineActivities = (req: any, res: any) => {
+const getTimelineActivities = (req: IGetUserAuthInfoRequest, res: Response) => {
   Timeline.find({ addedBy: req.user._id })
     .sort("-createdAt")
-    .then((activities: any) => {
+    .then((activities: ITimeline[]) => {
       res.status(200).json({ count: activities.length, result: activities });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
     });
 };

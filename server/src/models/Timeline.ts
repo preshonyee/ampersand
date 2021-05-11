@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { ITimeline } from "timeline.interface";
 
 const { ObjectId } = Schema.Types;
 
@@ -69,4 +70,4 @@ const TimelineSchema = new Schema(
   { timestamps: true }
 );
 
-export default model("Timeline", TimelineSchema);
+export default model<ITimeline>("Timeline", TimelineSchema);
