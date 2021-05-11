@@ -2,13 +2,18 @@ import axios from "axios";
 import { BASE_URL } from "../utils/baseUrl";
 import Application from "../models/Application";
 import ErrorResponse from "../utils/errorResponse";
-
-// TODO: Fix all any types
+import { NextFunction, Response } from "express";
+import { IGetUserAuthInfoRequest } from "user-auth";
+import { IApplication } from "application.interface";
 
 // @description:    Add new application
-// @route:          POST /api/v1/application/createApplication
+// @route:          POST /api/v1/application/
 // @access          Private
-const createApplication = (req: any, res: any, next: any) => {
+const createApplication = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const {
     dateApplied,
     company,
@@ -46,8 +51,6 @@ const createApplication = (req: any, res: any, next: any) => {
   ) {
     return next(new ErrorResponse("Please enter all the fields", 422));
   }
-
-  console.log(req.user);
   req.user.password = undefined; // To exempt the password from showing up in the response
 
   const application = new Application({
@@ -74,7 +77,7 @@ const createApplication = (req: any, res: any, next: any) => {
   // save application to the database
   application
     .save()
-    .then((result: any) => {
+    .then((result: IApplication) => {
       res.status(201).json({
         application: result,
         message: "application successfully created",
@@ -88,7 +91,7 @@ const createApplication = (req: any, res: any, next: any) => {
             activityBody: {
               company: result.company,
               location: result.location,
-              position: result.position[0].positionTitle,
+              position: result.position,
               type: result.type,
               remote: result.remote,
               tags: result.tags,
@@ -114,17 +117,17 @@ const createApplication = (req: any, res: any, next: any) => {
 };
 
 // @description:    Get all applications by user
-// @route:          GET /api/v1/application/myApplications
+// @route:          GET /api/v1/application/
 // @access          Private
-const getUserApplications = (req: any, res: any) => {
+const getUserApplications = (req: IGetUserAuthInfoRequest, res: Response) => {
   Application.find({ addedBy: req.user._id })
     .sort("-createdAt")
-    .then((myApplications: any) => {
+    .then((myApplications: IApplication[]) => {
       res
         .status(200)
         .json({ count: myApplications.length, applications: myApplications });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
     });
 };
@@ -132,10 +135,10 @@ const getUserApplications = (req: any, res: any) => {
 // @description:    Get single application by user
 // @route:          GET /api/v1/application/:applicationID
 // @access          Private
-const getApplication = (req: any, res: any) => {
+const getApplication = (req: IGetUserAuthInfoRequest, res: Response) => {
   Application.findById({ _id: req.params.applicationID })
     .populate("addedBy", "_id firstName lastName email")
-    .then((application: any) => {
+    .then((application: IApplication) => {
       if (!application) {
         return res.status(422).json({
           success: false,
@@ -144,17 +147,17 @@ const getApplication = (req: any, res: any) => {
       }
       res.status(200).json({ success: true, application });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
     });
 };
 
 // @description:    Delete single application
-// @route:          DELETE /api/v1/applications/delete/:applicationID
+// @route:          DELETE /api/v1/applications/:applicationID
 // @access          Private
-const deleteApplication = (req: any, res: any) => {
+const deleteApplication = (req: IGetUserAuthInfoRequest, res: Response) => {
   Application.findOne({ _id: req.params.applicationID }).exec(
-    (error: any, application: any) => {
+    (error, application: IApplication) => {
       // Check that the selected application exists
       if (!application) {
         return res.status(422).json({
@@ -180,13 +183,13 @@ const deleteApplication = (req: any, res: any) => {
       if (application.addedBy._id.toString() === req.user._id.toString()) {
         application
           .remove()
-          .then((result: any) => {
+          .then((result) => {
             res.json({
               success: true,
               message: "Application successfully deleted",
             });
           })
-          .catch((error: any) => {
+          .catch((error) => {
             console.log({ error });
           });
       }
@@ -195,11 +198,15 @@ const deleteApplication = (req: any, res: any) => {
 };
 
 // @description:    Update an application
-// @route:          PUT /api/v1/applications/update/:applicationID
+// @route:          PUT /api/v1/applications/:applicationID
 // @access          Private
-const updateApplication = (req: any, res: any, next: any) => {
+const updateApplication = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   Application.findById({ _id: req.params.applicationID }).exec(
-    (error: any, application: any) => {
+    (error, application: IApplication) => {
       // Check that the application exists
       if (!application) {
         return res.status(422).json({
@@ -265,7 +272,7 @@ const updateApplication = (req: any, res: any, next: any) => {
           runValidators: true,
         })
           .populate("addedBy", "_id firstName lastName email")
-          .exec((error: any, result: any) => {
+          .exec((error, result: IApplication) => {
             // Check for error
             if (error) {
               return res.status(422).json({ error });
@@ -282,7 +289,7 @@ const updateApplication = (req: any, res: any, next: any) => {
                 activityBody: {
                   company: result.company,
                   location: result.location,
-                  position: result.position[0].positionTitle,
+                  position: result.position,
                   type: result.type,
                   remote: result.remote,
                   tags: result.tags,

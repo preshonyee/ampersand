@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { IBaseApplication } from "application.interface";
 
 const { ObjectId } = Schema.Types;
 
@@ -17,85 +18,24 @@ const ApplicationSchema = new Schema(
       type: String,
       required: [true, "Please add a location"],
     },
-    position: [
-      {
-        positionTitle: {
-          type: String,
-          required: [true, "Please add position title"],
-        },
-        linkToOpening: {
-          type: String,
-          required: [true, "Please add link to opening"],
-        },
-      },
-    ],
+    position: {
+      type: String,
+      required: [true, "Please add a position"],
+    },
     type: {
       type: String,
       enum: ["Part Time", "Full Time", "Contract", "Internship", "Agency"],
       required: [true, "Please choose a type"],
-    },
-    source: {
-      type: String,
-      enum: [
-        "LinkedIn",
-        "Indeed",
-        "Company Jobs/Careers Page",
-        "Remote Job Boards",
-        "HackerNews",
-        "Reddit",
-        "Discord Channel",
-        "StackOverflow",
-        "Twitter",
-        "Newsletter",
-        "Other",
-      ],
-      required: [true, "Please choose a source"],
-    },
-    strategy: {
-      type: String,
-      enum: [
-        "Twitter DM",
-        "Cold Email",
-        "Referral",
-        "Fund Raise Announcement",
-        "VC Portfolio",
-        "Search Term/Queries",
-        "Tweet",
-        "Other",
-      ],
-      required: [true, "Please choose a strategy"],
-    },
-    coverLetter: {
-      type: String,
-    },
-    resume: {
-      type: String,
-      required: [true, "Please add a link to your resume"],
     },
     referral: {
       type: String,
       enum: ["YES", "NO"],
       required: [true, "Please add a referral"],
     },
-    relocation: {
-      type: String,
-      enum: [
-        "Require Relocation",
-        "Support With Relocation",
-        "No Relocation Support",
-        "Doesn't require relocation",
-      ],
-      required: [true, "Please select a relocation option"],
-    },
     remote: {
       type: String,
       enum: ["Fully Remote", "Remote (US-Only)", "No Remote", "Remote/On-site"],
       required: [true, "Please select a remote option"],
-    },
-    receptionMail: {
-      type: String,
-      enum: ["YES", "NO"],
-      required: [true, "Please choose an option"],
     },
     status: {
       type: String,
@@ -131,9 +71,6 @@ const ApplicationSchema = new Schema(
       ],
       required: [true, "Please select an option"],
     },
-    lastTimeContacted: {
-      type: Date,
-    },
     tags: {
       type: [String],
       enum: [
@@ -157,4 +94,4 @@ const ApplicationSchema = new Schema(
   { timestamps: true }
 );
 
-export default model("Application", ApplicationSchema);
+export default model<IBaseApplication>("Application", ApplicationSchema);
