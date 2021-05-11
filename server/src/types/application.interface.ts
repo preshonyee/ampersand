@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import { UserType } from "user-auth";
 
 export interface IBaseApplication extends mongoose.Document {

@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { IRadar } from "radar.interface";
 
 const { ObjectId } = Schema.Types;
 
@@ -23,4 +24,4 @@ const RadarSchema = new Schema(
   { timestamps: true }
 );
 
-export default model("Radar", RadarSchema);
+export default model<IRadar>("Radar", RadarSchema);

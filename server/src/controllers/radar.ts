@@ -1,14 +1,19 @@
 import axios from "axios";
+import { NextFunction, Response } from "express";
 import Radar from "../models/Radar";
 import ErrorResponse from "../utils/errorResponse";
 import { BASE_URL } from "../utils/baseUrl";
-
-// TODO: Fix all any types
+import { IGetUserAuthInfoRequest } from "user-auth";
+import { IRadar } from "radar.interface";
 
 // @description:    Add new company to radar
 // @route:          POST /api/v1/radar
 // @access          Private
-const createRadar = (req: any, res: any, next: any) => {
+const createRadar = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const { avatar, companyName, linkToCareersPage } = req.body;
 
   // Check if fields are empty
@@ -26,7 +31,7 @@ const createRadar = (req: any, res: any, next: any) => {
   // save radar to the database
   radar
     .save()
-    .then((result: any) => {
+    .then((result: IRadar) => {
       res.status(201).json({
         radar: result,
         message: "radar created successfully",
@@ -46,12 +51,12 @@ const createRadar = (req: any, res: any, next: any) => {
         .then((response) => {
           console.log(response.data);
         })
-        .catch((error: any) => {
+        .catch((error) => {
           console.log(error.message);
           return next(new ErrorResponse(error, 422));
         });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error.message);
       return next(new ErrorResponse(error, 422));
     });
@@ -60,12 +65,16 @@ const createRadar = (req: any, res: any, next: any) => {
 // @description:    Fetch all radar entries by logged in user
 // @route:          GET /api/v1/radar
 // @access          Private
-const getRadarEntries = (req: any, res: any, next: any) => {
+const getRadarEntries = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   Radar.find({ addedBy: req.user._id })
-    .then((radar: any) => {
+    .then((radar: IRadar[]) => {
       res.status(200).json({ count: radar.length, result: radar });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
       return next(new ErrorResponse(error, 422));
     });
