@@ -2,13 +2,18 @@ import axios from "axios";
 import Resume from "../models/Resume";
 import ErrorResponse from "../utils/errorResponse";
 import { BASE_URL } from "../utils/baseUrl";
-
-// TODO: Fix all any types
+import { IGetUserAuthInfoRequest } from "user-auth";
+import { NextFunction, Response } from "express";
+import { IResume } from "resume.interface";
 
 // @description:    Add new resume
 // @route:          POST /api/v1/resume
 // @access          Private
-const createResume = (req: any, res: any, next: any) => {
+const createResume = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const {
     firstName,
     lastName,
@@ -22,7 +27,7 @@ const createResume = (req: any, res: any, next: any) => {
     projects,
     experience,
     achievements,
-    owner,
+    addedBy,
   } = req.body;
 
   // Check if fields are empty
@@ -56,13 +61,13 @@ const createResume = (req: any, res: any, next: any) => {
     projects,
     experience,
     achievements,
-    owner,
+    addedBy,
   });
 
   // save resume to the database
   resume
     .save()
-    .then((result: any) => {
+    .then((result: IResume) => {
       res.status(201).json({
         resume: result,
         message: "resume created successfully",
@@ -76,7 +81,7 @@ const createResume = (req: any, res: any, next: any) => {
           },
           activityType: "resume",
           activityDate: Date.now(),
-          addedBy: owner,
+          addedBy: addedBy,
         })
         .then((response) => {
           console.log(response.data);
@@ -85,7 +90,7 @@ const createResume = (req: any, res: any, next: any) => {
           console.log(error.message);
         });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
       return next(new ErrorResponse(error, 422));
     });
@@ -94,13 +99,17 @@ const createResume = (req: any, res: any, next: any) => {
 // @description:    Get logged in user resume
 // @route:          GET /api/v1/resume
 // @access          Private
-const myResume = (req: any, res: any, next: any) => {
-  Resume.find({ owner: req.user._id })
-    .populate("owner", "_id firstName lastName email profilePicture")
-    .then((resume: any) => {
+const myResume = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  Resume.find({ addedBy: req.user._id })
+    .populate("addedBy", "_id firstName lastName email profilePicture")
+    .then((resume: IResume[]) => {
       res.json({ result: resume });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
       return next(new ErrorResponse(error, 422));
     });
@@ -109,9 +118,13 @@ const myResume = (req: any, res: any, next: any) => {
 // @description:    Update user resume
 // @route:          PUT /api/v1/resume/:resumeID
 // @access          Private
-const updateResume = (req: any, res: any, next: any) => {
+const updateResume = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   Resume.findById({ _id: req.params.resumeID }).exec(
-    (error: any, resume: any) => {
+    (error, resume: IResume) => {
       // Check that the resume exists
       if (!resume) {
         return res.status(404).json({
@@ -125,8 +138,8 @@ const updateResume = (req: any, res: any, next: any) => {
         return res.status(422).json({ success: false, error });
       }
 
-      // Make sure that the user is the owner of the resume
-      if (resume.owner._id.toString() !== req.user._id.toString()) {
+      // Make sure that the user is the addedBy of the resume
+      if (resume.addedBy._id.toString() !== req.user._id.toString()) {
         return res.status(401).json({
           success: false,
           error: `User ${req.user._id} is not authorized to update this resume`,
@@ -134,7 +147,7 @@ const updateResume = (req: any, res: any, next: any) => {
       }
 
       // Proceed to update the selected application
-      if (resume.owner._id.toString() === req.user._id.toString()) {
+      if (resume.addedBy._id.toString() === req.user._id.toString()) {
         const {
           firstName,
           lastName,
@@ -173,8 +186,8 @@ const updateResume = (req: any, res: any, next: any) => {
           new: true,
           runValidators: true,
         })
-          .populate("owner", "_id firstName lastName email")
-          .exec((error: any, result: any) => {
+          .populate("addedBy", "_id firstName lastName email")
+          .exec((error, result: IResume) => {
             // Check for error
             if (error) {
               return res.status(422).json({ error });
@@ -210,9 +223,9 @@ const updateResume = (req: any, res: any, next: any) => {
 // @description:    Delete resume
 // @route:          DELETE /api/v1/resume/:resumeID
 // @access          Private
-const deleteResume = (req: any, res: any) => {
+const deleteResume = (req: IGetUserAuthInfoRequest, res: Response) => {
   Resume.findOne({ _id: req.params.resumeID }).exec(
-    (error: any, resume: any) => {
+    (error, resume: IResume) => {
       // Check that the selected resume exists
       if (!resume) {
         return res.status(422).json({
@@ -226,8 +239,8 @@ const deleteResume = (req: any, res: any) => {
         return res.status(422).json({ success: false, error });
       }
 
-      // Make sure the user is the owner of the resume
-      if (resume.owner._id.toString() !== req.user._id.toString()) {
+      // Make sure the user is the addedBy of the resume
+      if (resume.addedBy._id.toString() !== req.user._id.toString()) {
         return res.status(401).json({
           success: false,
           error: `User ${req.user._id} is not authorized to delete this resume`,
@@ -235,17 +248,17 @@ const deleteResume = (req: any, res: any) => {
       }
 
       // Proceed to delete resume
-      if (resume.owner._id.toString() === req.user._id.toString()) {
+      if (resume.addedBy._id.toString() === req.user._id.toString()) {
         resume
           .remove()
-          .then((result: any) => {
+          .then((result: IResume) => {
             res.json({
               success: true,
               message: "Resume deleted successfully",
               result: !result,
             });
           })
-          .catch((error: any) => {
+          .catch((error) => {
             console.log({ error });
           });
       }
@@ -253,141 +266,4 @@ const deleteResume = (req: any, res: any) => {
   );
 };
 
-// @description:    Dummy resume
-// @route:          GET /api/v1/resume/dummy
-// @access          Private
-const dummyResume = (req: any, res: any, next: any) => {
-  res.status(200).json({
-    result: [
-      {
-        firstName: "First name",
-        lastName: "Last name",
-        occupation: "Occupation",
-        location: "Lagos, Nigeria",
-        website: "https://example.com",
-        email: "example@gmail.com",
-        telephone: "+234 0123 4567",
-        education: [
-          {
-            nameOfInstitution: "Example University",
-            yearEnded: "2018",
-            honors: "Bsc",
-            discipline: "Computer Science and Mathematics",
-          },
-          {
-            nameOfInstitution: "Example University",
-            yearEnded: "2020",
-            honors: "Msc",
-            discipline: "Applied Mathematics",
-          },
-          {
-            nameOfInstitution: "Example University",
-            yearEnded: "2021",
-            honors: "Phd",
-            discipline: "Machine Learning and Data Science",
-          },
-        ],
-        skills: [
-          {
-            skill: "Skill 1",
-            tools: "Tool 1, Tool 2, Tool 3",
-          },
-          {
-            skill: "Skill 2",
-            tools: "Tool 1, Tool 2, Tool 3",
-          },
-          {
-            id: 3,
-            skill: "Web Development",
-            tools: "React, HTML, CSS, JavaScript",
-          },
-          {
-            id: 4,
-            skill: "Backend Development",
-            tools: "NodeJS, MongoDB, AWS",
-          },
-        ],
-        projects: [
-          {
-            id: 1,
-            title: "Project 1",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          },
-          {
-            id: 2,
-            title: "Project 2",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          },
-          {
-            id: 3,
-            title: "Project 3",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          },
-        ],
-        experience: [
-          {
-            id: 1,
-            company: "Company 1 Name",
-            role: "Role 1",
-            location: "Location 1",
-            date: "Year Started - Year Ended",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          },
-          {
-            id: 2,
-            company: "Company 2 Name",
-            role: "Role 2",
-            location: "Location 2",
-            date: "Year Started - Year Ended",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          },
-          {
-            id: 3,
-            company: "Company 3 Name",
-            role: "Role 3",
-            location: "Location 3",
-            date: "Year Started - Year Ended",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          },
-          {
-            id: 4,
-            company: "Company 4 Name",
-            role: "Role 4",
-            location: "Location 4",
-            date: "Year Started - Year Ended",
-            description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          },
-        ],
-        achievements: [
-          {
-            achievementTitle: "Semi Finalist",
-            awarder: "Digital Ocean",
-            date: "Summer 2021",
-            event: "Hacktober Fest",
-          },
-          {
-            achievementTitle: "1st Prize Winner",
-            awarder: "Google Inc.",
-            date: "Summer 2021",
-            event: "Google Summer of Code",
-          },
-          {
-            achievementTitle: "Second Runner Up",
-            awarder: "Microsoft",
-            date: "Summer 2021",
-            event: "Imagine Cup Competition",
-          },
-        ],
-      },
-    ],
-  });
-};
-
-export { createResume, updateResume, myResume, deleteResume, dummyResume };
+export { createResume, updateResume, myResume, deleteResume };

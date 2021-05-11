@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { BaseResume } from "resume.interface";
 
 const { ObjectId } = Schema.Types;
 
@@ -118,4 +119,4 @@ const ResumeSchema = new Schema(
   { timestamps: true }
 );
 
-export default model("Resume", ResumeSchema);
+export default model<BaseResume>("Resume", ResumeSchema);
