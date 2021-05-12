@@ -1,8 +1,6 @@
-import { Request } from "express";
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-export type UserType = {
-  id: string;
+export interface IUser extends mongoose.Document {
   _id: Schema.Types.ObjectId;
   firstName: string;
   lastName: string;
@@ -19,8 +17,4 @@ export type UserType = {
   twitter: string;
   linkedin: string;
   github: string;
-};
-
-export interface IGetUserAuthInfoRequest extends Request {
-  user: UserType;
 }
