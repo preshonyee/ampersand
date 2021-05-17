@@ -118,7 +118,7 @@ const LoginPage = () => {
       .then(() => {
         setTimeout(function () {
           window.location.reload();
-        }, 1000);
+        }, 10);
       })
       .catch((error) => {
         message.error(error.response.data.error, 3);

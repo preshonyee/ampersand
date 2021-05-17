@@ -49,7 +49,7 @@ interface IFormData {
 }
 
 interface IEditorCanvas {
-  resumeID: string;
+  resumeID: string | string[];
 }
 
 const EditorCanvas: React.FC<IEditorCanvas> = ({ resumeID }) => {

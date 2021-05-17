@@ -14,7 +14,7 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 const { Item } = Form;
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   form {
     display: flex;
@@ -40,19 +40,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const EditApplication: React.FC = (props: any) => {
-  const {
-    likelihoodOptions,
-    receptionMailOptions,
-    referralOptions,
-    relocationOptions,
-    remoteOptions,
-    sourceOptions,
-    statusOptions,
-    strategyOptions,
-    tagsOptions,
-    typeOptions,
-  } = OPTIONS;
+const EditApplication: React.FC = () => {
+  const { likelihoodOptions, statusOptions, tagsOptions, typeOptions } =
+    OPTIONS;
 
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -80,7 +70,7 @@ const EditApplication: React.FC = (props: any) => {
 
   const router = useRouter();
 
-  const { applicationID } = props.match.params;
+  const { applicationID } = router.query;
 
   const onFinishEdit = async (values: IValues) => {
     setLoading(true);
@@ -245,24 +235,6 @@ const EditApplication: React.FC = (props: any) => {
             </div>
 
             <div>
-              <label>Link To Opening</label>
-              <Item
-                name="linkToOpening"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the link to the opening!",
-                  },
-                ]}>
-                <Input
-                  size="large"
-                  addonBefore="https://"
-                  placeholder="Link To Opening"
-                />
-              </Item>
-            </div>
-
-            <div>
               <label>Type</label>
               <Item
                 name="type"
@@ -273,137 +245,6 @@ const EditApplication: React.FC = (props: any) => {
                   size="large"
                   placeholder="Select Type Options"
                   options={typeOptions}
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Source</label>
-              <Item
-                name="source"
-                rules={[
-                  { required: true, message: "Please select the job source!" },
-                ]}>
-                <Select
-                  size="large"
-                  placeholder="Select Source"
-                  options={sourceOptions}
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Strategy</label>
-              <Item
-                name="strategy"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select a job hunt strategy!",
-                  },
-                ]}>
-                <Select
-                  size="large"
-                  placeholder="Select Strategy"
-                  options={strategyOptions}
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Copy of Cover Letter</label>
-              <Item name="coverLetter">
-                <Input
-                  size="large"
-                  addonBefore="https://"
-                  placeholder="Enter link to copy of cover letter"
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Copy of Resume</label>
-              <Item
-                name="resume"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input the link to the copy of resume!",
-                  },
-                ]}>
-                <Input
-                  size="large"
-                  addonBefore="https://"
-                  placeholder="Enter link to copy of Resume"
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Referral?</label>
-              <Item
-                name="referral"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select a referral option!",
-                  },
-                ]}>
-                <Select
-                  size="large"
-                  placeholder="Select Referral"
-                  options={referralOptions}
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Relocation</label>
-              <Item
-                name="relocation"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select a relocation option!",
-                  },
-                ]}>
-                <Select
-                  size="large"
-                  placeholder="Select Relocation Option"
-                  options={relocationOptions}
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Remote?</label>
-              <Item
-                name="remote"
-                rules={[
-                  { required: true, message: "Please select a remote option!" },
-                ]}>
-                <Select
-                  size="large"
-                  placeholder="Select Remote Option"
-                  options={remoteOptions}
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Reception Mail (thanks for applying)</label>
-              <Item
-                name="receptionMail"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select a reception mail option!",
-                  },
-                ]}>
-                <Select
-                  size="large"
-                  placeholder="Select Reception Mail Options"
-                  options={receptionMailOptions}
                 />
               </Item>
             </div>
@@ -445,17 +286,6 @@ const EditApplication: React.FC = (props: any) => {
             </div>
 
             <div>
-              <label>Last Time Contacted</label>
-              <Item name="lastTimeContacted">
-                <DatePicker
-                  size="large"
-                  format={dateFormat}
-                  style={{ width: "100%" }}
-                />
-              </Item>
-            </div>
-
-            <div>
               <label>Tags</label>
               <Item name="tags">
                 <Select
@@ -466,6 +296,8 @@ const EditApplication: React.FC = (props: any) => {
                 />
               </Item>
             </div>
+
+            <div></div>
 
             <Space size="small">
               <Button

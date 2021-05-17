@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import { BASE_URL } from "../constants/BaseURL";
 import { TOKEN } from "../constants/Token";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 
 const { Item, List } = Form;
 
@@ -87,21 +87,18 @@ interface IFormData {
 }
 
 interface IEditForm {
-  resumeID: string;
+  resumeID: string | string[];
   formData: IFormData[];
   setFormData: Dispatch<SetStateAction<IFormData[]>>;
 }
 
 const EditForm: React.FC<IEditForm> = ({ formData, setFormData, resumeID }) => {
-  const history = useHistory();
+  const router = useRouter();
   const [form] = Form.useForm();
 
   const [loading, setLoading] = useState(false);
 
-  console.log(resumeID);
-
   const onFinish = (values: any) => {
-    console.log({ values });
     setLoading(true);
     axios
       .put(`${BASE_URL}/resume/${resumeID}`, values, {
@@ -112,7 +109,7 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData, resumeID }) => {
       .then((response) => {
         message.success(response.data.message);
         setLoading(false);
-        history.push("/app/resume");
+        router.push("/app/resume");
       })
       .catch((error) => {
         setLoading(false);
@@ -122,8 +119,8 @@ const EditForm: React.FC<IEditForm> = ({ formData, setFormData, resumeID }) => {
   };
 
   const onChange = (allValues: any) => {
-    console.log("DATA", formData);
-    console.log("VALUES", [allValues]);
+    // console.log("DATA", formData);
+    // console.log("VALUES", [allValues]);
     setFormData([allValues]);
   };
 

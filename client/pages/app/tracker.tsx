@@ -12,7 +12,7 @@ import { TOKEN } from "../../constants/Token";
 import ButtonLink from "../../components/ButtonLinks";
 
 const Wrapper = styled.div`
-  width: 97%;
+  width: 80%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ const ApplicationTracker: React.FC = () => {
   };
 
   const handleEdit = (applicationID: string) => {
-    router.push(`/app/edit-application/${applicationID}`);
+    router.push(`/app/application/${applicationID}`);
   };
 
   const columns: ColumnsType<IApplication> = [
@@ -118,20 +118,21 @@ const ApplicationTracker: React.FC = () => {
       title: "Company",
       dataIndex: "company",
       key: "company",
-      width: 100,
+      width: 150,
       fixed: "left",
     },
     {
       title: "Location",
       dataIndex: "location",
       key: "location",
-      width: 150,
+      width: 200,
       responsive: ["md"],
     },
     {
       title: "Position",
       dataIndex: "position",
       key: "position",
+      width: 200,
       render: (position: any) => (
         <div>
           {position.map((role: any, index: any) => (
@@ -157,90 +158,6 @@ const ApplicationTracker: React.FC = () => {
       responsive: ["md"],
     },
     {
-      title: "Source",
-      dataIndex: "source",
-      key: "source",
-      width: 100,
-      responsive: ["md"],
-    },
-    {
-      title: "Strategy",
-      dataIndex: "strategy",
-      key: "strategy",
-      width: 100,
-      responsive: ["md"],
-    },
-    {
-      title: "Cover Letter",
-      dataIndex: "coverLetter",
-      key: "coverLetter",
-      responsive: ["md"],
-      width: 120,
-      render: (coverLetter: string) => {
-        if (coverLetter) {
-          return (
-            <span>
-              <a
-                className="external-link"
-                href={coverLetter}
-                target="_blank"
-                rel="noopener noreferrer">
-                Cover Letter
-              </a>
-              <ExternalLink size={12} />
-            </span>
-          );
-        } else {
-          return <span>No cover letter</span>;
-        }
-      },
-    },
-    {
-      title: "Resume",
-      dataIndex: "resume",
-      key: "resume",
-      width: 100,
-      responsive: ["md"],
-      render: (resume: string) => (
-        <span>
-          <a
-            className="external-link"
-            href={resume}
-            target="_blank"
-            rel="noopener noreferrer">
-            Resume
-          </a>
-          <ExternalLink size={12} />
-        </span>
-      ),
-    },
-    {
-      title: "Referral",
-      dataIndex: "referral",
-      key: "referral",
-      width: 100,
-      responsive: ["md"],
-    },
-    {
-      title: "Relocation",
-      dataIndex: "relocation",
-      key: "relocation",
-      responsive: ["md"],
-    },
-    {
-      title: "Remote",
-      dataIndex: "remote",
-      key: "remote",
-      responsive: ["md"],
-    },
-    {
-      title: "Reception Mail",
-      dataIndex: "receptionMail",
-      key: "receptionMail",
-      width: 100,
-      responsive: ["md"],
-    },
-    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -251,20 +168,9 @@ const ApplicationTracker: React.FC = () => {
       dataIndex: "likelihoodOfHiring",
       key: "likelihoodOfHiring",
       responsive: ["md"],
+      width: 200,
     },
-    {
-      title: "Last Time Contacted",
-      dataIndex: "lastTimeContacted",
-      key: "lastTimeContacted",
-      responsive: ["md"],
-      render: (dateApplied: string) => {
-        if (dateApplied) {
-          return <span>{new Date(dateApplied).toDateString()}</span>;
-        } else {
-          return <span></span>;
-        }
-      },
-    },
+
     {
       title: "Tags",
       dataIndex: "tags",
@@ -359,7 +265,7 @@ const ApplicationTracker: React.FC = () => {
         <div>
           <h1>Applications Tracker</h1>
           <p>Keep track of all your job applications</p>
-          <ButtonLink to="/app/add-application">Add Application</ButtonLink>
+          <ButtonLink to="/app/application">Add Application</ButtonLink>
         </div>
         <Table
           bordered
