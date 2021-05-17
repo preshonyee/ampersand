@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import ErrorResponse from "../utils/errorResponse";
-import User from "../models/User";
+import { User } from "../models/User";
 import axios, { AxiosResponse } from "axios";
 import { BASE_URL } from "../utils/baseUrl";
 

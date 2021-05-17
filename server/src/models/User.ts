@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "user.interface";
+import { UserAttrs, UserDoc, UserModel } from "user";
 
 const UserSchema = new Schema(
   {
@@ -71,4 +71,10 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-export default model<IUser>("User", UserSchema);
+UserSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
+};
+
+const User = model<UserDoc, UserModel>("User", UserSchema);
+
+export { User };

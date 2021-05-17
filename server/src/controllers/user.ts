@@ -1,12 +1,12 @@
 import ErrorResponse from "../utils/errorResponse";
-import User from "../models/User";
+import { User } from "../models/User";
 import Application from "../models/Application";
 import Radar from "../models/Radar";
-import { IGetUserAuthInfoRequest, UserType } from "user-auth";
+import { IGetUserAuthInfoRequest } from "user-auth";
 import { NextFunction, Response } from "express";
 import { IApplication } from "application.interface";
 import { IRadar } from "radar.interface";
-import { IUser } from "user.interface";
+import { UserDoc } from "user";
 
 // @description:    Get logged in user profile
 // @route:          GET /api/v1/user
@@ -29,7 +29,7 @@ const getUser = async (
   );
 
   User.findById(req.user.id)
-    .then((user: IUser) => {
+    .then((user: UserDoc) => {
       return res.status(200).json({
         success: true,
         data: {
@@ -54,7 +54,7 @@ const updateProfilePicture = (req: IGetUserAuthInfoRequest, res: Response) => {
     req.user._id,
     { $set: { profilePicture: req.body.profilePicture } },
     { new: true },
-    (error, result: IUser) => {
+    (error, result: UserDoc) => {
       if (error) {
         return res.status(422).json({
           success: false,
