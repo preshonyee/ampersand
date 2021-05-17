@@ -37,7 +37,6 @@ const slice = createSlice({
       state.user = action.payload.user;
       localStorage.setItem("jwt", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
-      localStorage.setItem("appMode", "app");
     },
     logoutSuccess: (state) => {
       state.user = null;
@@ -58,41 +57,38 @@ export default slice.reducer;
 /**
  * ACTIONS FUNCTION
  */
-const {
-  loginSuccess,
-  logoutSuccess,
-  updateProfilePictureSuccess,
-} = slice.actions;
+const { loginSuccess, logoutSuccess, updateProfilePictureSuccess } =
+  slice.actions;
 // Login action
-export const login = ({ payload }: ILoginSuccess) => async (
-  dispatch: (arg0: { payload: ILoginSuccess }) => void
-) => {
-  try {
-    dispatch(loginSuccess(payload));
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const login =
+  ({ payload }: ILoginSuccess) =>
+  async (dispatch: (arg0: { payload: ILoginSuccess }) => void) => {
+    try {
+      dispatch(loginSuccess(payload));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 // Logout action
-export const logout = ({ history }: any) => async (
-  dispatch: (arg0: { payload: any }) => any
-) => {
-  try {
-    // const res = await api.post('/api/auth/logout/')
-    dispatch(logoutSuccess());
-    history.push("/login");
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const logout =
+  ({ router }: any) =>
+  async (dispatch: (arg0: { payload: any }) => any) => {
+    try {
+      // const res = await api.post('/api/auth/logout/')
+      router.push("/login");
+      dispatch(logoutSuccess());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 // Update profile picture action
-export const updateProfilePicture = ({ payload }: any) => async (
-  dispatch: (arg0: { payload: any }) => void
-) => {
-  try {
-    dispatch(updateProfilePictureSuccess(payload));
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const updateProfilePicture =
+  ({ payload }: any) =>
+  async (dispatch: (arg0: { payload: any }) => void) => {
+    try {
+      dispatch(updateProfilePictureSuccess(payload));
+    } catch (error) {
+      console.log(error);
+    }
+  };
