@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { Schema } from "mongoose";
 
-type UserType = {
+export type UserType = {
   id: string;
   _id: Schema.Types.ObjectId;
   firstName: string;
