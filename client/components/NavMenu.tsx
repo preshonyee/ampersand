@@ -53,7 +53,7 @@ const NavMenu: React.FC = () => {
   return (
     <StyledMenu>
       <div className="brandItems">
-        <Link href="/app">
+        <Link href="/">
           <a>
             <img src="/logo-wordmark.svg" alt="Ampersand Logo" />
           </a>
