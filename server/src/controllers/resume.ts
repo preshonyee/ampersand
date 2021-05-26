@@ -43,7 +43,8 @@ const createResume = (
     !skills ||
     !projects ||
     !experience ||
-    !achievements
+    !achievements ||
+    !addedBy
   ) {
     return next(new ErrorResponse("Please enter all the fields", 422));
   }
@@ -74,7 +75,7 @@ const createResume = (
       });
       // log out resume created activity to Timeline
       axios
-        .post(`${BASE_URL}/timeline/create`, {
+        .post(`${BASE_URL}/timeline`, {
           activityTitle: `You created your resume`,
           activityBody: {
             message: `You have just created your resume, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,
@@ -88,10 +89,11 @@ const createResume = (
         })
         .catch((error) => {
           console.log(error.message);
+          return next(new ErrorResponse(error, 422));
         });
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
       return next(new ErrorResponse(error, 422));
     });
 };

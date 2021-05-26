@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { UserAttrs, UserDoc, UserModel } from "user";
 
-const UserSchema = new Schema(
+const UserSchema = new Schema<UserDoc>(
   {
     firstName: {
       type: String,

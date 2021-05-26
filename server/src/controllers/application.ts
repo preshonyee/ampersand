@@ -20,17 +20,8 @@ const createApplication = (
     location,
     position,
     type,
-    source,
-    strategy,
-    coverLetter,
-    resume,
-    referral,
-    relocation,
-    remote,
-    receptionMail,
     status,
     likelihoodOfHiring,
-    lastTimeContacted,
     tags,
   } = req.body;
 
@@ -39,13 +30,6 @@ const createApplication = (
     !location ||
     !position ||
     !type ||
-    !source ||
-    !strategy ||
-    !resume ||
-    !referral ||
-    !relocation ||
-    !remote ||
-    !receptionMail ||
     !status ||
     !likelihoodOfHiring
   ) {
@@ -59,17 +43,8 @@ const createApplication = (
     location,
     position,
     type,
-    source,
-    strategy,
-    coverLetter,
-    resume,
-    referral,
-    relocation,
-    remote,
-    receptionMail,
     status,
     likelihoodOfHiring,
-    lastTimeContacted,
     tags,
     addedBy: req.user,
   });
@@ -93,7 +68,6 @@ const createApplication = (
               location: result.location,
               position: result.position,
               type: result.type,
-              remote: result.remote,
               tags: result.tags,
               message: "You added a new application, good luck",
             },
@@ -110,7 +84,7 @@ const createApplication = (
           console.log(error.message);
         });
     })
-    .catch((error: AsyncGenerator) => {
+    .catch((error) => {
       console.log(error);
       return next(new ErrorResponse(error, 401));
     });
@@ -291,7 +265,6 @@ const updateApplication = (
                   location: result.location,
                   position: result.position,
                   type: result.type,
-                  remote: result.remote,
                   tags: result.tags,
                   message: "You updated your application, good luck",
                 },

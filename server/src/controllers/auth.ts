@@ -4,13 +4,14 @@ import ErrorResponse from "../utils/errorResponse";
 import { User } from "../models/User";
 import axios, { AxiosResponse } from "axios";
 import { BASE_URL } from "../utils/baseUrl";
-
-// TODO: Fix all any types
+import { UserDoc } from "user";
+import { IGetUserAuthInfoRequest } from "user-auth";
+import { NextFunction, Response } from "express";
 
 // @description:    Register user
 // @route:          POST /api/v1/auth/signup
 // @access          Public
-const signup = (req: any, res: any) => {
+const signup = (req: IGetUserAuthInfoRequest, res: Response) => {
   const {
     firstName,
     lastName,
@@ -34,7 +35,7 @@ const signup = (req: any, res: any) => {
 
   // Check if user already exists
   User.findOne({ email })
-    .then((savedUser: any) => {
+    .then((savedUser) => {
       if (savedUser) {
         return res
           .status(400)
@@ -63,7 +64,7 @@ const signup = (req: any, res: any) => {
           // Save the user to the database
           user
             .save()
-            .then((user: any) => {
+            .then((user: UserDoc) => {
               // Return response result
               res.json({
                 message: "saved successfully",
@@ -86,7 +87,7 @@ const signup = (req: any, res: any) => {
               // create dummy resume for new user
               axios
                 .post(`${BASE_URL}/resume`, {
-                  owner: user._id,
+                  addedBy: user._id,
                   firstName: user.firstName,
                   lastName: user.lastName,
                   occupation: "Occupation",
@@ -220,7 +221,7 @@ const signup = (req: any, res: any) => {
                   console.log(error.message);
                 });
             })
-            .catch((error: any) => {
+            .catch((error) => {
               console.log(error);
               res.json({ error });
             });
@@ -230,7 +231,7 @@ const signup = (req: any, res: any) => {
           res.json({ error });
         });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
       res.json({ error });
     });
@@ -239,7 +240,11 @@ const signup = (req: any, res: any) => {
 // @description:    Login user
 // @route:          POST /api/v1/auth/login
 // @access          Public
-const signin = (req: any, res: any, next: any) => {
+const signin = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "Please add email or password" });
@@ -248,7 +253,7 @@ const signin = (req: any, res: any, next: any) => {
     { email },
     "password firstName lastName email username profilePicture"
   )
-    .then((savedUser: any) => {
+    .then((savedUser: UserDoc) => {
       if (!savedUser) {
         return res.status(422).json({ error: "Invalid email or password" });
       }
@@ -290,7 +295,7 @@ const signin = (req: any, res: any, next: any) => {
           return next(new ErrorResponse(error, 422));
         });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
       return next(new ErrorResponse(error, 422));
     });
@@ -299,12 +304,12 @@ const signin = (req: any, res: any, next: any) => {
 // @description:    Get current logged in user
 // @route:          GET /api/v1/auth/me
 // @access          Private
-const getMe = (req: any, res: any) => {
+const getMe = (req: IGetUserAuthInfoRequest, res: Response) => {
   User.findById(req.user.id)
-    .then((user: any) => {
+    .then((user: UserDoc) => {
       return res.status(200).json({ success: true, data: user });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       console.log(error);
     });
 };
@@ -312,7 +317,11 @@ const getMe = (req: any, res: any) => {
 // @description:    Log user out / clear cookie
 // @route:          GET /api/v1/auth/logout
 // @access          Private
-const logout = (req: any, res: any, next: any) => {
+const logout = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   res.cookie("token", "none", {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
@@ -327,7 +336,11 @@ const logout = (req: any, res: any, next: any) => {
 // @description:    Update user details
 // @route:          PUT /api/v1/auth/update-details
 // @access          Private
-const updateDetails = (req: any, res: any, next: any) => {
+const updateDetails = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const {
     firstName,
     lastName,
@@ -366,7 +379,7 @@ const updateDetails = (req: any, res: any, next: any) => {
   User.findByIdAndUpdate(req.user._id, fieldsToUpdate, {
     new: true,
     runValidators: true,
-  }).exec((error: any, result: any) => {
+  }).exec((error, result: UserDoc) => {
     // Check for error
     if (error) {
       return res.status(422).json({ error });
@@ -382,10 +395,14 @@ const updateDetails = (req: any, res: any, next: any) => {
 // @description:    Update password
 // @route:          PUT /api/v1/auth/update-password
 // @access          Private
-const updatePassword = (req: any, res: any, next: any) => {
+const updatePassword = (
+  req: IGetUserAuthInfoRequest,
+  res: Response,
+  next: NextFunction
+) => {
   User.findById(req.user._id)
     .select("+password")
-    .exec((error: any, user: any) => {
+    .exec((error, user: UserDoc) => {
       // Check for error
       if (error) {
         return res.status(422).json({ error });
@@ -402,19 +419,19 @@ const updatePassword = (req: any, res: any, next: any) => {
               user.password = hashedNewPassword;
               user
                 .save()
-                .then((result: any) => {
+                .then((result: UserDoc) => {
                   res.status(200).json({
                     user: result,
                     message: "Password updated successfully",
                   });
                 })
-                .catch((error: any) => {
+                .catch((error) => {
                   console.log(error);
                   return res.status(422).json({ error });
                 });
             });
           } else {
-            return res.status(422).json("Password is incorrect", 401);
+            return res.status(401).json("Password is incorrect");
           }
         });
     });
@@ -423,7 +440,7 @@ const updatePassword = (req: any, res: any, next: any) => {
 // @description:    Delete user account
 // @route:          DELETE /api/v1/auth/delete-user
 // @access          Private
-const deleteUser = (req: any, res: any) => {
+const deleteUser = (req: IGetUserAuthInfoRequest, res: Response) => {
   // Delete Applications
   // Delete Radar
   // Delete Timeline
@@ -436,7 +453,7 @@ const deleteUser = (req: any, res: any) => {
       .status(422)
       .json({ success: false, message: "Please provide a valid credential" });
   }
-  User.findByIdAndDelete(req.user._id).exec((error: any, user: any) => {
+  User.findByIdAndDelete(req.user._id).exec((error, user: UserDoc) => {
     // If error occurs
     if (error) {
       return res.status(422).json({ success: false, message: error.message });
@@ -446,13 +463,13 @@ const deleteUser = (req: any, res: any) => {
       if (doMatch) {
         user
           .remove()
-          .then((result: any) => {
+          .then((result: UserDoc) => {
             res.json({
               success: true,
               message: "Your account has been deleted successfully",
             });
           })
-          .catch((error: any) => {
+          .catch((error) => {
             console.log({ error });
             return res.status(422).json({
               success: false,

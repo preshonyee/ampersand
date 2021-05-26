@@ -7,8 +7,6 @@ export interface IBaseApplication extends mongoose.Document {
   location: string;
   position: string;
   type: "Part Time" | "Full Time" | "Contract" | "Internship" | "Agency";
-  referral: "YES" | "NO";
-  remote: "Fully Remote" | "Remote (US-Only)" | "No Remote" | "Remote/On-site";
   status:
     | "Prospect"
     | "Applied"

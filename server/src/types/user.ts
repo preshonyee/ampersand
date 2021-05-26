@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 // An interface that describes the properties
 // that are required to create a new user
@@ -8,6 +8,7 @@ export interface UserAttrs {
   lastName: string;
   email: string;
   password: string;
+  username: string;
 }
 
 // An interface that describes the properties that
@@ -19,10 +20,20 @@ export interface UserModel extends mongoose.Model<UserDoc> {
 // An interface that describes the properties that
 // a User Document has
 export interface UserDoc extends mongoose.Document {
-  profilePicture: string;
-  _id: string;
+  _id: Schema.Types.ObjectId;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+  username: string;
+  resetPasswordToken: string;
+  resetPasswordExpire: Date;
+  profilePicture: string;
+  location: string;
+  portfolio: string;
+  bio: string;
+  interests: string;
+  twitter: string;
+  linkedin: string;
+  github: string;
 }

@@ -2,12 +2,11 @@ import { Request } from "express";
 import { Schema } from "mongoose";
 
 export type UserType = {
-  id: string;
   _id: Schema.Types.ObjectId;
+  id?: Schema.Types.ObjectId;
   firstName: string;
   lastName: string;
   email: string;
-  username: string;
   password: string;
   resetPasswordToken: string;
   resetPasswordExpire: Date;

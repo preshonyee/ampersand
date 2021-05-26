@@ -27,16 +27,6 @@ const ApplicationSchema = new Schema(
       enum: ["Part Time", "Full Time", "Contract", "Internship", "Agency"],
       required: [true, "Please choose a type"],
     },
-    referral: {
-      type: String,
-      enum: ["YES", "NO"],
-      required: [true, "Please add a referral"],
-    },
-    remote: {
-      type: String,
-      enum: ["Fully Remote", "Remote (US-Only)", "No Remote", "Remote/On-site"],
-      required: [true, "Please select a remote option"],
-    },
     status: {
       type: String,
       enum: [

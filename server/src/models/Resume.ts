@@ -110,7 +110,7 @@ const ResumeSchema = new Schema(
         event: { type: String, required: true },
       },
     ],
-    owner: {
+    addedBy: {
       type: ObjectId,
       ref: "User",
       required: [true, "You must be logged in"],

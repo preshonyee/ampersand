@@ -1,9 +1,7 @@
+import { Response } from "express";
 import ErrorResponse from "../utils/errorResponse";
 
-const errorHandler = (
-  err: any, // TODO: fix this any type
-  res: any
-) => {
+const errorHandler = (err: any, res: Response) => {
   let error = { ...err };
 
   error.message = err.message;
