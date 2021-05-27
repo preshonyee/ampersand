@@ -38,7 +38,7 @@ const createRadar = (
       });
       // log out radar created activity to Timeline
       axios
-        .post(`${BASE_URL}/timeline/create`, {
+        .post(`${BASE_URL}/timeline/`, {
           activityTitle: `You added ${result.companyName} to your radar`,
           activityBody: {
             message: `You added ${result.companyName} to your radar`,

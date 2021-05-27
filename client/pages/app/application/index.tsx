@@ -65,7 +65,7 @@ const NewApplication: React.FC = () => {
     };
 
     axios
-      .post(`${BASE_URL}/application/createApplication`, updatedValues, {
+      .post(`${BASE_URL}/application/`, updatedValues, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },

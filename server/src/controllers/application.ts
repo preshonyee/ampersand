@@ -60,7 +60,7 @@ const createApplication = (
       // log out application created activity to Timeline
       axios
         .post(
-          `${BASE_URL}/timeline/create`,
+          `${BASE_URL}/timeline/`,
           {
             activityTitle: `You submitted an application at ${result.company}`,
             activityBody: {
@@ -258,7 +258,7 @@ const updateApplication = (
             });
             // log out application updated activity to Timeline
             axios
-              .post(`${BASE_URL}/timeline/create`, {
+              .post(`${BASE_URL}/timeline/`, {
                 activityTitle: `You updated your application at ${result.company}`,
                 activityBody: {
                   company: result.company,

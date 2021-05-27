@@ -87,7 +87,7 @@ const EditApplication: React.FC = () => {
     };
 
     axios
-      .put(`${BASE_URL}/application/update/${applicationID}`, updatedValues, {
+      .put(`${BASE_URL}/application/${applicationID}`, updatedValues, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },

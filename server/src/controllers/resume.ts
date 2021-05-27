@@ -202,7 +202,7 @@ const updateResume = (
 
             // log out resume updated activity to Timeline
             axios
-              .post(`${BASE_URL}/timeline/create`, {
+              .post(`${BASE_URL}/timeline/`, {
                 activityTitle: `You updated your resume`,
                 activityBody: {
                   message: `You updated your resume, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,

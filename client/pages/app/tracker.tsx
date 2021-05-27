@@ -57,7 +57,7 @@ const ApplicationTracker: React.FC = () => {
 
   const fetchUserApplicationData = () => {
     axios
-      .get(`${BASE_URL}/application/myApplications`, {
+      .get(`${BASE_URL}/application`, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
@@ -76,7 +76,7 @@ const ApplicationTracker: React.FC = () => {
   const handleDeleteApplication = (applicationID: string) => {
     setConfirmLoading((prev: any) => ({ ...prev, [applicationID]: true }));
     axios
-      .delete(`${BASE_URL}/application/delete/${applicationID}`, {
+      .delete(`${BASE_URL}/application/${applicationID}`, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
