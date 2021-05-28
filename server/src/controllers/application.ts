@@ -1,5 +1,3 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/baseUrl";
 import Application from "../models/Application";
 import ErrorResponse from "../utils/errorResponse";
 import { NextFunction, Response } from "express";
@@ -14,25 +12,9 @@ const createApplication = (
   res: Response,
   next: NextFunction
 ) => {
-  const {
-    dateApplied,
-    company,
-    location,
-    position,
-    type,
-    status,
-    likelihoodOfHiring,
-    tags,
-  } = req.body;
+  const { dateApplied, company, location, position, type, status } = req.body;
 
-  if (
-    !company ||
-    !location ||
-    !position ||
-    !type ||
-    !status ||
-    !likelihoodOfHiring
-  ) {
+  if (!company || !location || !position || !type || !status) {
     return next(new ErrorResponse("Please enter all the fields", 422));
   }
   req.user.password = undefined; // To exempt the password from showing up in the response
@@ -44,8 +26,6 @@ const createApplication = (
     position,
     type,
     status,
-    likelihoodOfHiring,
-    tags,
     addedBy: req.user,
   });
 
@@ -57,32 +37,6 @@ const createApplication = (
         application: result,
         message: "application successfully created",
       });
-      // log out application created activity to Timeline
-      axios
-        .post(
-          `${BASE_URL}/timeline/`,
-          {
-            activityTitle: `You submitted an application at ${result.company}`,
-            activityBody: {
-              company: result.company,
-              location: result.location,
-              position: result.position,
-              type: result.type,
-              tags: result.tags,
-              message: "You added a new application, good luck",
-            },
-            activityType: "application",
-            activityDate: Date.now(),
-            addedBy: req.user,
-          },
-          {}
-        )
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
     })
     .catch((error) => {
       console.log(error);
@@ -210,15 +164,7 @@ const updateApplication = (
           location,
           position,
           type,
-          source,
-          strategy,
-          resume,
-          referral,
-          relocation,
-          remote,
-          receptionMail,
           status,
-          likelihoodOfHiring,
         } = req.body;
 
         // Check if fields are empty
@@ -228,15 +174,7 @@ const updateApplication = (
           !location ||
           !position ||
           !type ||
-          !source ||
-          !strategy ||
-          !resume ||
-          !referral ||
-          !relocation ||
-          !remote ||
-          !receptionMail ||
-          !status ||
-          !likelihoodOfHiring
+          !status
         ) {
           return next(new ErrorResponse("Please enter all the fields", 422));
         }
@@ -256,28 +194,6 @@ const updateApplication = (
               message: "Application updated successfully",
               result,
             });
-            // log out application updated activity to Timeline
-            axios
-              .post(`${BASE_URL}/timeline/`, {
-                activityTitle: `You updated your application at ${result.company}`,
-                activityBody: {
-                  company: result.company,
-                  location: result.location,
-                  position: result.position,
-                  type: result.type,
-                  tags: result.tags,
-                  message: "You updated your application, good luck",
-                },
-                activityType: "application",
-                activityDate: Date.now(),
-                addedBy: req.user,
-              })
-              .then((response) => {
-                console.log(response.data);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
           });
       }
     }

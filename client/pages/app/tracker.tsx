@@ -12,7 +12,7 @@ import { TOKEN } from "../../constants/Token";
 import ButtonLink from "../../components/ButtonLinks";
 
 const Wrapper = styled.div`
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -100,134 +100,44 @@ const ApplicationTracker: React.FC = () => {
       title: "S/N",
       dataIndex: "sno",
       key: "sno",
-      width: 50,
       render: (value: any, item: any, index: any) => (page - 1) * 10 + index,
-      fixed: "left",
     },
     {
       title: "Date Applied",
       dataIndex: "dateApplied",
       key: "dateApplied",
-      responsive: ["md"],
       render: (dateApplied: string) => (
         <span>{new Date(dateApplied).toDateString()}</span>
       ),
-      fixed: "left",
     },
     {
       title: "Company",
       dataIndex: "company",
       key: "company",
-      width: 150,
-      fixed: "left",
     },
     {
       title: "Location",
       dataIndex: "location",
       key: "location",
-      width: 200,
-      responsive: ["md"],
     },
     {
       title: "Position",
       dataIndex: "position",
       key: "position",
-      width: 200,
-      render: (position: any) => (
-        <div>
-          {position.map((role: any, index: any) => (
-            <span key={index}>
-              <a
-                className="external-link"
-                href={role.linkToOpening}
-                target="_blank"
-                rel="noopener noreferrer">
-                {role.positionTitle}
-              </a>
-              <ExternalLink size={12} />
-            </span>
-          ))}
-        </div>
-      ),
     },
     {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      width: 100,
-      responsive: ["md"],
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      width: 100,
-    },
-    {
-      title: "Likelihood of Hiring",
-      dataIndex: "likelihoodOfHiring",
-      key: "likelihoodOfHiring",
-      responsive: ["md"],
-      width: 200,
-    },
-
-    {
-      title: "Tags",
-      dataIndex: "tags",
-      width: 200,
-      key: "tags",
-      responsive: ["md"],
-      render: (tags: any) => (
-        <>
-          {tags.map((tag: any) => {
-            let color;
-            switch (tag) {
-              case "Benefits":
-                color = "red";
-                break;
-              case "Internal Connections":
-                color = "geekblue";
-                break;
-              case "Below Desired Salary":
-                color = "green";
-                break;
-              case "Above Desired Salary":
-                color = "volcano";
-                break;
-              case "Within Salary Range":
-                color = "purple";
-                break;
-              case "Equity":
-                color = "blue";
-                break;
-              case "Hourly Salary":
-                color = "orange";
-                break;
-              case "Required Travel":
-                color = "magenta";
-                break;
-              case "Strong Parental Leave Policy":
-                color = "tomato";
-                break;
-              case "Weak Parental Leave Policy":
-                color = "cyan";
-                break;
-              default:
-                color = "black";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
     },
     {
       title: "Action",
       key: "operation",
-      responsive: ["md"],
       render: (text, record: any) => {
         return (
           <Space key={record._id} size="middle">
@@ -255,7 +165,6 @@ const ApplicationTracker: React.FC = () => {
           </Space>
         );
       },
-      fixed: "right",
     },
   ];
 
@@ -284,7 +193,7 @@ const ApplicationTracker: React.FC = () => {
               <p>{`${range[0]}-${range[1]} of ${total} applications`}</p>
             ),
           }}
-          scroll={{ x: "max-content", scrollToFirstRowOnChange: true }}
+          scroll={{ scrollToFirstRowOnChange: true }}
           sticky
         />
       </Wrapper>

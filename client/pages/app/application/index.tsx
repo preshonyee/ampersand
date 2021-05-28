@@ -51,21 +51,8 @@ const NewApplication: React.FC = () => {
 
   const onFinish = async (values: IValues) => {
     setLoading(true);
-    const { contactName, contactPhone, position, linkToOpening, ...rest } =
-      values;
-
-    const updatedValues = {
-      ...rest,
-      position: [
-        {
-          positionTitle: values.position,
-          linkToOpening: values.linkToOpening,
-        },
-      ],
-    };
-
     axios
-      .post(`${BASE_URL}/application/`, updatedValues, {
+      .post(`${BASE_URL}/application/`, values, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },

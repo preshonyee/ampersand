@@ -74,20 +74,8 @@ const EditApplication: React.FC = () => {
 
   const onFinishEdit = async (values: IValues) => {
     setLoading(true);
-    const { position, linkToOpening, ...rest } = values;
-
-    const updatedValues = {
-      ...rest,
-      position: [
-        {
-          positionTitle: values.position,
-          linkToOpening: values.linkToOpening,
-        },
-      ],
-    };
-
     axios
-      .put(`${BASE_URL}/application/${applicationID}`, updatedValues, {
+      .put(`${BASE_URL}/application/${applicationID}`, values, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
@@ -121,37 +109,18 @@ const EditApplication: React.FC = () => {
           location,
           position,
           type,
-          source,
-          strategy,
-          coverLetter,
-          resume,
-          referral,
-          relocation,
-          remote,
-          receptionMail,
           status,
           likelihoodOfHiring,
-          lastTimeContacted,
         } = application;
         setInitialFormData((prev) => ({
           ...prev,
-          position: position[0]?.positionTitle,
-          linkToOpening: position[0]?.linkToOpening,
+          position: position,
           dateApplied: moment(dateApplied),
           company: company,
           location: location,
           type: type,
-          source: source,
-          strategy: strategy,
-          coverLetter: coverLetter,
-          resume: resume,
-          referral: referral,
-          relocation: relocation,
-          remote: remote,
-          receptionMail: receptionMail,
           status: status,
           likelihoodOfHiring: likelihoodOfHiring,
-          lastTimeContacted: moment(lastTimeContacted),
           tags: tags,
         }));
         setFormDataLoaded(true);

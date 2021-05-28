@@ -27,30 +27,6 @@ const TimelineSchema = new Schema(
         type: String,
         enum: ["Part Time", "Full Time", "Contract", "Agency"],
       },
-      remote: {
-        type: String,
-        enum: [
-          "Fully Remote",
-          "Remote (US-Only)",
-          "No Remote",
-          "Remote/On-site",
-        ],
-      },
-      tags: {
-        type: [String],
-        enum: [
-          "Benefits",
-          "Internal Connections",
-          "Below Desired Salary",
-          "Above Desired Salary",
-          "Within Salary Range",
-          "Equity",
-          "Hourly Salary",
-          "Required Travel",
-          "Strong Parental Leave Policy",
-          "Weak Parental Leave Policy",
-        ],
-      },
     },
     activityType: {
       type: String,

@@ -1,7 +1,5 @@
-import axios from "axios";
 import Resume from "../models/Resume";
 import ErrorResponse from "../utils/errorResponse";
-import { BASE_URL } from "../utils/baseUrl";
 import { IGetUserAuthInfoRequest } from "user-auth";
 import { NextFunction, Response } from "express";
 import { IResume } from "resume.interface";
@@ -73,24 +71,6 @@ const createResume = (
         resume: result,
         message: "resume created successfully",
       });
-      // log out resume created activity to Timeline
-      axios
-        .post(`${BASE_URL}/timeline`, {
-          activityTitle: `You created your resume`,
-          activityBody: {
-            message: `You have just created your resume, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,
-          },
-          activityType: "resume",
-          activityDate: Date.now(),
-          addedBy: addedBy,
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          return next(new ErrorResponse(error, 422));
-        });
     })
     .catch((error) => {
       console.log(error.message);
@@ -199,23 +179,6 @@ const updateResume = (
               message: "Resume updated successfully",
               result,
             });
-
-            // log out resume updated activity to Timeline
-            axios
-              .post(`${BASE_URL}/timeline/`, {
-                activityTitle: `You updated your resume`,
-                activityBody: {
-                  message: `You updated your resume, you can create multiple resumes for different applications. Here are some useful tips for building a solid resume.`,
-                },
-                activityType: "resume",
-                activityDate: Date.now(),
-              })
-              .then((response) => {
-                console.log(response.data);
-              })
-              .catch((error) => {
-                console.log(error.message);
-              });
           });
       }
     }

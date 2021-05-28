@@ -1,8 +1,6 @@
-import axios from "axios";
 import { NextFunction, Response } from "express";
 import Radar from "../models/Radar";
 import ErrorResponse from "../utils/errorResponse";
-import { BASE_URL } from "../utils/baseUrl";
 import { IGetUserAuthInfoRequest } from "user-auth";
 import { IRadar } from "radar.interface";
 
@@ -36,25 +34,6 @@ const createRadar = (
         radar: result,
         message: "radar created successfully",
       });
-      // log out radar created activity to Timeline
-      axios
-        .post(`${BASE_URL}/timeline/`, {
-          activityTitle: `You added ${result.companyName} to your radar`,
-          activityBody: {
-            message: `You added ${result.companyName} to your radar`,
-            company: companyName,
-          },
-          activityType: "radar",
-          activityDate: Date.now(),
-          addedBy: req.user._id,
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          return next(new ErrorResponse(error, 422));
-        });
     })
     .catch((error) => {
       console.log(error.message);
