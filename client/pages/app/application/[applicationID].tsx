@@ -236,38 +236,6 @@ const EditApplication: React.FC = () => {
               </Item>
             </div>
 
-            <div>
-              <label>Likelihood of Hiring</label>
-              <Item
-                name="likelihoodOfHiring"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select the likelihood of hiring option!",
-                  },
-                ]}>
-                <Select
-                  size="large"
-                  placeholder="Select Likelihood Options"
-                  options={likelihoodOptions}
-                />
-              </Item>
-            </div>
-
-            <div>
-              <label>Tags</label>
-              <Item name="tags">
-                <Select
-                  size="large"
-                  mode="tags"
-                  placeholder="Select Tags"
-                  options={tagsOptions}
-                />
-              </Item>
-            </div>
-
-            <div></div>
-
             <Space size="small">
               <Button
                 size="large"
