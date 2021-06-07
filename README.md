@@ -60,7 +60,7 @@ I'll add a note on how to deploy this later.
 
 ## Frontend App
 
-The frontend application is a React app built entirely with TypeScript, Redux and Styled Components.
+The frontend application is a NextJS React app built entirely with NextJS, TypeScript, Redux Styled Components and Antd.
 
 ### Usage
 
@@ -79,9 +79,9 @@ cd client && yarn install
 ### Run App
 
 ```bash
-cd client && npm run start
+cd client && npm run dev
 # or
-cd client && yarn start
+cd client && yarn dev
 ```
 
 ### Demo
