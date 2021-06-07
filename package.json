@@ -16,6 +16,8 @@
   },
   "homepage": "https://github.com/Preshonyee/ampersand#readme",
   "devDependencies": {
+    "@types/react": "^17.0.9",
+    "@types/react-responsive": "^8.0.2",
     "cz-conventional-changelog": "3.3.0"
   },
   "config": {
@@ -24,6 +26,7 @@
     }
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "react": "^17.0.2"
   }
 }

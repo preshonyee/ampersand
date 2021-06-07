@@ -113,7 +113,7 @@ const LoginPage = () => {
         setLoading(false);
         dispatch(login({ payload: result }));
         message.success("Login successfully", 3);
-        router.push("/app");
+        router.push("/app/resume");
       })
       .then(() => {
         setTimeout(function () {
@@ -131,7 +131,7 @@ const LoginPage = () => {
       <div className="content">
         <div className="brand">
           <img src="/logo-wordmark-dark.svg" alt="Ampersand Logo" />
-          <p>Empowering You on Your Job Hunt Journey</p>
+          <p>Elevate You on Your Job Hunt Journey</p>
         </div>
         <FormContainer>
           <div className="heading">

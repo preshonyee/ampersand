@@ -18,10 +18,8 @@ html {
 }
 
 body {
-  width: 100%;
   margin: 0 auto;
   font-family: "Inter", sans-serif;
-  background-color: #f5f5f5;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

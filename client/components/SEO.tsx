@@ -10,8 +10,8 @@ export default function SEO() {
       <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
       <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
       {/* Primary Meta Tags */}
-      <title>Ampersand — Empowering your job hunt</title>
-      <meta name="title" content="Ampersand — Empowering your job hunt" />
+      <title>Ampersand — Elevate your job hunt</title>
+      <meta name="title" content="Ampersand — Elevate your job hunt" />
       <meta
         name="description"
         content="Be on top of your job hunt. Build a resume that elevates your applications, track your applications, and bring more insights to your job search with powerful analytics"
@@ -20,10 +20,7 @@ export default function SEO() {
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://www.ampersand.careers/" />
-      <meta
-        property="og:title"
-        content="Ampersand — Empowering your job hunt"
-      />
+      <meta property="og:title" content="Ampersand — Elevate your job hunt" />
       <meta
         property="og:description"
         content="Be on top of your job hunt. Build a resume that elevates your applications, track your applications, and bring more insights to your job search with powerful analytics"
@@ -38,7 +35,7 @@ export default function SEO() {
       <meta property="twitter:url" content="https://www.ampersand.careers/" />
       <meta
         property="twitter:title"
-        content="Ampersand — Empowering your job hunt"
+        content="Ampersand — Elevate your job hunt"
       />
       <meta
         property="twitter:description"

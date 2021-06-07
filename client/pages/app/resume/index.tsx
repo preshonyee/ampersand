@@ -225,8 +225,6 @@ const ResumePage: React.FC = () => {
     projects,
   } = resumeData[0];
 
-  console.log(resumeData, firstName);
-
   const fetchResumeData = () => {
     axios
       .get(`${BASE_URL}/resume`, {
@@ -236,7 +234,6 @@ const ResumePage: React.FC = () => {
       })
       .then((response) => {
         const result = response.data.result;
-        console.log(result);
         if (result[0] === undefined) {
           setIsEmpty(true);
         } else {

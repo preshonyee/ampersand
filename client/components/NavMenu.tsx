@@ -42,6 +42,10 @@ const StyledMenu = styled.div`
     text-decoration: none;
     margin-right: 1.5rem;
   }
+  .active {
+    color: #ff5a5f;
+    font-weight: 700;
+  }
 `;
 
 const NavMenu: React.FC = () => {
@@ -61,8 +65,21 @@ const NavMenu: React.FC = () => {
       </div>
       {user ? (
         <span className="routeLinks">
-          <Link href="/app/tracker">Tracker</Link>
-          <Link href="/app/resume">Resume</Link>
+          <Link href="/app/resume">
+            <a className={router.pathname === "/app/resume" ? "active" : ""}>
+              Resume
+            </a>
+          </Link>
+          <Link href="/app/tracker">
+            <a className={router.pathname === "/app/tracker" ? "active" : ""}>
+              Tracker
+            </a>
+          </Link>
+          <Link href="/app">
+            <a className={router.pathname === "/app" ? "active" : ""}>
+              Timeline
+            </a>
+          </Link>
           <div>
             <Avatar
               size={24}
@@ -70,14 +87,23 @@ const NavMenu: React.FC = () => {
               style={{ backgroundColor: "#FF5A5F" }}
               icon={<UserOutlined />}
             />{" "}
-            {`${user.firstName}`}
+            <Link href="/account">
+              <a
+                className={
+                  router.pathname === "/account" ? "active" : ""
+                }>{`${user.firstName}`}</a>
+            </Link>
           </div>
           <Button onClick={() => dispatch(logout({ router }))}>Logout</Button>
           {/* <Link href="/app/analytics">Analytics</Link> */}
         </span>
       ) : (
         <div className="login-links">
-          <Link href="/login">Login</Link>
+          <Link href="/login">
+            <a className={router.pathname === "/login" ? "active" : ""}>
+              Login
+            </a>
+          </Link>
         </div>
       )}
     </StyledMenu>

@@ -194,8 +194,7 @@ const AccountPage = () => {
             <div className="bio">
               <span className="title">
                 <h1>
-                  {firstName}
-                  {lastName}
+                  {firstName} {lastName}
                 </h1>
                 <Button
                   onClick={() => router.push("/account/edit")}
