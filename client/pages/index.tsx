@@ -134,8 +134,8 @@ const LandingPage = () => {
             size="large"
             onClick={() =>
               loginUser({
-                email: "kimelon@livedemo.com",
-                password: "live-demo",
+                email: process.env.NEXT_PUBLIC_LIVE_DEMO_EMAIL,
+                password: process.env.NEXT_PUBLIC_LIVE_DEMO_PASSWORD,
               })
             }>
             Live demo
